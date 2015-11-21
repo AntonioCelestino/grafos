@@ -162,11 +162,22 @@ public class TelaMain extends javax.swing.JFrame {
             listaNos.add(new No("n"+i));
         }
         List<Aresta> listaArestas =  new ArrayList<Aresta>();
-        for (int i = 1; i < parseInt(jTextField1.getText()); i++) {
-            int j = i+1;
-            listaArestas.add(new Aresta("n"+i, "n"+j));
+        if(jRadioButton1.isSelected()){
+            for (int i = 1; i < parseInt(jTextField1.getText()); i++) {
+                int j = i+1;
+                listaArestas.add(new Aresta("n"+i, "n"+j));
+            }
+            for (int i = parseInt(jTextField1.getText()); i > 1; i--) {
+                int j = i-1;
+                listaArestas.add(new Aresta("n"+i, "n"+j));
+            }
         }
-        
+        if(jRadioButton2.isSelected()){
+            for (int i = 1; i < parseInt(jTextField1.getText()); i++) {
+                int j = i+1;
+                listaArestas.add(new Aresta("n"+i, "n"+j));
+            }
+        }
         
         Grafo g = new Grafo("G", "directed", listaNos, listaArestas);
         if(jRadioButton1.isSelected()){
