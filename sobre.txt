@@ -1,8 +1,0 @@
-Trabalho de Teoria dos Grafos
-<<<<<<< HEAD
-Equipe: Antonio, Nathan e Pedro Ferreira Junio Duarte
-=======
-Equipe: Antonio, Nathan Manera e Pedro Ferreira
->>>>>>> origin/master
-Professor: Daves
-4º Período BSI - IF Sudeste MG Juiz de Fora
