@@ -1,0 +1,6 @@
+<graph id="G" edgedefault="directed">
+  <node id="n1"/>
+  <node id="n2"/>
+  <edge source="n1" target="n2"/>
+  <edge source="n2" target="n1"/>
+</graph>

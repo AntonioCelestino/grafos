@@ -15,6 +15,7 @@ import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaMain extends javax.swing.JFrame {
@@ -269,7 +270,7 @@ public class TelaMain extends javax.swing.JFrame {
         if(jRadioButton2.isSelected()){
             g.setTipo("undirected");
         }
-        System.out.println(xstream.toXML(g));
+        //System.out.println(xstream.toXML(g));
         String xml = xstream.toXML(g);
 
             g = null;
@@ -282,10 +283,17 @@ public class TelaMain extends javax.swing.JFrame {
             }catch(IOException ex){
                 System.out.println("Erro ao Gravar Arquivo");
             }
+        JOptionPane.showMessageDialog(null,"Dados Salvos com Sucesso");
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMostrarActionPerformed
-        // TODO add your handling code here:
+        XStream xstream = new XStream(new DomDriver());
+        xstream.processAnnotations(Grafo.class); 
+        
+        File xmlFileLer = new File("grafo.xml");
+        Grafo g = (Grafo) xstream.fromXML(xmlFileLer);
+        String xml = xstream.toXML(g);
+        System.out.println(xml);
     }//GEN-LAST:event_jbMostrarActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
