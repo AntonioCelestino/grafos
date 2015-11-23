@@ -9,12 +9,16 @@ package grafosxml;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -296,6 +300,30 @@ public class TelaMain extends javax.swing.JFrame {
         System.out.println(xml);
     }//GEN-LAST:event_jbMostrarActionPerformed
 
+    public static void buscarGrafo() {
+        try {
+            FileReader ler = new FileReader("grafo.xml");
+
+            XStream xstream = new XStream(new DomDriver());
+
+            xstream.alias("Grafo", Grafo.class);
+            Grafo g = (Grafo) xstream.fromXML(ler);
+
+            String id = g.getId();
+            List<Aresta> aresta = g.getArestas();
+            List<No> nos = g.getNos();
+            String tipo = g.getTipo();
+
+            /*System.out.println(id);
+             System.out.println(aresta);
+             System.out.println(nos);
+             System.out.println(tipo);*/
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TelaMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
