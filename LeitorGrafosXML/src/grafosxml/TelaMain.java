@@ -333,9 +333,9 @@ public class TelaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jbCriarNosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCriarNosActionPerformed
+        DefaultTableModel linha = (DefaultTableModel) jtbNos.getModel();        
         for (int i = 1; i <= parseInt(jtVertices.getText()); i++) {
             listaNos.add(new No("n"+i));
-            DefaultTableModel linha = (DefaultTableModel) jtbNos.getModel();
             linha.addRow(new String[] {"n"+i});
         }
         jtVertices.setText("");

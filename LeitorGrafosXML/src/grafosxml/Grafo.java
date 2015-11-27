@@ -23,12 +23,29 @@ public class Grafo {
     private List<No> nos;
     @XStreamImplicit(itemFieldName="edge")
     private List<Aresta> arestas;
+    private int[][] matriz;
 
     public Grafo(String id, String tipo, List<No> nos, List<Aresta> arestas) {
         this.id = id;
         this.tipo = tipo;
         this.nos = nos;
         this.arestas = arestas;
+        geraMatriz();
+    }
+    
+    private void geraMatriz(){
+        int Qtdenos = nos.size();
+        matriz = new int [Qtdenos][Qtdenos];
+        for(int i=0; i<Qtdenos; i++){
+            for(int j=0; j<Qtdenos; j++) {
+		matriz[i][j]=0;
+            }
+	}
+        for (Aresta are : arestas) {
+            int posO = nos.indexOf( new No(are.getOrigem()) );
+            int posD = nos.indexOf( new No(are.getDestino()) );
+            matriz[posO][posD]=1;
+        }
     }
 
     public String getId() {
