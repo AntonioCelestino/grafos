@@ -361,7 +361,7 @@ public class TelaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCriarArestaActionPerformed
 
     private void jtFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtFecharActionPerformed
-        System.exit(0);
+        setVisible(false);
     }//GEN-LAST:event_jtFecharActionPerformed
 
     /**
