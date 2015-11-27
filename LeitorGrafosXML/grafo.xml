@@ -1,31 +1,12 @@
 <graph id="G" edgedefault="directed">
   <node id="n1"/>
   <node id="n2"/>
-  <node id="n1"/>
-  <node id="n2"/>
-  <edge source="n1" target="n2"/>
   <matriz>
     <int-array>
       <int>0</int>
-      <int>1</int>
-      <int>0</int>
       <int>0</int>
     </int-array>
     <int-array>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </int-array>
-    <int-array>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </int-array>
-    <int-array>
-      <int>0</int>
-      <int>0</int>
       <int>0</int>
       <int>0</int>
     </int-array>

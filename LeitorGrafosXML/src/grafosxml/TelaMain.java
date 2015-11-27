@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaMain extends javax.swing.JFrame {
@@ -58,6 +59,8 @@ public class TelaMain extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtbArestas = new javax.swing.JTable();
         jtFechar = new javax.swing.JButton();
+        jbRemoverVertice = new javax.swing.JButton();
+        jbRemoverAresta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +172,20 @@ public class TelaMain extends javax.swing.JFrame {
             }
         });
 
+        jbRemoverVertice.setText("Remover Vértice");
+        jbRemoverVertice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRemoverVerticeActionPerformed(evt);
+            }
+        });
+
+        jbRemoverAresta.setText("Remover Aresta");
+        jbRemoverAresta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRemoverArestaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,8 +203,8 @@ public class TelaMain extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                                .addGap(29, 29, 29)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,7 +232,13 @@ public class TelaMain extends javax.swing.JFrame {
                                         .addComponent(jtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(20, 20, 20)
                                 .addComponent(jbCriarAresta)))
-                        .addGap(0, 14, Short.MAX_VALUE))))
+                        .addGap(14, 14, 14))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbRemoverVertice)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbRemoverAresta)
+                .addGap(99, 99, 99))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,10 +261,14 @@ public class TelaMain extends javax.swing.JFrame {
                             .addComponent(jtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbCriarAresta))))
                 .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbRemoverVertice)
+                    .addComponent(jbRemoverAresta))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
@@ -287,20 +314,28 @@ public class TelaMain extends javax.swing.JFrame {
         } catch (IOException ex) {
             System.out.println("Erro ao Gravar Arquivo");
         }
+        DefaultTableModel linhaN = (DefaultTableModel) jtbNos.getModel();
+        while (linhaN.getRowCount() != 0) {
+            linhaN.removeRow(0);
+        }
+        DefaultTableModel linhaA = (DefaultTableModel) jtbArestas.getModel();
+        while (linhaA.getRowCount() != 0) {
+            linhaA.removeRow(0);
+        }
+        numeroAresta = 0;
         JOptionPane.showMessageDialog(null, "Dados Salvos com Sucesso");
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMostrarActionPerformed
         XStream xstream = new XStream(new DomDriver());
         xstream.processAnnotations(Grafo.class);
-
+        
         File xmlFileLer = new File("grafo.xml");
         Grafo g = (Grafo) xstream.fromXML(xmlFileLer);
         String xml = xstream.toXML(g);
         System.out.println(xml);
 
         DefaultTableModel linha = (DefaultTableModel) jtbNos.getModel();
-
         while (linha.getRowCount() != 0) {
             linha.removeRow(0);
         }
@@ -309,7 +344,7 @@ public class TelaMain extends javax.swing.JFrame {
             listaNos.add(n);
             linha.addRow(new String[]{n.getId()});
         }
-
+        
     }//GEN-LAST:event_jbMostrarActionPerformed
 
     public static void buscarGrafo() {
@@ -346,6 +381,9 @@ public class TelaMain extends javax.swing.JFrame {
 
     private void jbCriarNosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCriarNosActionPerformed
         DefaultTableModel linha = (DefaultTableModel) jtbNos.getModel();
+        while (linha.getRowCount() != 0) {
+            linha.removeRow(0);
+        }
         for (int i = 1; i <= parseInt(jtVertices.getText()); i++) {
             listaNos.add(new No("n" + i));
             linha.addRow(new String[]{"n" + i});
@@ -364,8 +402,8 @@ public class TelaMain extends javax.swing.JFrame {
     private void jbCriarArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCriarArestaActionPerformed
         origemAresta = jtOrigem.getText();
         destinoAresta = jtDestino.getText();
-        listaArestas.add(new Aresta(origemAresta, destinoAresta));
         numeroAresta = numeroAresta + 1;
+        listaArestas.add(new Aresta(origemAresta, destinoAresta));
         DefaultTableModel linha = (DefaultTableModel) jtbArestas.getModel();
         linha.addRow(new String[]{"Aresta" + numeroAresta, origemAresta, destinoAresta});
         jtOrigem.setText("");
@@ -376,10 +414,20 @@ public class TelaMain extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_jtFecharActionPerformed
 
+    private void jbRemoverVerticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoverVerticeActionPerformed
+        listaNos.remove(jtbNos.getSelectedRow());
+        ((DefaultTableModel) jtbNos.getModel()).removeRow(jtbNos.getSelectedRow());
+    }//GEN-LAST:event_jbRemoverVerticeActionPerformed
+
+    private void jbRemoverArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoverArestaActionPerformed
+        listaArestas.remove(jtbArestas.getSelectedRow());
+        ((DefaultTableModel) jtbArestas.getModel()).removeRow(jtbArestas.getSelectedRow());
+    }//GEN-LAST:event_jbRemoverArestaActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws UnsupportedLookAndFeelException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -398,9 +446,7 @@ public class TelaMain extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelaMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } 
         //</editor-fold>
 
         /* Create and display the form */
@@ -425,6 +471,8 @@ public class TelaMain extends javax.swing.JFrame {
     private javax.swing.JButton jbCriarAresta;
     private javax.swing.JButton jbCriarNos;
     private javax.swing.JButton jbMostrar;
+    private javax.swing.JButton jbRemoverAresta;
+    private javax.swing.JButton jbRemoverVertice;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JTextField jtDestino;
     private javax.swing.JButton jtFechar;
