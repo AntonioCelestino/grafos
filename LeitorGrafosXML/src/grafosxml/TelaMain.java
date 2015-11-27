@@ -1,8 +1,8 @@
 /*
-Trabalho de Teoria dos Grafos
-Equipe: Antonio Celestino, Nathan Manera e Pedro Ferreira
-Professor: Daves Martins
-4º Período BSI - IF Sudeste MG Juiz de Fora
+ Trabalho de Teoria dos Grafos
+ Equipe: Antonio Celestino, Nathan Manera e Pedro Ferreira
+ Professor: Daves Martins
+ 4º Período BSI - IF Sudeste MG Juiz de Fora
  */
 package grafosxml;
 
@@ -23,17 +23,17 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaMain extends javax.swing.JFrame {
-    
+
     List<No> listaNos = new ArrayList<No>();
-    List<Aresta> listaArestas =  new ArrayList<Aresta>();
+    List<Aresta> listaArestas = new ArrayList<Aresta>();
     String origemAresta;
     String destinoAresta;
-    int numeroAresta=0;
-    
+    int numeroAresta = 0;
+
     public TelaMain() {
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -265,39 +265,51 @@ public class TelaMain extends javax.swing.JFrame {
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         XStream xstream = new XStream(new DomDriver());
-        xstream.processAnnotations(Grafo.class);      
-        
+        xstream.processAnnotations(Grafo.class);
+
         Grafo g = new Grafo("G", "directed", listaNos, listaArestas);
-        if(jRadioButton1.isSelected()){
+        if (jRadioButton1.isSelected()) {
             g.setTipo("directed");
         }
-        if(jRadioButton2.isSelected()){
+        if (jRadioButton2.isSelected()) {
             g.setTipo("undirected");
         }
         //System.out.println(xstream.toXML(g));
         String xml = xstream.toXML(g);
 
-            g = null;
+        g = null;
 
-            g = (Grafo) xstream.fromXML(xml);
+        g = (Grafo) xstream.fromXML(xml);
 
-            try{
-                File xmlFile = new File("grafo.xml");
-                xstream.toXML(g, new FileWriter(xmlFile));
-            }catch(IOException ex){
-                System.out.println("Erro ao Gravar Arquivo");
-            }
-        JOptionPane.showMessageDialog(null,"Dados Salvos com Sucesso");
+        try {
+            File xmlFile = new File("grafo.xml");
+            xstream.toXML(g, new FileWriter(xmlFile));
+        } catch (IOException ex) {
+            System.out.println("Erro ao Gravar Arquivo");
+        }
+        JOptionPane.showMessageDialog(null, "Dados Salvos com Sucesso");
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMostrarActionPerformed
         XStream xstream = new XStream(new DomDriver());
-        xstream.processAnnotations(Grafo.class); 
-        
+        xstream.processAnnotations(Grafo.class);
+
         File xmlFileLer = new File("grafo.xml");
         Grafo g = (Grafo) xstream.fromXML(xmlFileLer);
         String xml = xstream.toXML(g);
         System.out.println(xml);
+
+        DefaultTableModel linha = (DefaultTableModel) jtbNos.getModel();
+
+        while (linha.getRowCount() != 0) {
+            linha.removeRow(0);
+        }
+
+        for (No n : g.getNos()) {
+            listaNos.add(n);
+            linha.addRow(new String[]{n.getId()});
+        }
+
     }//GEN-LAST:event_jbMostrarActionPerformed
 
     public static void buscarGrafo() {
@@ -323,7 +335,7 @@ public class TelaMain extends javax.swing.JFrame {
         }
     }
 
-    
+
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
@@ -333,29 +345,29 @@ public class TelaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jbCriarNosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCriarNosActionPerformed
-        DefaultTableModel linha = (DefaultTableModel) jtbNos.getModel();        
+        DefaultTableModel linha = (DefaultTableModel) jtbNos.getModel();
         for (int i = 1; i <= parseInt(jtVertices.getText()); i++) {
-            listaNos.add(new No("n"+i));
-            linha.addRow(new String[] {"n"+i});
+            listaNos.add(new No("n" + i));
+            linha.addRow(new String[]{"n" + i});
         }
         jtVertices.setText("");
     }//GEN-LAST:event_jbCriarNosActionPerformed
 
     private void jtOrigemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtOrigemActionPerformed
-        
+
     }//GEN-LAST:event_jtOrigemActionPerformed
 
     private void jtDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDestinoActionPerformed
-        
+
     }//GEN-LAST:event_jtDestinoActionPerformed
 
     private void jbCriarArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCriarArestaActionPerformed
         origemAresta = jtOrigem.getText();
         destinoAresta = jtDestino.getText();
         listaArestas.add(new Aresta(origemAresta, destinoAresta));
-        numeroAresta = numeroAresta+1;
+        numeroAresta = numeroAresta + 1;
         DefaultTableModel linha = (DefaultTableModel) jtbArestas.getModel();
-            linha.addRow(new String[] {"Aresta"+numeroAresta, origemAresta, destinoAresta});
+        linha.addRow(new String[]{"Aresta" + numeroAresta, origemAresta, destinoAresta});
         jtOrigem.setText("");
         jtDestino.setText("");
     }//GEN-LAST:event_jbCriarArestaActionPerformed
