@@ -1,0 +1,24 @@
+<graph id="G" edgedefault="directed">
+  <node id="n1"/>
+  <node id="n2"/>
+  <node id="n3"/>
+  <edge source="n1" target="n2" name="Y"/>
+  <edge source="n2" target="n3" name=""/>
+  <matriz>
+    <int-array>
+      <int>0</int>
+      <int>1</int>
+      <int>0</int>
+    </int-array>
+    <int-array>
+      <int>0</int>
+      <int>0</int>
+      <int>1</int>
+    </int-array>
+    <int-array>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+    </int-array>
+  </matriz>
+</graph>

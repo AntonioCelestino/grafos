@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
@@ -27,9 +28,9 @@ public class TelaMain extends javax.swing.JFrame {
 
     List<No> listaNos = new ArrayList<No>();
     List<Aresta> listaArestas = new ArrayList<Aresta>();
+    String nomeAresta;
     String origemAresta;
     String destinoAresta;
-    int numeroAresta = 0;
 
     public TelaMain() {
         initComponents();
@@ -40,6 +41,7 @@ public class TelaMain extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jtVertices = new javax.swing.JTextField();
@@ -61,6 +63,12 @@ public class TelaMain extends javax.swing.JFrame {
         jtFechar = new javax.swing.JButton();
         jbRemoverVertice = new javax.swing.JButton();
         jbRemoverAresta = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jtNome = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jtNomeGrafo = new javax.swing.JTextField();
+
+        jLabel7.setText("jLabel7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -186,6 +194,16 @@ public class TelaMain extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("Nome:");
+
+        jLabel8.setText("Nome do grafo:");
+
+        jtNomeGrafo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtNomeGrafoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +221,7 @@ public class TelaMain extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                 .addGap(29, 29, 29)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -211,7 +229,8 @@ public class TelaMain extends javax.swing.JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(jRadioButton1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
+                                .addComponent(jRadioButton2)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
@@ -222,15 +241,22 @@ public class TelaMain extends javax.swing.JFrame {
                                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jbCriarNos)
-                                        .addGap(43, 43, 43)
+                                        .addGap(142, 142, 142)
                                         .addComponent(jLabel4)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jtOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(20, 20, 20)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jtOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 13, Short.MAX_VALUE)
                                         .addComponent(jLabel5)
-                                        .addGap(4, 4, 4)
-                                        .addComponent(jtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(20, 20, 20)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jtNome)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbCriarAresta)))
                         .addGap(14, 14, 14))))
             .addGroup(layout.createSequentialGroup()
@@ -239,28 +265,41 @@ public class TelaMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbRemoverAresta)
                 .addGap(99, 99, 99))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jtNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(jtVertices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel6)
+                        .addComponent(jtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbCriarNos)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jtOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbCriarAresta))))
-                .addGap(7, 7, 7)
+                            .addComponent(jbCriarAresta)
+                            .addComponent(jLabel5)
+                            .addComponent(jtOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))))
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -280,7 +319,8 @@ public class TelaMain extends javax.swing.JFrame {
                     .addComponent(jbSalvar)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbMostrar)
-                        .addComponent(jtFechar))))
+                        .addComponent(jtFechar)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -309,7 +349,8 @@ public class TelaMain extends javax.swing.JFrame {
         g = (Grafo) xstream.fromXML(xml);
 
         try {
-            File xmlFile = new File("grafo.xml");
+            
+            File xmlFile = new File(jtNomeGrafo.getText() + ".xml");
             xstream.toXML(g, new FileWriter(xmlFile));
         } catch (IOException ex) {
             System.out.println("Erro ao Gravar Arquivo");
@@ -322,15 +363,20 @@ public class TelaMain extends javax.swing.JFrame {
         while (linhaA.getRowCount() != 0) {
             linhaA.removeRow(0);
         }
-        numeroAresta = 0;
+        //numeroAresta = 0;
         JOptionPane.showMessageDialog(null, "Dados Salvos com Sucesso");
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMostrarActionPerformed
+
         XStream xstream = new XStream(new DomDriver());
         xstream.processAnnotations(Grafo.class);
-        
-        File xmlFileLer = new File("grafo.xml");
+
+        JFileChooser fileChooser = new JFileChooser();
+
+        fileChooser.showOpenDialog(this);
+
+        File xmlFileLer = new File(fileChooser.getSelectedFile().getName());
         Grafo g = (Grafo) xstream.fromXML(xmlFileLer);
         String xml = xstream.toXML(g);
         System.out.println(xml);
@@ -344,7 +390,17 @@ public class TelaMain extends javax.swing.JFrame {
             listaNos.add(n);
             linha.addRow(new String[]{n.getId()});
         }
-        
+
+        DefaultTableModel linhaA = (DefaultTableModel) jtbArestas.getModel();
+
+        while (linhaA.getColumnCount() != 0 && linhaA.getRowCount() != 0) {
+            linhaA.removeRow(0);
+        }
+
+        for (Aresta a : g.getArestas()) {
+            listaArestas.add(a);
+            linhaA.addRow(new String[]{a.getNomeAresta(), a.getOrigem(), a.getDestino()});
+        }
     }//GEN-LAST:event_jbMostrarActionPerformed
 
     public static void buscarGrafo() {
@@ -400,12 +456,13 @@ public class TelaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jtDestinoActionPerformed
 
     private void jbCriarArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCriarArestaActionPerformed
+        nomeAresta = jtNome.getText();
         origemAresta = jtOrigem.getText();
         destinoAresta = jtDestino.getText();
-        numeroAresta = numeroAresta + 1;
-        listaArestas.add(new Aresta(origemAresta, destinoAresta));
+        listaArestas.add(new Aresta(nomeAresta, origemAresta, destinoAresta));
         DefaultTableModel linha = (DefaultTableModel) jtbArestas.getModel();
-        linha.addRow(new String[]{"Aresta" + numeroAresta, origemAresta, destinoAresta});
+        linha.addRow(new String[]{nomeAresta, origemAresta, destinoAresta});
+        jtNome.setText("");
         jtOrigem.setText("");
         jtDestino.setText("");
     }//GEN-LAST:event_jbCriarArestaActionPerformed
@@ -423,6 +480,10 @@ public class TelaMain extends javax.swing.JFrame {
         listaArestas.remove(jtbArestas.getSelectedRow());
         ((DefaultTableModel) jtbArestas.getModel()).removeRow(jtbArestas.getSelectedRow());
     }//GEN-LAST:event_jbRemoverArestaActionPerformed
+
+    private void jtNomeGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNomeGrafoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtNomeGrafoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -446,7 +507,7 @@ public class TelaMain extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelaMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
+        }
         //</editor-fold>
 
         /* Create and display the form */
@@ -464,6 +525,9 @@ public class TelaMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -476,6 +540,8 @@ public class TelaMain extends javax.swing.JFrame {
     private javax.swing.JButton jbSalvar;
     private javax.swing.JTextField jtDestino;
     private javax.swing.JButton jtFechar;
+    private javax.swing.JTextField jtNome;
+    private javax.swing.JTextField jtNomeGrafo;
     private javax.swing.JTextField jtOrigem;
     private javax.swing.JTextField jtVertices;
     private javax.swing.JTable jtbArestas;

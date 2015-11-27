@@ -18,8 +18,12 @@ public class Aresta {
     @XStreamAlias("target")
     @XStreamAsAttribute
     private String destino;
+    @XStreamAlias("name")
+    @XStreamAsAttribute
+    private String nomeAresta;
 
-    public Aresta(String origem, String destino) {
+    public Aresta( String nomeAresta, String origem, String destino) {
+        this.nomeAresta = nomeAresta;
         this.origem = origem;
         this.destino = destino;
     }
@@ -38,6 +42,14 @@ public class Aresta {
 
     public void setDestino(String destino) {
         this.destino = destino;
+    }
+
+    public String getNomeAresta() {
+        return nomeAresta;
+    }
+
+    public void setNomeAresta(String nomeAresta) {
+        this.nomeAresta = nomeAresta;
     }
     
     
