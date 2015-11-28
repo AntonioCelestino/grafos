@@ -22,6 +22,8 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemCriaGrafos = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSair = new javax.swing.JMenuItem();
+        jMenuEstatisticas = new javax.swing.JMenu();
+        jMenuItemDados = new javax.swing.JMenuItem();
         jMenuEditar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,6 +50,19 @@ public class Principal extends javax.swing.JFrame {
         jMenuCadastrar.add(jMenuItemSair);
 
         jMenuBar1.add(jMenuCadastrar);
+
+        jMenuEstatisticas.setText("Estatísticas");
+
+        jMenuItemDados.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemDados.setText("Obter Dados");
+        jMenuItemDados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDadosActionPerformed(evt);
+            }
+        });
+        jMenuEstatisticas.add(jMenuItemDados);
+
+        jMenuBar1.add(jMenuEstatisticas);
 
         jMenuEditar.setText("Editar");
         jMenuBar1.add(jMenuEditar);
@@ -76,6 +91,11 @@ public class Principal extends javax.swing.JFrame {
         TelaMain tm = new TelaMain();
         tm.setVisible(true);
     }//GEN-LAST:event_jMenuItemCriaGrafosActionPerformed
+
+    private void jMenuItemDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDadosActionPerformed
+        DadosGrafos tm = new DadosGrafos();
+        tm.setVisible(true);
+    }//GEN-LAST:event_jMenuItemDadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,7 +136,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastrar;
     private javax.swing.JMenu jMenuEditar;
+    private javax.swing.JMenu jMenuEstatisticas;
     private javax.swing.JMenuItem jMenuItemCriaGrafos;
+    private javax.swing.JMenuItem jMenuItemDados;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
