@@ -324,7 +324,7 @@ public class TelaMain extends javax.swing.JFrame {
         if (jRadioButton2.isSelected()) {
             g.setTipo("undirected");
         }
-        //System.out.println(xstream.toXML(g));
+        System.out.println(xstream.toXML(g));
         String xml = xstream.toXML(g);
 
         g = null;
@@ -340,12 +340,17 @@ public class TelaMain extends javax.swing.JFrame {
         }
         DefaultTableModel linhaN = (DefaultTableModel) jtbNos.getModel();
         while (linhaN.getRowCount() != 0) {
+            listaNos.remove(0);
             linhaN.removeRow(0);
         }
+        
         DefaultTableModel linhaA = (DefaultTableModel) jtbArestas.getModel();
         while (linhaA.getRowCount() != 0) {
+            listaArestas.remove(0);
             linhaA.removeRow(0);
         }
+        
+        jtNomeGrafo.setText("");
         //numeroAresta = 0;
         JOptionPane.showMessageDialog(null, "Dados Salvos com Sucesso");
     }//GEN-LAST:event_jbSalvarActionPerformed
@@ -363,20 +368,27 @@ public class TelaMain extends javax.swing.JFrame {
         Grafo g = (Grafo) xstream.fromXML(xmlFileLer);
         String xml = xstream.toXML(g);
         System.out.println(xml);
+        
+        jtNomeGrafo.setText(fileChooser.getSelectedFile().getName().substring(0, fileChooser.getSelectedFile().getName().lastIndexOf("."))); 
+        // retona o nome do arquivo na caixa de texto "nome do grafo"
+        // subtring foi usado para conseguir retornar "grafo" ao invés de "grafo.xml"
+        // tive que fazer isso pq se não fizesse iria salvar depois num arquivo sem nome;
 
-        DefaultTableModel linha = (DefaultTableModel) jtbNos.getModel();
-        while (linha.getRowCount() != 0) {
-            linha.removeRow(0);
+        DefaultTableModel linhaN = (DefaultTableModel) jtbNos.getModel();
+        while (linhaN.getRowCount() != 0) {
+            listaNos.remove(0);
+            linhaN.removeRow(0);
         }
 
         for (No n : g.getNos()) {
             listaNos.add(n);
-            linha.addRow(new String[]{n.getId()});
+            linhaN.addRow(new String[]{n.getId()});
         }
 
         DefaultTableModel linhaA = (DefaultTableModel) jtbArestas.getModel();
 
         while (linhaA.getColumnCount() != 0 && linhaA.getRowCount() != 0) {
+            listaArestas.remove(0);
             linhaA.removeRow(0);
         }
 
@@ -385,7 +397,7 @@ public class TelaMain extends javax.swing.JFrame {
             linhaA.addRow(new String[]{a.getNomeAresta(), a.getOrigem(), a.getDestino()});
         }
     }//GEN-LAST:event_jbMostrarActionPerformed
-
+/*
     public static void buscarGrafo() {
         try {
             FileReader ler = new FileReader("grafo.xml");
@@ -403,12 +415,12 @@ public class TelaMain extends javax.swing.JFrame {
             /*System.out.println(id);
              System.out.println(aresta);
              System.out.println(nos);
-             System.out.println(tipo);*/
+             System.out.println(tipo);*//*
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TelaMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+*/
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
@@ -419,8 +431,10 @@ public class TelaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jbCriarNosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCriarNosActionPerformed
+        
         DefaultTableModel linha = (DefaultTableModel) jtbNos.getModel();
         while (linha.getRowCount() != 0) {
+            listaNos.remove(0);
             linha.removeRow(0);
         }
         for (int i = 1; i <= parseInt(jtVertices.getText()); i++) {
@@ -442,8 +456,8 @@ public class TelaMain extends javax.swing.JFrame {
         nomeAresta = jtNome.getText();
         origemAresta = jtOrigem.getText();
         destinoAresta = jtDestino.getText();
-        listaArestas.add(new Aresta(nomeAresta, origemAresta, destinoAresta));
         DefaultTableModel linha = (DefaultTableModel) jtbArestas.getModel();
+        listaArestas.add(new Aresta(nomeAresta, origemAresta, destinoAresta));
         linha.addRow(new String[]{nomeAresta, origemAresta, destinoAresta});
         jtNome.setText("");
         jtOrigem.setText("");
