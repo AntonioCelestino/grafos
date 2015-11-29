@@ -1,8 +1,8 @@
 /*
-Trabalho de Teoria dos Grafos
-Equipe: Antonio Celestino, Nathan Manera e Pedro Ferreira
-Professor: Daves Martins
-4º Período BSI - IF Sudeste MG Juiz de Fora
+ Trabalho de Teoria dos Grafos
+ Equipe: Antonio Celestino, Nathan Manera e Pedro Ferreira
+ Professor: Daves Martins
+ 4º Período BSI - IF Sudeste MG Juiz de Fora
  */
 package grafosxml;
 
@@ -13,15 +13,16 @@ import java.util.List;
 
 @XStreamAlias("graph")
 public class Grafo {
+
     @XStreamAlias("id")
     @XStreamAsAttribute
     private String id;
     @XStreamAlias("edgedefault")
     @XStreamAsAttribute
     private String tipo;
-    @XStreamImplicit(itemFieldName="node")
+    @XStreamImplicit(itemFieldName = "node")
     private List<No> nos;
-    @XStreamImplicit(itemFieldName="edge")
+    @XStreamImplicit(itemFieldName = "edge")
     private List<Aresta> arestas;
     private int[][] matriz;
 
@@ -32,19 +33,19 @@ public class Grafo {
         this.arestas = arestas;
         geraMatriz();
     }
-    
-    private void geraMatriz(){
+
+    private void geraMatriz() {
         int Qtdenos = nos.size();
-        matriz = new int [Qtdenos][Qtdenos];
-        for(int i=0; i<Qtdenos; i++){
-            for(int j=0; j<Qtdenos; j++) {
-		matriz[i][j]=0;
+        matriz = new int[Qtdenos][Qtdenos];
+        for (int i = 0; i < Qtdenos; i++) {
+            for (int j = 0; j < Qtdenos; j++) {
+                matriz[i][j] = 0;
             }
-	}
+        }
         for (Aresta are : arestas) {
-            int posO = nos.indexOf( new No(are.getOrigem()) );
-            int posD = nos.indexOf( new No(are.getDestino()) );
-            matriz[posO][posD]=1;
+            int posO = nos.indexOf(new No(are.getOrigem()));
+            int posD = nos.indexOf(new No(are.getDestino()));
+            matriz[posO][posD] = 1;
         }
     }
 
@@ -80,6 +81,4 @@ public class Grafo {
         this.arestas = arestas;
     }
 
-    
-    
 }

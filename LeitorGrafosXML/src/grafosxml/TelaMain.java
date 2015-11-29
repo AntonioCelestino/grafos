@@ -332,7 +332,7 @@ public class TelaMain extends javax.swing.JFrame {
         g = (Grafo) xstream.fromXML(xml);
 
         try {
-            
+
             File xmlFile = new File(jtNomeGrafo.getText() + ".xml");
             xstream.toXML(g, new FileWriter(xmlFile));
         } catch (IOException ex) {
@@ -343,13 +343,13 @@ public class TelaMain extends javax.swing.JFrame {
             listaNos.remove(0);
             linhaN.removeRow(0);
         }
-        
+
         DefaultTableModel linhaA = (DefaultTableModel) jtbArestas.getModel();
         while (linhaA.getRowCount() != 0) {
             listaArestas.remove(0);
             linhaA.removeRow(0);
         }
-        
+
         jtNomeGrafo.setText("");
         //numeroAresta = 0;
         JOptionPane.showMessageDialog(null, "Dados Salvos com Sucesso");
@@ -368,8 +368,8 @@ public class TelaMain extends javax.swing.JFrame {
         Grafo g = (Grafo) xstream.fromXML(xmlFileLer);
         String xml = xstream.toXML(g);
         System.out.println(xml);
-        
-        jtNomeGrafo.setText(fileChooser.getSelectedFile().getName().substring(0, fileChooser.getSelectedFile().getName().lastIndexOf("."))); 
+
+        jtNomeGrafo.setText(fileChooser.getSelectedFile().getName().substring(0, fileChooser.getSelectedFile().getName().lastIndexOf(".")));
         // retona o nome do arquivo na caixa de texto "nome do grafo"
         // subtring foi usado para conseguir retornar "grafo" ao invés de "grafo.xml"
         // tive que fazer isso pq se não fizesse iria salvar depois num arquivo sem nome;
@@ -397,30 +397,30 @@ public class TelaMain extends javax.swing.JFrame {
             linhaA.addRow(new String[]{a.getNomeAresta(), a.getOrigem(), a.getDestino()});
         }
     }//GEN-LAST:event_jbMostrarActionPerformed
-/*
-    public static void buscarGrafo() {
-        try {
-            FileReader ler = new FileReader("grafo.xml");
+    /*
+     public static void buscarGrafo() {
+     try {
+     FileReader ler = new FileReader("grafo.xml");
 
-            XStream xstream = new XStream(new DomDriver());
+     XStream xstream = new XStream(new DomDriver());
 
-            xstream.alias("Grafo", Grafo.class);
-            Grafo g = (Grafo) xstream.fromXML(ler);
+     xstream.alias("Grafo", Grafo.class);
+     Grafo g = (Grafo) xstream.fromXML(ler);
 
-            String id = g.getId();
-            List<Aresta> aresta = g.getArestas();
-            List<No> nos = g.getNos();
-            String tipo = g.getTipo();
+     String id = g.getId();
+     List<Aresta> aresta = g.getArestas();
+     List<No> nos = g.getNos();
+     String tipo = g.getTipo();
 
-            /*System.out.println(id);
-             System.out.println(aresta);
-             System.out.println(nos);
-             System.out.println(tipo);*//*
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TelaMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-*/
+     /*System.out.println(id);
+     System.out.println(aresta);
+     System.out.println(nos);
+     System.out.println(tipo);*//*
+     } catch (FileNotFoundException ex) {
+     Logger.getLogger(TelaMain.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     }
+     */
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
@@ -431,7 +431,7 @@ public class TelaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jbCriarNosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCriarNosActionPerformed
-        
+
         DefaultTableModel linha = (DefaultTableModel) jtbNos.getModel();
         while (linha.getRowCount() != 0) {
             listaNos.remove(0);
