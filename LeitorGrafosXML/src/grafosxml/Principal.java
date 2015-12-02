@@ -4,7 +4,6 @@ Equipe: Antonio Celestino, Nathan Manera e Pedro Ferreira
 Professor: Daves Martins
 4º Período BSI - IF Sudeste MG Juiz de Fora
  */
-
 package grafosxml;
 
 public class Principal extends javax.swing.JFrame {
