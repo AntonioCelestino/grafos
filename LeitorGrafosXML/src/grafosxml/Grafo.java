@@ -98,7 +98,7 @@ public class Grafo {
     }
 
     public String getConjuntoArestas() {
-        String conj="a={";
+        String conj="A={";
         for (Aresta are : arestas) {
             String origem = are.getOrigem();
             String destino = are.getDestino();
@@ -150,7 +150,13 @@ public class Grafo {
     }
 
     public String getVerticesAdjacentes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String adjacentes="\n";
+        for (Aresta are : arestas) {
+            String origem = are.getOrigem();
+            String destino = are.getDestino();
+            adjacentes = adjacentes+origem+" e "+destino+"\n";
+        }
+        return adjacentes;
     }
 
     public String getArestasIndependentes() {

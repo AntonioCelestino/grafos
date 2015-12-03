@@ -313,13 +313,11 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBOrdemGrafoActionPerformed
 
     private void jBConjuntoVerticesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConjuntoVerticesActionPerformed
-        String conjuntoVertices = grafo.getConjuntoVertices();
-        jtConjuntoVertices.setText(conjuntoVertices);
+        jtConjuntoVertices.setText(grafo.getConjuntoVertices());
     }//GEN-LAST:event_jBConjuntoVerticesActionPerformed
 
     private void jBConjuntoArestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConjuntoArestasActionPerformed
-        String conjuntoArestas = grafo.getConjuntoArestas();
-        jtConjuntoArestas.setText(conjuntoArestas);
+        jtConjuntoArestas.setText(grafo.getConjuntoArestas());
     }//GEN-LAST:event_jBConjuntoArestasActionPerformed
 
     private void jBIncidenciaArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIncidenciaArestaActionPerformed
@@ -356,7 +354,7 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBArestasAdjacentesActionPerformed
 
     private void jBVerticesAdjacentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesAdjacentesActionPerformed
-        JOptionPane.showMessageDialog(null, "Os pares de vértices adjacentes são:\n"+grafo.getVerticesAdjacentes());
+        JOptionPane.showMessageDialog(null, "Os pares de vértices adjacentes são:"+grafo.getVerticesAdjacentes());
     }//GEN-LAST:event_jBVerticesAdjacentesActionPerformed
 
     private void jBArestasIndependentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBArestasIndependentesActionPerformed
