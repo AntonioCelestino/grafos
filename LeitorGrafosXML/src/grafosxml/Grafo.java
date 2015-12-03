@@ -197,9 +197,9 @@ public class Grafo {
             if (g.getGrauRecepcao(g.getNos().get(i)) == 0 && g.getGrauEmissao(g.getNos().get(i)) != 0) {
                 estring += "Grau(" + g.getNos().get(i).getId() + ");\n";
             }
-            else{
-                estring = "Não há vértices fontes !!";
-            }
+        }
+        if (estring == "\n") {
+            estring = "Não há vértices sumidouros !!";
         }
         return estring;
     }
@@ -210,9 +210,9 @@ public class Grafo {
             if (g.getGrauRecepcao(g.getNos().get(i)) != 0 && g.getGrauEmissao(g.getNos().get(i)) == 0) {
                 estring += "Grau(" + g.getNos().get(i).getId() + ");\n";
             }
-            else{
-                estring = "Não há vértices sumidouros !!";
-            }
+        }
+        if (estring == "\n") {
+            estring = "Não há vértices sumidouros !!";
         }
         return estring;
     }
