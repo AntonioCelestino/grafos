@@ -365,11 +365,11 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBVerticesTerminaisActionPerformed
 
     private void jBVerticesFontesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesFontesActionPerformed
-        JOptionPane.showMessageDialog(null, "Os vértices fontes são:\n"+grafo.getVerticesFontes());
+        JOptionPane.showMessageDialog(null, "Os vértices fontes são:\n"+grafo.getVerticesFontes(grafo));
     }//GEN-LAST:event_jBVerticesFontesActionPerformed
 
     private void jBVerticesSumidourosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesSumidourosActionPerformed
-        JOptionPane.showMessageDialog(null, "Os vértices sumidouros são:\n"+grafo.getVerticesSumidouros());
+        JOptionPane.showMessageDialog(null, "Os vértices sumidouros são:\n"+grafo.getVerticesSumidouros(grafo));
     }//GEN-LAST:event_jBVerticesSumidourosActionPerformed
 
     /**

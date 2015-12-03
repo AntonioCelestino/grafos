@@ -89,49 +89,49 @@ public class Grafo {
     }
 
     public String getConjuntoVertices() {
-        String vertices="V={";
+        String vertices = "V={";
         for (No ver : nos) {
             String id = ver.getId();
-            vertices = vertices+id+", ";
+            vertices = vertices + id + ", ";
         }
-        return vertices+"}";
+        return vertices + "}";
     }
 
     public String getConjuntoArestas() {
-        String conj="A={";
+        String conj = "A={";
         for (Aresta are : arestas) {
             String origem = are.getOrigem();
             String destino = are.getDestino();
             String nome = are.getNomeAresta();
-            conj = conj+nome+"("+origem+","+destino+"), ";
+            conj = conj + nome + "(" + origem + "," + destino + "), ";
         }
-        return conj+"}";
+        return conj + "}";
     }
 
     public String getIncidenciaArestas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getMensagemGrau(Grafo g, String s){
+    public String getMensagemGrau(Grafo g, String s) {
         String estring = "\n";
-        for (int i=0; i<g.getNos().size(); i++) {
-            if(s == "Vertice"){
-                estring += "Grau("+g.getNos().get(i).getId()+"): "+g.getGrauVertice(g.getNos().get(i))+"; \n";
+        for (int i = 0; i < g.getNos().size(); i++) {
+            if (s == "Vertice") {
+                estring += "Grau(" + g.getNos().get(i).getId() + "): " + g.getGrauVertice(g.getNos().get(i)) + "; \n";
             }
-            if(s == "Emissao"){
-                estring += "Grau("+g.getNos().get(i).getId()+"): "+g.getGrauEmissao(g.getNos().get(i))+"; \n";
+            if (s == "Emissao") {
+                estring += "Grau(" + g.getNos().get(i).getId() + "): " + g.getGrauEmissao(g.getNos().get(i)) + "; \n";
             }
-            if(s == "Recepcao"){
-                estring += "Grau("+g.getNos().get(i).getId()+"): "+g.getGrauRecepcao(g.getNos().get(i))+"; \n";
+            if (s == "Recepcao") {
+                estring += "Grau(" + g.getNos().get(i).getId() + "): " + g.getGrauRecepcao(g.getNos().get(i)) + "; \n";
             }
         }
         return estring;
     }
-    
+
     public int getGrauEmissao(No no) {
         int grau = 0;
-        for(Aresta aresta : this.arestas){
-            if(aresta.getOrigem() == no.getId()){
+        for (Aresta aresta : this.arestas) {
+            if (aresta.getOrigem() == no.getId()) {
                 grau++;
             }
         }
@@ -140,8 +140,8 @@ public class Grafo {
 
     public int getGrauRecepcao(No no) {
         int grau = 0;
-        for(Aresta aresta : this.arestas){
-            if(aresta.getDestino() == no.getId()){
+        for (Aresta aresta : this.arestas) {
+            if (aresta.getDestino() == no.getId()) {
                 grau++;
             }
         }
@@ -150,11 +150,11 @@ public class Grafo {
 
     public int getGrauVertice(No no) {
         int grau = 0;
-        for(Aresta aresta : this.arestas){
-            if(aresta.getDestino() == no.getId()){
+        for (Aresta aresta : this.arestas) {
+            if (aresta.getDestino() == no.getId()) {
                 grau++;
             }
-            if(aresta.getOrigem() == no.getId()){
+            if (aresta.getOrigem() == no.getId()) {
                 grau++;
             }
         }
@@ -166,11 +166,11 @@ public class Grafo {
     }
 
     public String getVerticesAdjacentes() {
-        String adjacentes="\n";
+        String adjacentes = "\n";
         for (Aresta are : arestas) {
             String origem = are.getOrigem();
             String destino = are.getDestino();
-            adjacentes = adjacentes+origem+" e "+destino+"\n";
+            adjacentes = adjacentes + origem + " e " + destino + "\n";
         }
         return adjacentes;
     }
@@ -191,12 +191,30 @@ public class Grafo {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getVerticesFontes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getVerticesFontes(Grafo g) {
+        String estring = "\n";
+        for (int i = 0; i < g.getNos().size(); i++) {
+            if (g.getGrauRecepcao(g.getNos().get(i)) == 0 && g.getGrauEmissao(g.getNos().get(i)) != 0) {
+                estring += "Grau(" + g.getNos().get(i).getId() + ");\n";
+            }
+            else{
+                estring = "Não há vértices fontes !!";
+            }
+        }
+        return estring;
     }
 
-    public String getVerticesSumidouros() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getVerticesSumidouros(Grafo g) {
+        String estring = "\n";
+        for (int i = 0; i < g.getNos().size(); i++) {
+            if (g.getGrauRecepcao(g.getNos().get(i)) != 0 && g.getGrauEmissao(g.getNos().get(i)) == 0) {
+                estring += "Grau(" + g.getNos().get(i).getId() + ");\n";
+            }
+            else{
+                estring = "Não há vértices sumidouros !!";
+            }
+        }
+        return estring;
     }
 
 }
