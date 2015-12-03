@@ -112,6 +112,22 @@ public class Grafo {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public String getMensagemGrau(Grafo g, String s){
+        String estring = "\n";
+        for (int i=0; i<g.getNos().size(); i++) {
+            if(s == "Vertice"){
+                estring += "Grau("+g.getNos().get(i).getId()+"): "+g.getGrauVertice(g.getNos().get(i))+"; \n";
+            }
+            if(s == "Emissao"){
+                estring += "Grau("+g.getNos().get(i).getId()+"): "+g.getGrauEmissao(g.getNos().get(i))+"; \n";
+            }
+            if(s == "Recepcao"){
+                estring += "Grau("+g.getNos().get(i).getId()+"): "+g.getGrauRecepcao(g.getNos().get(i))+"; \n";
+            }
+        }
+        return estring;
+    }
+    
     public int getGrauEmissao(No no) {
         int grau = 0;
         for(Aresta aresta : this.arestas){

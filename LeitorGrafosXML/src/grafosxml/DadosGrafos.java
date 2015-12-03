@@ -325,28 +325,18 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBIncidenciaArestaActionPerformed
 
     private void jBGrauEmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauEmissaoActionPerformed
-        String estring = "\n";
-        for (int i=0; i<grafo.getNos().size(); i++) {
-            estring += "Grau(n"+(i+1)+"): "+grafo.getGrauEmissao(grafo.getNos().get(i))+"; \n";
-        }
-        JOptionPane.showMessageDialog(null, "Os graus de emissão dos vértices são:\n"+estring);
+        
+        JOptionPane.showMessageDialog(null, "Os graus de emissão dos vértices são:\n"+grafo.getMensagemGrau(grafo, "Emissao"));
     }//GEN-LAST:event_jBGrauEmissaoActionPerformed
 
     private void jBGrauRecepcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauRecepcaoActionPerformed
-        String estring = "\n";
-        for (int i=0; i<grafo.getNos().size(); i++) {
-            estring += "Grau(n"+(i+1)+"): "+grafo.getGrauRecepcao(grafo.getNos().get(i))+"; \n";
-        }
-        JOptionPane.showMessageDialog(null, "Os graus de recepção dos vértices são:\n"+estring);
+        
+        JOptionPane.showMessageDialog(null, "Os graus de recepção dos vértices são:\n"+grafo.getMensagemGrau(grafo, "Recepcao"));
     }//GEN-LAST:event_jBGrauRecepcaoActionPerformed
 
     private void jBGrauVerticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauVerticeActionPerformed
-        String estring = "\n";
-        for (int i=0; i<grafo.getNos().size(); i++) {
-            estring += "Grau(n"+(i+1)+"): "+grafo.getGrauVertice(grafo.getNos().get(i))+"; \n";
-        }
-        JOptionPane.showMessageDialog(null, "Os graus dos vértices são:\n"+estring);
-                
+        
+        JOptionPane.showMessageDialog(null, "Os graus dos vértices são:\n"+grafo.getMensagemGrau(grafo, "Vertice"));       
     }//GEN-LAST:event_jBGrauVerticeActionPerformed
 
     private void jBArestasAdjacentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBArestasAdjacentesActionPerformed
