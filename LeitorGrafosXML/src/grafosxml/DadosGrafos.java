@@ -9,6 +9,7 @@ package grafosxml;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.io.File;
+import java.util.Arrays;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -294,6 +295,8 @@ public class DadosGrafos extends javax.swing.JFrame {
         XStream xstream = new XStream(new DomDriver());
         xstream.processAnnotations(Grafo.class);
         grafo = (Grafo) xstream.fromXML(xmlFileLer);
+        String xml = xstream.toXML(grafo);
+        System.out.println(xml);
 
     }//GEN-LAST:event_jBAbrirGrafoActionPerformed
 
@@ -322,15 +325,28 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBIncidenciaArestaActionPerformed
 
     private void jBGrauEmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauEmissaoActionPerformed
-        JOptionPane.showMessageDialog(null, "Os graus de emissão dos vértices são:\n"+grafo.getGrauEmissao());
+        String estring = "\n";
+        for (int i=0; i<grafo.getNos().size(); i++) {
+            estring += "Grau(n"+(i+1)+"): "+grafo.getGrauEmissao(grafo.getNos().get(i))+"; \n";
+        }
+        JOptionPane.showMessageDialog(null, "Os graus de emissão dos vértices são:\n"+estring);
     }//GEN-LAST:event_jBGrauEmissaoActionPerformed
 
     private void jBGrauRecepcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauRecepcaoActionPerformed
-        JOptionPane.showMessageDialog(null, "Os graus de recepção dos vértices são:\n"+grafo.getGrauRecepcao());
+        String estring = "\n";
+        for (int i=0; i<grafo.getNos().size(); i++) {
+            estring += "Grau(n"+(i+1)+"): "+grafo.getGrauRecepcao(grafo.getNos().get(i))+"; \n";
+        }
+        JOptionPane.showMessageDialog(null, "Os graus de recepção dos vértices são:\n"+estring);
     }//GEN-LAST:event_jBGrauRecepcaoActionPerformed
 
     private void jBGrauVerticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauVerticeActionPerformed
-        JOptionPane.showMessageDialog(null, "Os graus dos vértices são:\n"+grafo.getGrauVertice());
+        String estring = "\n";
+        for (int i=0; i<grafo.getNos().size(); i++) {
+            estring += "Grau(n"+(i+1)+"): "+grafo.getGrauVertice(grafo.getNos().get(i))+"; \n";
+        }
+        JOptionPane.showMessageDialog(null, "Os graus dos vértices são:\n"+estring);
+                
     }//GEN-LAST:event_jBGrauVerticeActionPerformed
 
     private void jBArestasAdjacentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBArestasAdjacentesActionPerformed

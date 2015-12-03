@@ -9,7 +9,9 @@ package grafosxml;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @XStreamAlias("graph")
 public class Grafo {
@@ -86,59 +88,80 @@ public class Grafo {
         return nos.size();
     }
 
-    String getConjuntoVertices() {
+    public String getConjuntoVertices() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getConjuntoArestas() {
+    public String getConjuntoArestas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getIncidenciaArestas() {
+    public String getIncidenciaArestas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getGrauEmissao() {
+    public int getGrauEmissao(No no) {
+        int grau = 0;
+        for(Aresta aresta : this.arestas){
+            if(aresta.getOrigem() == no.getId()){
+                grau++;
+            }
+        }
+        return grau;
+    }
+
+    public int getGrauRecepcao(No no) {
+        int grau = 0;
+        for(Aresta aresta : this.arestas){
+            if(aresta.getDestino() == no.getId()){
+                grau++;
+            }
+        }
+        return grau;
+    }
+
+    public int getGrauVertice(No no) {
+        int grau = 0;
+        for(Aresta aresta : this.arestas){
+            if(aresta.getDestino() == no.getId()){
+                grau++;
+            }
+            if(aresta.getOrigem() == no.getId()){
+                grau++;
+            }
+        }
+        return grau;
+    }
+
+    public String getArestasAdjacentes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getGrauRecepcao() {
+    public String getVerticesAdjacentes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getGrauVertice() {
+    public String getArestasIndependentes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getArestasAdjacentes() {
+    public String getVerticesIndependentes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getVerticesAdjacentes() {
+    public String getVerticesFolhas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getArestasIndependentes() {
+    public String getVerticesTerminais() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getVerticesIndependentes() {
+    public String getVerticesFontes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getVerticesFolhas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    String getVerticesTerminais() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    String getVerticesFontes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    String getVerticesSumidouros() {
+    public String getVerticesSumidouros() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
