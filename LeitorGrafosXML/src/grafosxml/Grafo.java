@@ -89,11 +89,23 @@ public class Grafo {
     }
 
     public String getConjuntoVertices() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String vertices="V={";
+        for (No ver : nos) {
+            String id = ver.getId();
+            vertices = vertices+id+", ";
+        }
+        return vertices+"}";
     }
 
     public String getConjuntoArestas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String conj="a={";
+        for (Aresta are : arestas) {
+            String origem = are.getOrigem();
+            String destino = are.getDestino();
+            String nome = are.getNomeAresta();
+            conj = conj+nome+"("+origem+","+destino+"), ";
+        }
+        return conj+"}";
     }
 
     public String getIncidenciaArestas() {

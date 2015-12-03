@@ -313,11 +313,13 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBOrdemGrafoActionPerformed
 
     private void jBConjuntoVerticesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConjuntoVerticesActionPerformed
-        jtConjuntoVertices.setText(grafo.getConjuntoVertices()+"");
+        String conjuntoVertices = grafo.getConjuntoVertices();
+        jtConjuntoVertices.setText(conjuntoVertices);
     }//GEN-LAST:event_jBConjuntoVerticesActionPerformed
 
     private void jBConjuntoArestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConjuntoArestasActionPerformed
-        jtConjuntoArestas.setText(grafo.getConjuntoArestas()+"");
+        String conjuntoArestas = grafo.getConjuntoArestas();
+        jtConjuntoArestas.setText(conjuntoArestas);
     }//GEN-LAST:event_jBConjuntoArestasActionPerformed
 
     private void jBIncidenciaArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIncidenciaArestaActionPerformed
