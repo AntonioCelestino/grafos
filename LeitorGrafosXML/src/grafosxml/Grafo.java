@@ -92,7 +92,7 @@ public class Grafo {
         String vertices = "V={";
         for (No ver : nos) {
             String id = ver.getId();
-            vertices = vertices + id + ", ";
+            vertices += id + ", ";
         }
         return vertices + "}";
     }
@@ -103,7 +103,7 @@ public class Grafo {
             String origem = are.getOrigem();
             String destino = are.getDestino();
             String nome = are.getNomeAresta();
-            conj = conj + nome + "(" + origem + "," + destino + "), ";
+            conj += nome + "(" + origem + "," + destino + "), ";
         }
         return conj + "}";
     }
@@ -160,19 +160,28 @@ public class Grafo {
         }
         return grau;
     }
-
+    
     public String getArestasAdjacentes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String arestasAd = "";
+        for (No vertice : nos) {
+            arestasAd += "\n Pelo vértice "+vertice.getId()+": ";
+            for (Aresta ares : arestas){
+                if (vertice.getId().equals(ares.getOrigem()) || vertice.getId().equals(ares.getDestino())){
+                    arestasAd += ares.getNomeAresta()+", ";
+                }
+            }
+        }
+        return arestasAd;
     }
 
     public String getVerticesAdjacentes() {
-        String adjacentes = "\n";
+        String verticesAd = "\n";
         for (Aresta are : arestas) {
             String origem = are.getOrigem();
             String destino = are.getDestino();
-            adjacentes = adjacentes + origem + " e " + destino + "\n";
+            verticesAd += origem + " e " + destino + "\n";
         }
-        return adjacentes;
+        return verticesAd;
     }
 
     public String getArestasIndependentes() {
@@ -199,7 +208,7 @@ public class Grafo {
             }
         }
         if (estring == "\n") {
-            estring = "Não há vértices sumidouros !!";
+            estring = "Não há vértices fontes!";
         }
         return estring;
     }
@@ -212,7 +221,7 @@ public class Grafo {
             }
         }
         if (estring == "\n") {
-            estring = "Não há vértices sumidouros !!";
+            estring = "Não há vértices sumidouros!";
         }
         return estring;
     }

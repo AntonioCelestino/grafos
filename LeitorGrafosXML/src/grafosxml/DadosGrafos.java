@@ -325,22 +325,19 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBIncidenciaArestaActionPerformed
 
     private void jBGrauEmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauEmissaoActionPerformed
-        
         JOptionPane.showMessageDialog(null, "Os graus de emissão dos vértices são:\n"+grafo.getMensagemGrau(grafo, "Emissao"));
     }//GEN-LAST:event_jBGrauEmissaoActionPerformed
 
     private void jBGrauRecepcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauRecepcaoActionPerformed
-        
         JOptionPane.showMessageDialog(null, "Os graus de recepção dos vértices são:\n"+grafo.getMensagemGrau(grafo, "Recepcao"));
     }//GEN-LAST:event_jBGrauRecepcaoActionPerformed
 
     private void jBGrauVerticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauVerticeActionPerformed
-        
         JOptionPane.showMessageDialog(null, "Os graus dos vértices são:\n"+grafo.getMensagemGrau(grafo, "Vertice"));       
     }//GEN-LAST:event_jBGrauVerticeActionPerformed
 
     private void jBArestasAdjacentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBArestasAdjacentesActionPerformed
-        JOptionPane.showMessageDialog(null, "Os pares de arestas adjacentes são:\n"+grafo.getArestasAdjacentes());
+        JOptionPane.showMessageDialog(null, "Os Grupos de arestas adjacentes são:\n"+grafo.getArestasAdjacentes());
     }//GEN-LAST:event_jBArestasAdjacentesActionPerformed
 
     private void jBVerticesAdjacentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesAdjacentesActionPerformed
@@ -352,7 +349,6 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBArestasIndependentesActionPerformed
 
     private void jBVerticesIndependentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesIndependentesActionPerformed
-        // algoritmo
         JOptionPane.showMessageDialog(null, "Os vértices independentes são:\n"+grafo.getVerticesIndependentes());
     }//GEN-LAST:event_jBVerticesIndependentesActionPerformed
 
