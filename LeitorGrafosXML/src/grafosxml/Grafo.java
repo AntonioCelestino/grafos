@@ -162,13 +162,19 @@ public class Grafo {
     }
     
     public String getArestasAdjacentes() {
-        String arestasAd = "";
+        String arestasAd="";
+        String subArestAd="";
         for (No vertice : nos) {
-            arestasAd += "\n Pelo vértice "+vertice.getId()+": ";
+            int i=0;
             for (Aresta ares : arestas){
                 if (vertice.getId().equals(ares.getOrigem()) || vertice.getId().equals(ares.getDestino())){
-                    arestasAd += ares.getNomeAresta()+", ";
+                    subArestAd += ares.getNomeAresta()+", ";
+                    i++;
                 }
+            }
+            if(i>1){
+                arestasAd += "\n Pelo vértice "+vertice.getId()+": "+subArestAd;
+                subArestAd="";
             }
         }
         return arestasAd;
