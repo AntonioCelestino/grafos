@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class DadosGrafos extends javax.swing.JFrame {
-    
+
     Grafo grafo;
 
     public DadosGrafos() {
@@ -291,7 +291,7 @@ public class DadosGrafos extends javax.swing.JFrame {
         fileChooser.showOpenDialog(this);
         File xmlFileLer = new File(fileChooser.getSelectedFile().getName());
         jtArqGrafo.setText(fileChooser.getSelectedFile().getName().substring(0, fileChooser.getSelectedFile().getName().lastIndexOf(".")));
-        
+
         XStream xstream = new XStream(new DomDriver());
         xstream.processAnnotations(Grafo.class);
         grafo = (Grafo) xstream.fromXML(xmlFileLer);
@@ -305,11 +305,11 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBFecharActionPerformed
 
     private void jtArqGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtArqGrafoActionPerformed
-        
+
     }//GEN-LAST:event_jtArqGrafoActionPerformed
 
     private void jBOrdemGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOrdemGrafoActionPerformed
-        jtOrdemGrafo.setText(grafo.getOrdem()+"");
+        jtOrdemGrafo.setText(grafo.getOrdem() + "");
     }//GEN-LAST:event_jBOrdemGrafoActionPerformed
 
     private void jBConjuntoVerticesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConjuntoVerticesActionPerformed
@@ -321,51 +321,51 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBConjuntoArestasActionPerformed
 
     private void jBIncidenciaArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIncidenciaArestaActionPerformed
-        JOptionPane.showMessageDialog(null, "As incidências das arestas são:\n"+grafo.getIncidenciaArestas());
+        JOptionPane.showMessageDialog(null, "As incidências das arestas são:\n" + grafo.getIncidenciaArestas());
     }//GEN-LAST:event_jBIncidenciaArestaActionPerformed
 
     private void jBGrauEmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauEmissaoActionPerformed
-        JOptionPane.showMessageDialog(null, "Os graus de emissão dos vértices são:\n"+grafo.getMensagemGrau(grafo, "Emissao"));
+        JOptionPane.showMessageDialog(null, "Os graus de emissão dos vértices são:\n" + grafo.getMensagemGrau(grafo, "Emissao"));
     }//GEN-LAST:event_jBGrauEmissaoActionPerformed
 
     private void jBGrauRecepcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauRecepcaoActionPerformed
-        JOptionPane.showMessageDialog(null, "Os graus de recepção dos vértices são:\n"+grafo.getMensagemGrau(grafo, "Recepcao"));
+        JOptionPane.showMessageDialog(null, "Os graus de recepção dos vértices são:\n" + grafo.getMensagemGrau(grafo, "Recepcao"));
     }//GEN-LAST:event_jBGrauRecepcaoActionPerformed
 
     private void jBGrauVerticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauVerticeActionPerformed
-        JOptionPane.showMessageDialog(null, "Os graus dos vértices são:\n"+grafo.getMensagemGrau(grafo, "Vertice"));       
+        JOptionPane.showMessageDialog(null, "Os graus dos vértices são:\n" + grafo.getMensagemGrau(grafo, "Vertice"));
     }//GEN-LAST:event_jBGrauVerticeActionPerformed
 
     private void jBArestasAdjacentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBArestasAdjacentesActionPerformed
-        JOptionPane.showMessageDialog(null, "Os Grupos de arestas adjacentes são:\n"+grafo.getArestasAdjacentes());
+        JOptionPane.showMessageDialog(null, "Os Grupos de arestas adjacentes são:\n" + grafo.getArestasAdjacentes());
     }//GEN-LAST:event_jBArestasAdjacentesActionPerformed
 
     private void jBVerticesAdjacentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesAdjacentesActionPerformed
-        JOptionPane.showMessageDialog(null, "Os pares de vértices adjacentes são:"+grafo.getVerticesAdjacentes());
+        JOptionPane.showMessageDialog(null, "Os pares de vértices adjacentes são:" + grafo.getVerticesAdjacentes());
     }//GEN-LAST:event_jBVerticesAdjacentesActionPerformed
 
     private void jBArestasIndependentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBArestasIndependentesActionPerformed
-        JOptionPane.showMessageDialog(null, "As arestas independentes são:\n"+grafo.getArestasIndependentes());
+        JOptionPane.showMessageDialog(null, "As arestas independentes são:\n" + grafo.getArestasIndependentes());
     }//GEN-LAST:event_jBArestasIndependentesActionPerformed
 
     private void jBVerticesIndependentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesIndependentesActionPerformed
-        JOptionPane.showMessageDialog(null, "Os vértices independentes são:\n"+grafo.getVerticesIndependentes());
+        JOptionPane.showMessageDialog(null, "Os vértices independentes são:\n" + grafo.getVerticesIndependentes());
     }//GEN-LAST:event_jBVerticesIndependentesActionPerformed
 
     private void jBVerticesFolhasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesFolhasActionPerformed
-        JOptionPane.showMessageDialog(null, "Os vértices folhas são:\n"+grafo.getVerticesFolhas());
+        JOptionPane.showMessageDialog(null, "Os vértices folhas são:\n" + grafo.getVerticesFolhas());
     }//GEN-LAST:event_jBVerticesFolhasActionPerformed
 
     private void jBVerticesTerminaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesTerminaisActionPerformed
-        JOptionPane.showMessageDialog(null, "Os vértices terminais são:\n"+grafo.getVerticesTerminais());
+        JOptionPane.showMessageDialog(null, "Os vértices terminais são:\n" + grafo.getVerticesTerminais(grafo));
     }//GEN-LAST:event_jBVerticesTerminaisActionPerformed
 
     private void jBVerticesFontesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesFontesActionPerformed
-        JOptionPane.showMessageDialog(null, "Os vértices fontes são:\n"+grafo.getVerticesFontes(grafo));
+        JOptionPane.showMessageDialog(null, "Os vértices fontes são:\n" + grafo.getVerticesFontes(grafo));
     }//GEN-LAST:event_jBVerticesFontesActionPerformed
 
     private void jBVerticesSumidourosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesSumidourosActionPerformed
-        JOptionPane.showMessageDialog(null, "Os vértices sumidouros são:\n"+grafo.getVerticesSumidouros(grafo));
+        JOptionPane.showMessageDialog(null, "Os vértices sumidouros são:\n" + grafo.getVerticesSumidouros(grafo));
     }//GEN-LAST:event_jBVerticesSumidourosActionPerformed
 
     /**

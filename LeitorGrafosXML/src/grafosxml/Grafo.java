@@ -160,21 +160,21 @@ public class Grafo {
         }
         return grau;
     }
-    
+
     public String getArestasAdjacentes() {
-        String arestasAd="";
-        String subArestAd="";
+        String arestasAd = "";
+        String subArestAd = "";
         for (No vertice : nos) {
-            int i=0;
-            for (Aresta ares : arestas){
-                if (vertice.getId().equals(ares.getOrigem()) || vertice.getId().equals(ares.getDestino())){
-                    subArestAd += ares.getNomeAresta()+", ";
+            int i = 0;
+            for (Aresta ares : arestas) {
+                if (vertice.getId().equals(ares.getOrigem()) || vertice.getId().equals(ares.getDestino())) {
+                    subArestAd += ares.getNomeAresta() + ", ";
                     i++;
                 }
             }
-            if(i>1){
-                arestasAd += "\n Pelo vértice "+vertice.getId()+": "+subArestAd;
-                subArestAd="";
+            if (i > 1) {
+                arestasAd += "\n Pelo vértice " + vertice.getId() + ": " + subArestAd;
+                subArestAd = "";
             }
         }
         return arestasAd;
@@ -202,8 +202,17 @@ public class Grafo {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getVerticesTerminais() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getVerticesTerminais(Grafo g) {
+        String estring = "\n";
+        for (int i = 0; i < g.getNos().size(); i++) {
+            if (g.getGrauVertice(g.getNos().get(i)) == 1) {
+                estring += "Grau(" + g.getNos().get(i).getId() + ");\n";
+            }
+        }
+        if (estring == "\n") {
+            estring = "Não há vértices terminais !!";
+        }
+        return estring;
     }
 
     public String getVerticesFontes(Grafo g) {
