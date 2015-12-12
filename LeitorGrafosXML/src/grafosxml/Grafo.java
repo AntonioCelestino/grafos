@@ -9,6 +9,7 @@ package grafosxml;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -190,8 +191,62 @@ public class Grafo {
         return verticesAd;
     }
 
+    public class ArestaIndependente {
+        private Aresta aresta1;
+        private Aresta aresta2;
+
+        public ArestaIndependente(Aresta aresta1, Aresta aresta2) {
+            this.aresta1 = aresta1;
+            this.aresta2 = aresta2;
+        }
+
+        public Aresta getAresta1() {
+            return aresta1;
+        }
+
+        public void setAresta1(Aresta aresta1) {
+            this.aresta1 = aresta1;
+        }
+
+        public Aresta getAresta2() {
+            return aresta2;
+        }
+
+        public void setAresta2(Aresta aresta2) {
+            this.aresta2 = aresta2;
+        }
+    }
+    
     public String getArestasIndependentes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String arestasIndependentes = "\n";
+        List<ArestaIndependente> verificaId = new ArrayList<ArestaIndependente>();
+        for (Aresta are1 : arestas) {
+            String id1 = are1.getNomeAresta();
+            String origem1 = are1.getOrigem();
+            String destino1 = are1.getDestino();
+            for (Aresta are2 : arestas){
+                String id2 = are2.getNomeAresta();
+                String origem2 = are2.getOrigem();
+                String destino2 = are2.getDestino();
+                if(origem1 != origem2 && destino1 != destino2 && origem1 != destino1 && origem2 != destino2 && origem1 != destino2 && origem2 != destino1){
+                    boolean b = true;
+                    for (int i=0; i<verificaId.size(); i++) {
+                        if(verificaId.get(i).getAresta1() == are1 && verificaId.get(i).getAresta2() == are2){
+                            b = false;
+                            break;
+                        }
+                    }
+                    if(b == true){
+                        arestasIndependentes += "["+id1+"] " + "{" + origem1 + ", " + destino1 + "}" +" e " + "["+id2+"] " + "{" + origem2 + ", " + destino2 + "}" +"\n";
+                        verificaId.add(new ArestaIndependente(are2, are1));
+                    }
+                }
+            }
+        }
+        if (arestasIndependentes == "\n") {
+            arestasIndependentes = "Não há arestas independentes !!";
+        }
+        return arestasIndependentes;
     }
 
     public String getVerticesIndependentes() {
