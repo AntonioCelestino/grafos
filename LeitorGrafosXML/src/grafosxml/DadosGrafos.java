@@ -321,7 +321,7 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBConjuntoArestasActionPerformed
 
     private void jBIncidenciaArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIncidenciaArestaActionPerformed
-        JOptionPane.showMessageDialog(null, "As incidências das arestas são:\n" + grafo.getIncidenciaArestas());
+        JOptionPane.showMessageDialog(null, "As incidências das arestas são:\n" + grafo.getIncidenciaArestas(grafo));
     }//GEN-LAST:event_jBIncidenciaArestaActionPerformed
 
     private void jBGrauEmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrauEmissaoActionPerformed

@@ -109,8 +109,15 @@ public class Grafo {
         return conj + "}";
     }
 
-    public String getIncidenciaArestas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getIncidenciaArestas(Grafo g) {
+        String incidentes = "\n";
+        for (Aresta are : arestas) {
+            String origem = are.getOrigem();
+            String destino = are.getDestino();
+            String nome = are.getNomeAresta();
+            incidentes += "Aresta: " + nome + " Incidentes: " + origem + " e " + destino + "\n";
+        }
+        return incidentes;
     }
 
     public String getMensagemGrau(Grafo g, String s) {
@@ -192,6 +199,7 @@ public class Grafo {
     }
 
     public class ArestaIndependente {
+
         private Aresta aresta1;
         private Aresta aresta2;
 
@@ -216,7 +224,7 @@ public class Grafo {
             this.aresta2 = aresta2;
         }
     }
-    
+
     public String getArestasIndependentes() {
         String arestasIndependentes = "\n";
         List<ArestaIndependente> verificaId = new ArrayList<ArestaIndependente>();
@@ -224,20 +232,20 @@ public class Grafo {
             String id1 = are1.getNomeAresta();
             String origem1 = are1.getOrigem();
             String destino1 = are1.getDestino();
-            for (Aresta are2 : arestas){
+            for (Aresta are2 : arestas) {
                 String id2 = are2.getNomeAresta();
                 String origem2 = are2.getOrigem();
                 String destino2 = are2.getDestino();
-                if(origem1 != origem2 && destino1 != destino2 && origem1 != destino1 && origem2 != destino2 && origem1 != destino2 && origem2 != destino1){
+                if (origem1 != origem2 && destino1 != destino2 && origem1 != destino1 && origem2 != destino2 && origem1 != destino2 && origem2 != destino1) {
                     boolean b = true;
-                    for (int i=0; i<verificaId.size(); i++) {
-                        if(verificaId.get(i).getAresta1() == are1 && verificaId.get(i).getAresta2() == are2){
+                    for (int i = 0; i < verificaId.size(); i++) {
+                        if (verificaId.get(i).getAresta1() == are1 && verificaId.get(i).getAresta2() == are2) {
                             b = false;
                             break;
                         }
                     }
-                    if(b == true){
-                        arestasIndependentes += "["+id1+"] " + "{" + origem1 + ", " + destino1 + "}" +" e " + "["+id2+"] " + "{" + origem2 + ", " + destino2 + "}" +"\n";
+                    if (b == true) {
+                        arestasIndependentes += "[" + id1 + "] " + "{" + origem1 + ", " + destino1 + "}" + " e " + "[" + id2 + "] " + "{" + origem2 + ", " + destino2 + "}" + "\n";
                         verificaId.add(new ArestaIndependente(are2, are1));
                     }
                 }
