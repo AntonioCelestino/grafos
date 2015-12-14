@@ -261,8 +261,20 @@ public class Grafo {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getVerticesFolhas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getVerticesIsolados() {
+        String isolados = "";
+        for (No vertice : nos) {
+            int i=0;
+            for (Aresta ares : arestas) {
+                if (vertice.getId().equals(ares.getOrigem()) || vertice.getId().equals(ares.getDestino())){
+                    i++;
+                }
+            }
+            if(i == 0){
+                isolados += "\n vértice " + vertice.getId();
+            }
+        }
+        return isolados;
     }
 
     public String getVerticesTerminais(Grafo g) {

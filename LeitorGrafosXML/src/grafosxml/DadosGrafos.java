@@ -33,7 +33,7 @@ public class DadosGrafos extends javax.swing.JFrame {
         jBIncidenciaAresta = new javax.swing.JButton();
         jBGrauVertice = new javax.swing.JButton();
         jBArestasIndependentes = new javax.swing.JButton();
-        jBVerticesFolhas = new javax.swing.JButton();
+        jBVerticesIsolados = new javax.swing.JButton();
         jBAbrirGrafo = new javax.swing.JButton();
         jtArqGrafo = new javax.swing.JTextField();
         jBGrauRecepcao = new javax.swing.JButton();
@@ -107,10 +107,10 @@ public class DadosGrafos extends javax.swing.JFrame {
             }
         });
 
-        jBVerticesFolhas.setText("Vértices folhas");
-        jBVerticesFolhas.addActionListener(new java.awt.event.ActionListener() {
+        jBVerticesIsolados.setText("Vértices isolados");
+        jBVerticesIsolados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBVerticesFolhasActionPerformed(evt);
+                jBVerticesIsoladosActionPerformed(evt);
             }
         });
 
@@ -199,7 +199,7 @@ public class DadosGrafos extends javax.swing.JFrame {
                     .addComponent(jBFechar)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jBVerticesFolhas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBVerticesIsolados, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jBGrauEmissao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jBGrauVertice, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -261,7 +261,7 @@ public class DadosGrafos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBVerticesTerminais)
-                    .addComponent(jBVerticesFolhas))
+                    .addComponent(jBVerticesIsolados))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBGrauRecepcao)
@@ -352,9 +352,9 @@ public class DadosGrafos extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Os vértices independentes são:\n" + grafo.getVerticesIndependentes());
     }//GEN-LAST:event_jBVerticesIndependentesActionPerformed
 
-    private void jBVerticesFolhasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesFolhasActionPerformed
-        JOptionPane.showMessageDialog(null, "Os vértices folhas são:\n" + grafo.getVerticesFolhas());
-    }//GEN-LAST:event_jBVerticesFolhasActionPerformed
+    private void jBVerticesIsoladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesIsoladosActionPerformed
+        JOptionPane.showMessageDialog(null, "Os vértices isolados são:" + grafo.getVerticesIsolados());
+    }//GEN-LAST:event_jBVerticesIsoladosActionPerformed
 
     private void jBVerticesTerminaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesTerminaisActionPerformed
         JOptionPane.showMessageDialog(null, "Os vértices terminais são:\n" + grafo.getVerticesTerminais(grafo));
@@ -416,9 +416,9 @@ public class DadosGrafos extends javax.swing.JFrame {
     private javax.swing.JButton jBIncidenciaAresta;
     private javax.swing.JButton jBOrdemGrafo;
     private javax.swing.JButton jBVerticesAdjacentes;
-    private javax.swing.JButton jBVerticesFolhas;
     private javax.swing.JButton jBVerticesFontes;
     private javax.swing.JButton jBVerticesIndependentes;
+    private javax.swing.JButton jBVerticesIsolados;
     private javax.swing.JButton jBVerticesSumidouros;
     private javax.swing.JButton jBVerticesTerminais;
     private javax.swing.JScrollPane jScrollPane1;
