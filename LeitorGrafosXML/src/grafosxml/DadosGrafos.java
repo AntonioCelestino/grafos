@@ -353,7 +353,7 @@ public class DadosGrafos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBVerticesIndependentesActionPerformed
 
     private void jBVerticesIsoladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesIsoladosActionPerformed
-        JOptionPane.showMessageDialog(null, "Os vértices isolados são:" + grafo.getVerticesIsolados());
+        JOptionPane.showMessageDialog(null, "Os vértices isolados são:" + grafo.getVerticesIsolados(grafo));
     }//GEN-LAST:event_jBVerticesIsoladosActionPerformed
 
     private void jBVerticesTerminaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerticesTerminaisActionPerformed

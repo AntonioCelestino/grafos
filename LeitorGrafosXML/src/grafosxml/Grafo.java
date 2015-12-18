@@ -261,27 +261,24 @@ public class Grafo {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getVerticesIsolados() {
-        String isolados = "";
-        for (No vertice : nos) {
-            int i=0;
-            for (Aresta ares : arestas) {
-                if (vertice.getId().equals(ares.getOrigem()) || vertice.getId().equals(ares.getDestino())){
-                    i++;
-                }
-            }
-            if(i == 0){
-                isolados += "\n vértice " + vertice.getId();
+    public String getVerticesIsolados(Grafo g) {
+        String estring = "\n";
+        for (int i = 0; i < g.getNos().size(); i++) {
+            if (g.getGrauVertice(g.getNos().get(i)) == 0) {
+                estring += "Vértice (" + g.getNos().get(i).getId() + ");\n";
             }
         }
-        return isolados;
+        if (estring == "\n") {
+            estring = "Não há vértices isolados !!";
+        }
+        return estring;
     }
 
     public String getVerticesTerminais(Grafo g) {
         String estring = "\n";
         for (int i = 0; i < g.getNos().size(); i++) {
             if (g.getGrauVertice(g.getNos().get(i)) == 1) {
-                estring += "Grau(" + g.getNos().get(i).getId() + ");\n";
+                estring += "Vértice (" + g.getNos().get(i).getId() + ");\n";
             }
         }
         if (estring == "\n") {
@@ -294,7 +291,7 @@ public class Grafo {
         String estring = "\n";
         for (int i = 0; i < g.getNos().size(); i++) {
             if (g.getGrauRecepcao(g.getNos().get(i)) == 0 && g.getGrauEmissao(g.getNos().get(i)) != 0) {
-                estring += "Grau(" + g.getNos().get(i).getId() + ");\n";
+                estring += "Vértice (" + g.getNos().get(i).getId() + ");\n";
             }
         }
         if (estring == "\n") {
@@ -307,7 +304,7 @@ public class Grafo {
         String estring = "\n";
         for (int i = 0; i < g.getNos().size(); i++) {
             if (g.getGrauRecepcao(g.getNos().get(i)) != 0 && g.getGrauEmissao(g.getNos().get(i)) == 0) {
-                estring += "Grau(" + g.getNos().get(i).getId() + ");\n";
+                estring += "Vértice (" + g.getNos().get(i).getId() + ");\n";
             }
         }
         if (estring == "\n") {
