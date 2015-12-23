@@ -9,6 +9,7 @@ package grafosxml;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,9 +28,10 @@ public class Grafo {
     private List<No> nos;
     @XStreamImplicit(itemFieldName = "edge")
     private List<Aresta> arestas;
+    @XStreamOmitField
     private int[][] matriz;
-    String getConjVertices;
-
+    //private int[][] matrizI;
+    
     public Grafo(String id, String tipo, List<No> nos, List<Aresta> arestas) {
         this.id = id;
         this.tipo = tipo;
@@ -38,7 +40,7 @@ public class Grafo {
         geraMatriz();
     }
 
-    private void geraMatriz() {
+    public void geraMatriz() {
         int Qtdenos = nos.size();
         matriz = new int[Qtdenos][Qtdenos];
         for (int i = 0; i < Qtdenos; i++) {
@@ -50,8 +52,29 @@ public class Grafo {
             int posO = nos.indexOf(new No(are.getOrigem()));
             int posD = nos.indexOf(new No(are.getDestino()));
             matriz[posO][posD] = 1;
+            if (tipo.equals("undirected")){
+                matriz[posD][posO] = 1;
+            }
         }
     }
+    
+    /*public void geraMatrizIncidencia() {
+        int Qtdenos = nos.size();
+        int Qtarestas = arestas.size();
+        matrizI = new int[Qtdenos][Qtarestas];
+        for (int i = 0; i < Qtdenos; i++) {
+            for (int j = 0; j < Qtarestas; j++) {
+                matrizI[i][j] = 0;
+            }
+        }
+        for (Aresta are : arestas) {
+            int posV = nos.indexOf(new No(are.));
+            int posA = arestas.indexOf(new Aresta());
+            if (tipo.equals("undirected")){
+                matriz[posV][posA] = 1;
+            }
+        }
+    }*/ // FALTA TERMINAR ESSE CÓDIGO !!!!!
 
     public String getId() {
         return id;
@@ -224,7 +247,7 @@ public class Grafo {
             this.aresta2 = aresta2;
         }
     }
-
+    
     public String getArestasIndependentes() {
         String arestasIndependentes = "\n";
         List<ArestaIndependente> verificaId = new ArrayList<ArestaIndependente>();
@@ -256,11 +279,23 @@ public class Grafo {
         }
         return arestasIndependentes;
     }
-
-    public String getVerticesIndependentes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public String getVerticesIndependentes(){
+        String verticesIndependentes = "\n";
+        for (int i = 0; i < nos.size(); i++) {
+            verticesIndependentes += "\n"+nos.get(i).getId()+" independente de: ";
+            for (int j = 0; j < nos.size(); j++) {
+                if(matriz[i][j] == 0 && i != j){
+                    verticesIndependentes += nos.get(j).getId()+", ";
+                }
+            }
+        }
+        if (verticesIndependentes == "\n") {
+            verticesIndependentes = "Não há vértices independentes !!";
+        }
+        return verticesIndependentes;
     }
-
+    
     public String getVerticesIsolados(Grafo g) {
         String estring = "\n";
         for (int i = 0; i < g.getNos().size(); i++) {
