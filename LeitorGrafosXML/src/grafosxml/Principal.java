@@ -16,10 +16,13 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuCadastrar = new javax.swing.JMenu();
         jMenuItemCriaGrafos = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenuEstatisticas = new javax.swing.JMenu();
         jMenuItemDados = new javax.swing.JMenuItem();
@@ -38,6 +41,11 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuCadastrar.add(jMenuItemCriaGrafos);
         jMenuCadastrar.add(jSeparator1);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Visualizar Grafo");
+        jMenuCadastrar.add(jMenuItem1);
+        jMenuCadastrar.add(jSeparator3);
 
         jMenuItemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemSair.setText("Sair");
@@ -136,9 +144,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuCadastrar;
     private javax.swing.JMenu jMenuEditar;
     private javax.swing.JMenu jMenuEstatisticas;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemCriaGrafos;
     private javax.swing.JMenuItem jMenuItemDados;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     // End of variables declaration//GEN-END:variables
 }
