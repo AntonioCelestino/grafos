@@ -5,11 +5,18 @@
  */
 package grafosxml;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import java.io.File;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author Antonio
  */
 public class DesignGrafo extends javax.swing.JFrame {
+
+    Grafo grafo;
 
     /**
      * Creates new form DesignGrafo
@@ -60,6 +67,8 @@ public class DesignGrafo extends javax.swing.JFrame {
                 jBAbrirActionPerformed(evt);
             }
         });
+
+        jTNomeGrafo.setEditable(false);
 
         jBAdVertice.setText("Adicionar Vértice");
 
@@ -128,7 +137,17 @@ public class DesignGrafo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAbrirActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(this);
+        File xmlFileLer = new File(fileChooser.getSelectedFile().getName());
+        jTNomeGrafo.setText(fileChooser.getSelectedFile().getName().substring(0, fileChooser.getSelectedFile().getName().lastIndexOf(".")));
+
+        XStream xstream = new XStream(new DomDriver());
+        xstream.processAnnotations(Grafo.class);
+        grafo = (Grafo) xstream.fromXML(xmlFileLer);
+        grafo.geraMatriz();
+        String xml = xstream.toXML(grafo);
+        System.out.println(xml);
     }//GEN-LAST:event_jBAbrirActionPerformed
 
     private void jBFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFecharActionPerformed

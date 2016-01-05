@@ -112,6 +112,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTNomeGrafo">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jBAdVertice">
       <Properties>
