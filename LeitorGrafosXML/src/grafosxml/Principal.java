@@ -21,7 +21,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuCadastrar = new javax.swing.JMenu();
         jMenuItemCriaGrafos = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemVisualizar = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenuEstatisticas = new javax.swing.JMenu();
@@ -42,9 +42,14 @@ public class Principal extends javax.swing.JFrame {
         jMenuCadastrar.add(jMenuItemCriaGrafos);
         jMenuCadastrar.add(jSeparator1);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Visualizar Grafo");
-        jMenuCadastrar.add(jMenuItem1);
+        jMenuItemVisualizar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemVisualizar.setText("Visualizar Grafo");
+        jMenuItemVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemVisualizarActionPerformed(evt);
+            }
+        });
+        jMenuCadastrar.add(jMenuItemVisualizar);
         jMenuCadastrar.add(jSeparator3);
 
         jMenuItemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
@@ -104,6 +109,11 @@ public class Principal extends javax.swing.JFrame {
         tm.setVisible(true);
     }//GEN-LAST:event_jMenuItemDadosActionPerformed
 
+    private void jMenuItemVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVisualizarActionPerformed
+        DesignGrafo tm = new DesignGrafo();
+        tm.setVisible(true);
+    }//GEN-LAST:event_jMenuItemVisualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -144,10 +154,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuCadastrar;
     private javax.swing.JMenu jMenuEditar;
     private javax.swing.JMenu jMenuEstatisticas;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemCriaGrafos;
     private javax.swing.JMenuItem jMenuItemDados;
     private javax.swing.JMenuItem jMenuItemSair;
+    private javax.swing.JMenuItem jMenuItemVisualizar;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
