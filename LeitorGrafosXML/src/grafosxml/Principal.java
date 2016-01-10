@@ -110,7 +110,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemDadosActionPerformed
 
     private void jMenuItemVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVisualizarActionPerformed
-        DesignGrafo tm = new DesignGrafo();
+        GrafoView tm = new GrafoView();
         tm.setVisible(true);
     }//GEN-LAST:event_jMenuItemVisualizarActionPerformed
 

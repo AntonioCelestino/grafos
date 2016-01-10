@@ -21,11 +21,21 @@ public class Aresta {
     @XStreamAlias("name")
     @XStreamAsAttribute
     private String nomeAresta;
+    private String valorAresta;
 
-    public Aresta( String nomeAresta, String origem, String destino) {
+    public Aresta( String nomeAresta, String valorAresta, String origem, String destino) {
         this.nomeAresta = nomeAresta;
+        this.valorAresta = valorAresta;
         this.origem = origem;
         this.destino = destino;
+    }
+
+    public String getValorAresta() {
+        return valorAresta;
+    }
+
+    public void setValorAresta(String valorAresta) {
+        this.valorAresta = valorAresta;
     }
 
     public String getOrigem() {
