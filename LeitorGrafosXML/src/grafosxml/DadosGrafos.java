@@ -19,6 +19,7 @@ public class DadosGrafos extends javax.swing.JFrame {
 
     public DadosGrafos() {
         initComponents();
+        setLocationRelativeTo(null);// deixa a janela no centro da tela
     }
 
     @SuppressWarnings("unchecked")

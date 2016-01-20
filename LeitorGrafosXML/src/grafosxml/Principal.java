@@ -10,6 +10,7 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
+        setLocationRelativeTo(null);// deixa a janela no centro da tela
     }
 
     @SuppressWarnings("unchecked")

@@ -25,16 +25,43 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class GrafoView extends javax.swing.JFrame {
 
     Grafo grafo;
-    final mxGraph graph = new mxGraph();
-    mxGraphComponent graphComponent;
-    Object v1;
+    
+    List<No> listaNos = new ArrayList<No>();
+    List<Aresta> listaArestas = new ArrayList<Aresta>();
+    String nomeAresta;
+    String origemAresta;
+    String destinoAresta;
+    
+    protected static mxGraph graph = new mxGraph();
+    protected static HashMap m = new HashMap();
+    private mxGraphComponent graphComponent;
+    //private JTextField texto;
+    //private JButton botaoAdd;
+    //private JButton botaoDel;
+    //private JButton botaoLigar;
+    private mxCell cell = null;	
+
+    public static HashMap getM() {
+            return m;
+    }
+    
+    public static mxGraph getGraph() {
+            return graph;
+    }
+    
     Object parent;
 
     /**
@@ -42,7 +69,7 @@ public class GrafoView extends javax.swing.JFrame {
      */
     public GrafoView() {
         initComponents();
-        
+        setLocationRelativeTo(null); // deixa a janela no centro da tela
         
         parent = graph.getDefaultParent();
         graphComponent = new mxGraphComponent(graph);
@@ -54,10 +81,11 @@ public class GrafoView extends javax.swing.JFrame {
 
         graphComponent.getGraphControl().addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
-                Object cell = graphComponent.getCellAt(e.getX(), e.getY());
+                cell =  (mxCell) graphComponent.getCellAt(e.getX(), e.getY());
+                /*
                 if (cell != null) {
                     JOptionPane.showMessageDialog(null, "Vértice: "+((mxCell)cell).getValue());
-                }
+                }*/
             }
         });
         getContentPane().setBackground(Color.white);
@@ -80,17 +108,17 @@ public class GrafoView extends javax.swing.JFrame {
         popupMenu = new javax.swing.JPopupMenu();
         Remover = new javax.swing.JMenuItem();
         abc = new javax.swing.JMenuItem();
-        jButton1 = new javax.swing.JButton();
+        jButtonVisualizar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        jButtonLimparTela = new javax.swing.JButton();
         jBAbrirGrafo = new javax.swing.JButton();
         jTNomeGrafo = new javax.swing.JTextField();
         jBFechar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        jButtonAddVertice = new javax.swing.JButton();
+        jButtonRemoveVertice = new javax.swing.JButton();
+        jButtonAddAresta = new javax.swing.JButton();
+        jButtonRemoveAresta = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
 
         Remover.setText("Remover");
         Remover.addActionListener(new java.awt.event.ActionListener() {
@@ -115,10 +143,10 @@ public class GrafoView extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Visualizar Grafo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonVisualizar.setText("Visualizar Grafo");
+        jButtonVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonVisualizarActionPerformed(evt);
             }
         });
 
@@ -126,10 +154,10 @@ public class GrafoView extends javax.swing.JFrame {
         jPanel1.setComponentPopupMenu(popupMenu);
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 10));
 
-        jButton5.setText("Limpar Tela");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButtonLimparTela.setText("Limpar Tela");
+        jButtonLimparTela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButtonLimparTelaActionPerformed(evt);
             }
         });
 
@@ -149,15 +177,40 @@ public class GrafoView extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Adicionar Nó");
+        jButtonAddVertice.setText("Adicionar Nó");
+        jButtonAddVertice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddVerticeActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Remover Nó");
+        jButtonRemoveVertice.setText("Remover Nó");
+        jButtonRemoveVertice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveVerticeActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("Adicionar Aresta");
+        jButtonAddAresta.setText("Adicionar Aresta");
+        jButtonAddAresta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddArestaActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("Remover Aresta");
+        jButtonRemoveAresta.setText("Remover Aresta");
+        jButtonRemoveAresta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveArestaActionPerformed(evt);
+            }
+        });
 
-        jButton8.setText("Salvar Grafo");
+        jButtonSalvar.setText("Salvar Grafo");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,19 +225,19 @@ public class GrafoView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton8)
+                        .addComponent(jButtonSalvar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5))
+                        .addComponent(jButtonLimparTela))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(jButtonAddVertice)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
+                        .addComponent(jButtonRemoveVertice)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6)
+                        .addComponent(jButtonAddAresta)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton7)
+                        .addComponent(jButtonRemoveAresta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBFechar)))
                 .addContainerGap())
@@ -196,18 +249,18 @@ public class GrafoView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBAbrirGrafo)
                     .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton5)
-                    .addComponent(jButton8))
+                    .addComponent(jButtonVisualizar)
+                    .addComponent(jButtonLimparTela)
+                    .addComponent(jButtonSalvar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBFechar)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
+                    .addComponent(jButtonAddVertice)
+                    .addComponent(jButtonRemoveVertice)
+                    .addComponent(jButtonAddAresta)
+                    .addComponent(jButtonRemoveAresta))
                 .addGap(70, 70, 70))
         );
 
@@ -216,25 +269,27 @@ public class GrafoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
         graph.getModel().beginUpdate();
         try {
-            mxStylesheet stylesheet = this.graph.getStylesheet();
+            mxStylesheet stylesheet = GrafoView.getGraph().getStylesheet();
             Hashtable<String, Object> style = new Hashtable();
             style.put(mxConstants.STYLE_SHAPE, "ellipse");
-            style.put(mxConstants.STYLE_OPACITY, Integer.valueOf(50));
+            style.put(mxConstants.STYLE_OPACITY, 50);
             style.put(mxConstants.STYLE_FONTCOLOR, "#774400");
             style.put(mxConstants.STYLE_FILLCOLOR, Color.LIGHT_GRAY);
             stylesheet.putCellStyle("ROUNDED", style);
             //style.put(mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ELBOW);
             //stylesheet.putCellStyle("aresta", style);
             
-            String nomeNo =""; String origem =""; String destino =""; String valor ="";
+            String nomeNo ="";
             int p1=0; int p2=20; int i=2;
 
             for (No vertice : grafo.getNos()){
                 nomeNo = vertice.getId();
-                this.graph.insertVertex(parent, null, nomeNo, p1, p2, 50, 50, "ROUNDED");
+                mxCell v1 = (mxCell) GrafoView.getGraph().insertVertex(parent, null, nomeNo, p1, p2, 50, 50, "ROUNDED");
+                v1.setValue(nomeNo);
+                GrafoView.getM().put(nomeNo, v1);
                 i++;
                 if(i%2==0){
                     p1+=60; p2=20;
@@ -243,53 +298,26 @@ public class GrafoView extends javax.swing.JFrame {
                     p1+=60; p2=150;
                 }
             }
-            /*
+            
             for (Aresta aresta : grafo.getArestas()){
-                origem = aresta.getOrigem();
-                destino = aresta.getDestino();
-                valor = aresta.getValorAresta();
-                graph.insertEdge(parent, null, valor, (Object) origem, (Object) destino, "aresta");
-            }*/
+                
+                Object parent1 = GrafoView.getGraph().getDefaultParent();
+                Object v1 = GrafoView.getM().get(aresta.getOrigem());
+                Object v2 = GrafoView.getM().get(aresta.getDestino());
 
-        } finally {
-            graph.getModel().endUpdate();
-        }
-        graph.getModel().beginUpdate();
-        try {
-            String v1 = "";
-            String v2 = "";
-            String valor = "";
-            for (Aresta aresta : grafo.getArestas()){
-                    v1 = aresta.getOrigem();
-                    v2 = aresta.getDestino();
-                    valor = aresta.getValorAresta();
-                    Object[] vertices = graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight()));
-                    mxCell vo = null, vf = null;
-                    for (Object o : vertices) {
-                        mxCell v = (mxCell) o;
-                        if (v1.equals(v.getValue().toString())) {
-                            vo = (v);
-                        }
-                        if (v2.equals(v.getValue().toString())) {
-                            vf = (v);
-                        }
-                    }
-                        mxStylesheet stylesheet = this.graph.getStylesheet();
-                        Hashtable<String, Object> style = new Hashtable();
-                        style.put(mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ELBOW);
-                        stylesheet.putCellStyle("aresta", style);
-                        graph.insertEdge(parent, null, valor, (Object) vo, (Object) vf, "aresta");
+                GrafoView.getGraph().insertEdge(parent1, null, aresta.getNomeAresta(), v1, v2);
             }
+
         } finally {
             graph.getModel().endUpdate();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonVisualizarActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButtonLimparTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparTelaActionPerformed
         //Object[] vertices = graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight()));
 
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButtonLimparTelaActionPerformed
 
     private void RemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverActionPerformed
         // TODO add your handling code here:
@@ -321,11 +349,89 @@ public class GrafoView extends javax.swing.JFrame {
         grafo.geraMatriz();
         String xml = xstream.toXML(grafo);
         System.out.println(xml);
+        
+        listaNos.clear();
+        listaArestas.clear();
+        
+        for (No n : grafo.getNos()) {
+            listaNos.add(n);
+        }
+        
+        for (Aresta a : grafo.getArestas()) {
+            listaArestas.add(a);
+        }
     }//GEN-LAST:event_jBAbrirGrafoActionPerformed
 
     private void jBFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFecharActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jBFecharActionPerformed
+
+    private void jButtonAddVerticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddVerticeActionPerformed
+        graph.getModel().beginUpdate();
+        String nome = "";
+        try {
+            nome = JOptionPane.showInputDialog("Nome do vértice");
+
+            mxStylesheet stylesheet = GrafoView.getGraph().getStylesheet();
+            Hashtable<String, Object> style = new Hashtable();
+            style.put(mxConstants.STYLE_SHAPE, "ellipse");
+            style.put(mxConstants.STYLE_OPACITY, 50);
+            style.put(mxConstants.STYLE_FONTCOLOR, "#774400");
+            style.put(mxConstants.STYLE_FILLCOLOR, Color.LIGHT_GRAY);
+            stylesheet.putCellStyle("ROUNDED", style);
+            mxCell v1 = (mxCell) GrafoView.getGraph().insertVertex(parent, null, nome, 20, 20, 50, 50, "ROUNDED");
+            v1.setValue(nome);
+            GrafoView.getM().put(nome, v1);
+        } finally {
+            graph.getModel().endUpdate();
+        }
+        
+        listaNos.add(new No(nome));
+    }//GEN-LAST:event_jButtonAddVerticeActionPerformed
+
+    private void jButtonRemoveVerticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveVerticeActionPerformed
+        graph.getModel().remove(cell);
+        listaNos.remove(new No((String) cell.getValue()));
+        //FALTA VERIFICAR SE O NO POSSUI ARESTAS E REMOVE-LAS
+        cell = null;
+    }//GEN-LAST:event_jButtonRemoveVerticeActionPerformed
+
+    private void jButtonAddArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddArestaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAddArestaActionPerformed
+
+    private void jButtonRemoveArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveArestaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRemoveArestaActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        XStream xstream = new XStream(new DomDriver());
+        xstream.processAnnotations(Grafo.class);
+
+        Grafo g = new Grafo("G", grafo.getTipo(), listaNos, listaArestas);
+        
+        System.out.println(xstream.toXML(g));
+        String xml = xstream.toXML(g);
+
+        g = null;
+
+        g = (Grafo) xstream.fromXML(xml);
+
+        try {
+
+            File xmlFile = new File(jTNomeGrafo.getText() + ".xml");
+            xstream.toXML(g, new FileWriter(xmlFile));
+        } catch (IOException ex) {
+            System.out.println("Erro ao Gravar Arquivo");
+        }
+        graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));//LIMPA A TELA DEPOIS DE SALVAR
+        listaArestas.clear();
+        listaNos.clear();
+        grafo = null;
+        jTNomeGrafo.setText("");
+        //numeroAresta = 0;
+        JOptionPane.showMessageDialog(null, "Dados Salvos com Sucesso");
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -380,13 +486,13 @@ public class GrafoView extends javax.swing.JFrame {
     private javax.swing.JMenuItem abc;
     private javax.swing.JButton jBAbrirGrafo;
     private javax.swing.JButton jBFechar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButtonAddAresta;
+    private javax.swing.JButton jButtonAddVertice;
+    private javax.swing.JButton jButtonLimparTela;
+    private javax.swing.JButton jButtonRemoveAresta;
+    private javax.swing.JButton jButtonRemoveVertice;
+    private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JButton jButtonVisualizar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTNomeGrafo;
     private javax.swing.JPopupMenu popupMenu;

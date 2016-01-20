@@ -35,6 +35,7 @@ public class TelaMain extends javax.swing.JFrame {
 
     public TelaMain() {
         initComponents();
+        setLocationRelativeTo(null);// deixa a janela no centro da tela
     }
 
     @SuppressWarnings("unchecked")
