@@ -394,8 +394,12 @@ public class GrafoView extends javax.swing.JFrame {
 
     private void jButtonRemoveVerticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveVerticeActionPerformed
         graph.getModel().remove(cell);
+        for(Aresta are : listaArestas){
+            if(are.getOrigem().equals((String) cell.getValue()) || are.getDestino().equals((String) cell.getValue())){
+                listaArestas.remove(new Aresta(are.getNomeAresta(), are.getValorAresta(), are.getOrigem(), are.getDestino()));
+            }
+        }
         listaNos.remove(new No((String) cell.getValue()));
-        //FALTA VERIFICAR SE O NO POSSUI ARESTAS E REMOVE-LAS
         cell = null;
     }//GEN-LAST:event_jButtonRemoveVerticeActionPerformed
 
@@ -424,9 +428,6 @@ public class GrafoView extends javax.swing.JFrame {
         try {
             mxStylesheet stylesheet = this.graph.getStylesheet();
             Hashtable<String, Object> style = new Hashtable();
-            style.put(mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ELBOW);
-            stylesheet.putCellStyle("aresta", style);
-            //graph.insertEdge(parent, null, nome, (Object) vo, (Object) vf, "aresta");
             graph.insertEdge(parent, valor, nome, (Object) vo, (Object) vf, "aresta");
         } finally {
             graph.getModel().endUpdate();
@@ -438,7 +439,14 @@ public class GrafoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddArestaActionPerformed
 
     private void jButtonRemoveArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveArestaActionPerformed
-        // TODO add your handling code here:
+        graph.getModel().remove(cell);
+        for(Aresta are : listaArestas){
+            if(are.getNomeAresta().equals((String) cell.getValue())){
+                listaArestas.remove(new Aresta(are.getNomeAresta(), are.getValorAresta(), are.getOrigem(), are.getDestino()));
+                break;
+            }
+        }
+        cell = null;
     }//GEN-LAST:event_jButtonRemoveArestaActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed

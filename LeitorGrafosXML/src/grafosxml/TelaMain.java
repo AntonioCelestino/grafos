@@ -161,11 +161,11 @@ public class TelaMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "Vértice origem", "Vértice destino"
+                "Nome", "Valor", "Origem", "Destino"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -451,7 +451,7 @@ public class TelaMain extends javax.swing.JFrame {
         destinoAresta = jtDestino.getText();
         DefaultTableModel linha = (DefaultTableModel) jtbArestas.getModel();
         listaArestas.add(new Aresta(nomeAresta, valorAresta, origemAresta, destinoAresta));
-        linha.addRow(new String[]{nomeAresta, origemAresta, destinoAresta});
+        linha.addRow(new String[]{nomeAresta, valorAresta, origemAresta, destinoAresta});
         jtNome.setText("");
         jtOrigem.setText("");
         jtDestino.setText("");
