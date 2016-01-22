@@ -27,6 +27,8 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenuEstatisticas = new javax.swing.JMenu();
         jMenuItemDados = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenuAlgoritmos = new javax.swing.JMenuItem();
         jMenuEditar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,6 +76,16 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenuEstatisticas.add(jMenuItemDados);
+        jMenuEstatisticas.add(jSeparator4);
+
+        jMenuAlgoritmos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuAlgoritmos.setText("Algoritmos");
+        jMenuAlgoritmos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAlgoritmosActionPerformed(evt);
+            }
+        });
+        jMenuEstatisticas.add(jMenuAlgoritmos);
 
         jMenuBar1.add(jMenuEstatisticas);
 
@@ -115,6 +127,11 @@ public class Principal extends javax.swing.JFrame {
         tm.setVisible(true);
     }//GEN-LAST:event_jMenuItemVisualizarActionPerformed
 
+    private void jMenuAlgoritmosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAlgoritmosActionPerformed
+        Algoritmos tm = new Algoritmos();
+        tm.setVisible(true);
+    }//GEN-LAST:event_jMenuAlgoritmosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -151,6 +168,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuAlgoritmos;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastrar;
     private javax.swing.JMenu jMenuEditar;
@@ -162,5 +180,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     // End of variables declaration//GEN-END:variables
 }
