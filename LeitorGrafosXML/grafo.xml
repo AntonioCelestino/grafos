@@ -1,4 +1,4 @@
-<graph id="G" edgedefault="undirected">
+<graph id="grafo" edgedefault="directed">
   <node id="n1"/>
   <node id="n2"/>
   <node id="n3"/>
@@ -6,9 +6,34 @@
   <node id="n5"/>
   <node id="n6"/>
   <node id="n7"/>
-  <edge source="n1" target="n2" name="A"/>
-  <edge source="n3" target="n4" name="B"/>
-  <edge source="n2" target="n3" name="C"/>
-  <edge source="n1" target="n4" name="D"/>
-  <edge source="n5" target="n6" name="E"/>
+  <edge source="n1" target="n2" name="A:4">
+    <valorAresta>4</valorAresta>
+  </edge>
+  <edge source="n2" target="n3" name="B:3">
+    <valorAresta>3</valorAresta>
+  </edge>
+  <edge source="n3" target="n4" name="C:5">
+    <valorAresta>5</valorAresta>
+  </edge>
+  <edge source="n4" target="n5" name="D:2">
+    <valorAresta>2</valorAresta>
+  </edge>
+  <edge source="n5" target="n6" name="E:6">
+    <valorAresta>6</valorAresta>
+  </edge>
+  <edge source="n4" target="n6" name="F:3">
+    <valorAresta>3</valorAresta>
+  </edge>
+  <edge source="n3" target="n5" name="G:4">
+    <valorAresta>4</valorAresta>
+  </edge>
+  <edge source="n5" target="n7" name="H:1">
+    <valorAresta>1</valorAresta>
+  </edge>
+  <edge source="n1" target="n3" name="I:6">
+    <valorAresta>6</valorAresta>
+  </edge>
+  <edge source="n2" target="n4" name="J:3">
+    <valorAresta>3</valorAresta>
+  </edge>
 </graph>

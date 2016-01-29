@@ -332,8 +332,8 @@ public class TelaMain extends javax.swing.JFrame {
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         XStream xstream = new XStream(new DomDriver());
         xstream.processAnnotations(Grafo.class);
-
-        Grafo g = new Grafo("G", "directed", listaNos, listaArestas);
+        String nomeGrafo = jtNomeGrafo.getText();
+        Grafo g = new Grafo(nomeGrafo, "directed", listaNos, listaArestas);
         if (jRadioButton1.isSelected()) {
             g.setTipo("directed");
         }
@@ -349,7 +349,7 @@ public class TelaMain extends javax.swing.JFrame {
 
         try {
 
-            File xmlFile = new File(jtNomeGrafo.getText() + ".xml");
+            File xmlFile = new File(nomeGrafo+".xml");
             xstream.toXML(g, new FileWriter(xmlFile));
         } catch (IOException ex) {
             System.out.println("Erro ao Gravar Arquivo");

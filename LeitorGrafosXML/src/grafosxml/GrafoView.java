@@ -108,7 +108,6 @@ public class GrafoView extends javax.swing.JFrame {
         popupMenu = new javax.swing.JPopupMenu();
         Remover = new javax.swing.JMenuItem();
         abc = new javax.swing.JMenuItem();
-        jButtonVisualizar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButtonLimparTela = new javax.swing.JButton();
         jBAbrirGrafo = new javax.swing.JButton();
@@ -119,6 +118,7 @@ public class GrafoView extends javax.swing.JFrame {
         jButtonAddAresta = new javax.swing.JButton();
         jButtonRemoveAresta = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
+        jButtonVisualizar = new javax.swing.JButton();
 
         Remover.setText("Remover");
         Remover.addActionListener(new java.awt.event.ActionListener() {
@@ -140,13 +140,6 @@ public class GrafoView extends javax.swing.JFrame {
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
-            }
-        });
-
-        jButtonVisualizar.setText("Visualizar Grafo");
-        jButtonVisualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVisualizarActionPerformed(evt);
             }
         });
 
@@ -212,6 +205,13 @@ public class GrafoView extends javax.swing.JFrame {
             }
         });
 
+        jButtonVisualizar.setText("Visualizar Grafo");
+        jButtonVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVisualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -224,8 +224,8 @@ public class GrafoView extends javax.swing.JFrame {
                         .addComponent(jBAbrirGrafo)
                         .addGap(18, 18, 18)
                         .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jButtonVisualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonSalvar)
                         .addGap(18, 18, 18)
@@ -249,9 +249,9 @@ public class GrafoView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBAbrirGrafo)
                     .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonVisualizar)
                     .addComponent(jButtonLimparTela)
-                    .addComponent(jButtonSalvar))
+                    .addComponent(jButtonSalvar)
+                    .addComponent(jButtonVisualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -268,53 +268,6 @@ public class GrafoView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
-    private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
-        graph.getModel().beginUpdate();
-        try {
-            mxStylesheet stylesheet = GrafoView.getGraph().getStylesheet();
-            Hashtable<String, Object> style = new Hashtable();
-            style.put(mxConstants.STYLE_SHAPE, "ellipse");
-            style.put(mxConstants.STYLE_OPACITY, 50);
-            style.put(mxConstants.STYLE_FONTCOLOR, "#774400");
-            style.put(mxConstants.STYLE_FILLCOLOR, Color.LIGHT_GRAY);
-            stylesheet.putCellStyle("ROUNDED", style);
-            //style.put(mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ELBOW);
-            //stylesheet.putCellStyle("aresta", style);
-
-            String nomeNo = "";
-            int p1 = 0;
-            int p2 = 20;
-            int i = 2;
-
-            for (No vertice : grafo.getNos()) {
-                nomeNo = vertice.getId();
-                mxCell v1 = (mxCell) GrafoView.getGraph().insertVertex(parent, null, nomeNo, p1, p2, 50, 50, "ROUNDED");
-                v1.setValue(nomeNo);
-                GrafoView.getM().put(nomeNo, v1);
-                i++;
-                if (i % 2 == 0) {
-                    p1 += 60;
-                    p2 = 20;
-                } else {
-                    p1 += 60;
-                    p2 = 150;
-                }
-            }
-
-            for (Aresta aresta : grafo.getArestas()) {
-
-                Object parent1 = GrafoView.getGraph().getDefaultParent();
-                Object v1 = GrafoView.getM().get(aresta.getOrigem());
-                Object v2 = GrafoView.getM().get(aresta.getDestino());
-
-                GrafoView.getGraph().insertEdge(parent1, null, aresta.getNomeAresta(), v1, v2);
-            }
-
-        } finally {
-            graph.getModel().endUpdate();
-        }
-    }//GEN-LAST:event_jButtonVisualizarActionPerformed
 
     private void jButtonLimparTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparTelaActionPerformed
         //Object[] vertices = graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight()));
@@ -366,6 +319,7 @@ public class GrafoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jBAbrirGrafoActionPerformed
 
     private void jBFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFecharActionPerformed
+        graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         setVisible(false);
     }//GEN-LAST:event_jBFecharActionPerformed
 
@@ -477,6 +431,50 @@ public class GrafoView extends javax.swing.JFrame {
         //numeroAresta = 0;
         JOptionPane.showMessageDialog(null, "Dados Salvos com Sucesso");
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
+        graph.getModel().beginUpdate();
+        try {
+            mxStylesheet stylesheet = GrafoView.getGraph().getStylesheet();
+            Hashtable<String, Object> style = new Hashtable();
+            style.put(mxConstants.STYLE_SHAPE, "ellipse");
+            style.put(mxConstants.STYLE_OPACITY, 50);
+            style.put(mxConstants.STYLE_FONTCOLOR, "#774400");
+            style.put(mxConstants.STYLE_FILLCOLOR, Color.LIGHT_GRAY);
+            stylesheet.putCellStyle("ROUNDED", style);
+            String nomeNo = "";
+            int p1 = 0;
+            int p2 = 20;
+            int i = 2;
+
+            for (No vertice : grafo.getNos()) {
+                nomeNo = vertice.getId();
+                mxCell v1 = (mxCell) GrafoView.getGraph().insertVertex(parent, null, nomeNo, p1, p2, 50, 50, "ROUNDED");
+                v1.setValue(nomeNo);
+                GrafoView.getM().put(nomeNo, v1);
+                i++;
+                if (i % 2 == 0) {
+                    p1 += 60;
+                    p2 = 20;
+                } else {
+                    p1 += 60;
+                    p2 = 150;
+                }
+            }
+
+            for (Aresta aresta : grafo.getArestas()) {
+
+                Object parent1 = GrafoView.getGraph().getDefaultParent();
+                Object v1 = GrafoView.getM().get(aresta.getOrigem());
+                Object v2 = GrafoView.getM().get(aresta.getDestino());
+
+                GrafoView.getGraph().insertEdge(parent1, null, aresta.getNomeAresta(), v1, v2);
+            }
+
+        } finally {
+            graph.getModel().endUpdate();
+        }
+    }//GEN-LAST:event_jButtonVisualizarActionPerformed
 
     /**
      * @param args the command line arguments

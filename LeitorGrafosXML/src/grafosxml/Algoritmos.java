@@ -92,7 +92,6 @@ public class Algoritmos extends javax.swing.JFrame {
         popupMenu = new javax.swing.JPopupMenu();
         Remover = new javax.swing.JMenuItem();
         abc = new javax.swing.JMenuItem();
-        jButtonVisualizar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButtonLimparTela = new javax.swing.JButton();
         jBAbrirGrafo = new javax.swing.JButton();
@@ -127,13 +126,6 @@ public class Algoritmos extends javax.swing.JFrame {
             }
         });
 
-        jButtonVisualizar.setText("Visualizar Grafo");
-        jButtonVisualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVisualizarActionPerformed(evt);
-            }
-        });
-
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setComponentPopupMenu(popupMenu);
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 10));
@@ -162,10 +154,25 @@ public class Algoritmos extends javax.swing.JFrame {
         });
 
         jBDijkstra.setText("Dijkstra");
+        jBDijkstra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBDijkstraActionPerformed(evt);
+            }
+        });
 
         jBKruskal.setText("Kruskal");
+        jBKruskal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBKruskalActionPerformed(evt);
+            }
+        });
 
         jBPrim.setText("Prim");
+        jBPrim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPrimActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("outro");
 
@@ -182,9 +189,7 @@ public class Algoritmos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBAbrirGrafo)
                         .addGap(18, 18, 18)
-                        .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonLimparTela))
                     .addGroup(layout.createSequentialGroup()
@@ -208,7 +213,6 @@ public class Algoritmos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBAbrirGrafo)
                     .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonVisualizar)
                     .addComponent(jButtonLimparTela))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,52 +231,7 @@ public class Algoritmos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
-    private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
-        graph.getModel().beginUpdate();
-        try {
-            mxStylesheet stylesheet = Algoritmos.getGraph().getStylesheet();
-            Hashtable<String, Object> style = new Hashtable();
-            style.put(mxConstants.STYLE_SHAPE, "ellipse");
-            style.put(mxConstants.STYLE_OPACITY, 50);
-            style.put(mxConstants.STYLE_FONTCOLOR, "#774400");
-            style.put(mxConstants.STYLE_FILLCOLOR, Color.LIGHT_GRAY);
-            stylesheet.putCellStyle("ROUNDED", style);
-
-            String nomeNo = "";
-            int p1 = 0;
-            int p2 = 20;
-            int i = 2;
-
-            for (No vertice : grafo.getNos()) {
-                nomeNo = vertice.getId();
-                mxCell v1 = (mxCell) Algoritmos.getGraph().insertVertex(parent, null, nomeNo, p1, p2, 50, 50, "ROUNDED");
-                v1.setValue(nomeNo);
-                Algoritmos.getM().put(nomeNo, v1);
-                i++;
-                if (i % 2 == 0) {
-                    p1 += 60;
-                    p2 = 20;
-                } else {
-                    p1 += 60;
-                    p2 = 150;
-                }
-            }
-
-            for (Aresta aresta : grafo.getArestas()) {
-
-                Object parent1 = Algoritmos.getGraph().getDefaultParent();
-                Object v1 = Algoritmos.getM().get(aresta.getOrigem());
-                Object v2 = Algoritmos.getM().get(aresta.getDestino());
-
-                Algoritmos.getGraph().insertEdge(parent1, null, aresta.getNomeAresta(), v1, v2);
-            }
-
-        } finally {
-            graph.getModel().endUpdate();
-        }
-    }//GEN-LAST:event_jButtonVisualizarActionPerformed
-
+   
     private void jButtonLimparTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparTelaActionPerformed
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
     }//GEN-LAST:event_jButtonLimparTelaActionPerformed
@@ -282,9 +241,7 @@ public class Algoritmos extends javax.swing.JFrame {
     }//GEN-LAST:event_RemoverActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-
         graphComponent.setPreferredSize(new Dimension(jPanel1.getWidth() - 10, jPanel1.getHeight() - 10));
-
         graphComponent.validate();
         graphComponent.repaint();
         jPanel1.validate();
@@ -300,29 +257,81 @@ public class Algoritmos extends javax.swing.JFrame {
         fileChooser.showOpenDialog(this);
         File xmlFileLer = new File(fileChooser.getSelectedFile().getName());
         jTNomeGrafo.setText(fileChooser.getSelectedFile().getName().substring(0, fileChooser.getSelectedFile().getName().lastIndexOf(".")));
-
         XStream xstream = new XStream(new DomDriver());
         xstream.processAnnotations(Grafo.class);
         grafo = (Grafo) xstream.fromXML(xmlFileLer);
         grafo.geraMatriz();
         String xml = xstream.toXML(grafo);
         System.out.println(xml);
-
         listaNos.clear();
         listaArestas.clear();
 
         for (No n : grafo.getNos()) {
             listaNos.add(n);
         }
-
         for (Aresta a : grafo.getArestas()) {
             listaArestas.add(a);
         }
+        grafo.setNos(listaNos);
+        grafo.setArestas(listaArestas);
+        grafo.mostraGrafoDesign(grafo);
     }//GEN-LAST:event_jBAbrirGrafoActionPerformed
 
     private void jBFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFecharActionPerformed
+        graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         setVisible(false);
     }//GEN-LAST:event_jBFecharActionPerformed
+
+    private void jBKruskalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBKruskalActionPerformed
+        
+        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO.
+        String nome = "-kruskal";
+        Grafo g = grafo.copiaGrafo(grafo, nome);
+        
+        // PARTE 2: LIMPA A TELA.
+        graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
+        
+        // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
+        
+        
+        // PARTE 4: VISUALIZA O NOVO GRAFO.
+        g.mostraGrafoDesign(g);
+        jTNomeGrafo.setText(g.getId());
+    }//GEN-LAST:event_jBKruskalActionPerformed
+
+    private void jBDijkstraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDijkstraActionPerformed
+        
+        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO.
+        String nome = "-dijkstra";
+        Grafo g = grafo.copiaGrafo(grafo, nome);
+        
+        // PARTE 2: LIMPA A TELA.
+        graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
+        
+        // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
+        
+        
+        // PARTE 4: VISUALIZA O NOVO GRAFO.
+        g.mostraGrafoDesign(g);
+        jTNomeGrafo.setText(g.getId());
+    }//GEN-LAST:event_jBDijkstraActionPerformed
+
+    private void jBPrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPrimActionPerformed
+        
+        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO.
+        String nome = "-prim";
+        Grafo g = grafo.copiaGrafo(grafo, nome);
+        
+        // PARTE 2: LIMPA A TELA.
+        graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
+        
+        // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
+        
+        
+        // PARTE 4: VISUALIZA O NOVO GRAFO.
+        g.mostraGrafoDesign(g);
+        jTNomeGrafo.setText(g.getId());
+    }//GEN-LAST:event_jBPrimActionPerformed
 
     /**
      * @param args the command line arguments
@@ -391,7 +400,6 @@ public class Algoritmos extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButtonLimparTela;
-    private javax.swing.JButton jButtonVisualizar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTNomeGrafo;
     private javax.swing.JPopupMenu popupMenu;

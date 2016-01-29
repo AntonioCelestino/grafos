@@ -24,7 +24,7 @@ public class Aresta {
     private String valorAresta;
 
     public Aresta( String nomeAresta, String valorAresta, String origem, String destino) {
-        this.nomeAresta = nomeAresta;
+        this.nomeAresta = nomeAresta+":"+valorAresta;
         this.valorAresta = valorAresta;
         this.origem = origem;
         this.destino = destino;

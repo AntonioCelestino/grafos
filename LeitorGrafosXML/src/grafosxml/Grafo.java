@@ -6,12 +6,23 @@
  */
 package grafosxml;
 
+import com.mxgraph.model.mxCell;
+import com.mxgraph.util.mxConstants;
+import com.mxgraph.view.mxStylesheet;
+import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import static grafosxml.Algoritmos.graph;
+import java.awt.Color;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +42,7 @@ public class Grafo {
     @XStreamOmitField
     private int[][] matriz;
     //private int[][] matrizI;
+    Object parent;
     
     public Grafo(String id, String tipo, List<No> nos, List<Aresta> arestas) {
         this.id = id;
@@ -110,6 +122,71 @@ public class Grafo {
 
     public int getOrdem() {
         return nos.size();
+    }
+    
+    public Grafo copiaGrafo(Grafo grafo, String nome){
+        List<No> listaNos2 = new ArrayList<No>();
+        List<Aresta> listaArestas2 = new ArrayList<Aresta>();
+        XStream xstream = new XStream(new DomDriver());
+        xstream.processAnnotations(Grafo.class);
+        for (No n : grafo.getNos()) {
+            listaNos2.add(n);
+        }
+        for (Aresta a : grafo.getArestas()) {
+            listaArestas2.add(a);
+        }
+        Grafo g = new Grafo(grafo.getId()+nome, "directed", listaNos2, listaArestas2);
+        System.out.println(xstream.toXML(g));
+        String xml = xstream.toXML(g);
+        g = null;
+        g = (Grafo) xstream.fromXML(xml);
+        try {
+            File xmlFile = new File(g.getId()+".xml");
+            xstream.toXML(g, new FileWriter(xmlFile));
+        } catch (IOException ex) {
+            System.out.println("Erro ao Gravar Arquivo");
+        }
+        return g;
+    }
+    
+    public void mostraGrafoDesign(Grafo grafo){
+        graph.getModel().beginUpdate();
+        try {
+            mxStylesheet stylesheet = Algoritmos.getGraph().getStylesheet();
+            Hashtable<String, Object> style = new Hashtable();
+            style.put(mxConstants.STYLE_SHAPE, "ellipse");
+            style.put(mxConstants.STYLE_OPACITY, 50);
+            style.put(mxConstants.STYLE_FONTCOLOR, "#774400");
+            style.put(mxConstants.STYLE_FILLCOLOR, Color.LIGHT_GRAY);
+            stylesheet.putCellStyle("ROUNDED", style);
+            String nomeNo = "";
+            int p1 = 0;
+            int p2 = 20;
+            int i = 2;
+
+            for (No vertice : grafo.getNos()) {
+                nomeNo = vertice.getId();
+                mxCell v1 = (mxCell) Algoritmos.getGraph().insertVertex(parent, null, nomeNo, p1, p2, 50, 50, "ROUNDED");
+                v1.setValue(nomeNo);
+                Algoritmos.getM().put(nomeNo, v1);
+                i++;
+                if (i % 2 == 0) {
+                    p1 += 60;
+                    p2 = 20;
+                } else {
+                    p1 += 60;
+                    p2 = 150;
+                }
+            }
+            for (Aresta aresta : grafo.getArestas()) {
+                Object parent1 = Algoritmos.getGraph().getDefaultParent();
+                Object v1 = Algoritmos.getM().get(aresta.getOrigem());
+                Object v2 = Algoritmos.getM().get(aresta.getDestino());
+                Algoritmos.getGraph().insertEdge(parent1, null, aresta.getNomeAresta(), v1, v2);
+            }
+        } finally {
+            graph.getModel().endUpdate();
+        }
     }
 
     public String getConjuntoVertices() {
