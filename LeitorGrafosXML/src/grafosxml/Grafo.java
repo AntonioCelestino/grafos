@@ -1,6 +1,6 @@
 /*
  Trabalho de Teoria dos Grafos
- Equipe: Antonio Celestino, Nathan Manera e Pedro Ferreira
+ Equipe: Antonio Celestino, Nathan Manera, Pedro Ferreira e Rafael Paiva
  Professor: Daves Martins
  4º Período BSI - IF Sudeste MG Juiz de Fora
  */
@@ -127,8 +127,6 @@ public class Grafo {
     public Grafo copiaGrafo(Grafo grafo, String nome){
         List<No> listaNos2 = new ArrayList<No>();
         List<Aresta> listaArestas2 = new ArrayList<Aresta>();
-        XStream xstream = new XStream(new DomDriver());
-        xstream.processAnnotations(Grafo.class);
         for (No n : grafo.getNos()) {
             listaNos2.add(n);
         }
@@ -136,17 +134,23 @@ public class Grafo {
             listaArestas2.add(a);
         }
         Grafo g = new Grafo(grafo.getId()+nome, "directed", listaNos2, listaArestas2);
-        System.out.println(xstream.toXML(g));
-        String xml = xstream.toXML(g);
-        g = null;
-        g = (Grafo) xstream.fromXML(xml);
+        return g;
+    }
+    
+    public void salvaGrafo(Grafo grafo){
+        XStream xstream = new XStream(new DomDriver());
+        xstream.processAnnotations(Grafo.class);
+        System.out.println(xstream.toXML(grafo));
+        String xml = xstream.toXML(grafo);
+        
+        grafo = null;
+        grafo = (Grafo) xstream.fromXML(xml);
         try {
-            File xmlFile = new File(g.getId()+".xml");
-            xstream.toXML(g, new FileWriter(xmlFile));
+            File xmlFile = new File(grafo.getId()+".xml");
+            xstream.toXML(grafo, new FileWriter(xmlFile));
         } catch (IOException ex) {
             System.out.println("Erro ao Gravar Arquivo");
         }
-        return g;
     }
     
     public void mostraGrafoDesign(Grafo grafo){

@@ -1,6 +1,6 @@
 /*
  Trabalho de Teoria dos Grafos
- Equipe: Antonio Celestino, Nathan Manera e Pedro Ferreira
+ Equipe: Antonio Celestino, Nathan Manera, Pedro Ferreira e Rafael Paiva
  Professor: Daves Martins
  4º Período BSI - IF Sudeste MG Juiz de Fora
  */
@@ -283,11 +283,9 @@ public class Algoritmos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBFecharActionPerformed
 
     private void jBKruskalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBKruskalActionPerformed
-        
-        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO.
+        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
         String nome = "-kruskal";
-        Grafo g = grafo.copiaGrafo(grafo, nome);
-        
+        Grafo g = grafo.copiaGrafo(grafo, nome);   
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         
@@ -296,15 +294,15 @@ public class Algoritmos extends javax.swing.JFrame {
         
         // PARTE 4: VISUALIZA O NOVO GRAFO.
         g.mostraGrafoDesign(g);
-        jTNomeGrafo.setText(g.getId());
+        jTNomeGrafo.setText(g.getId());    
+        // PARTE 5: SALVA O GRAFO EM XML.
+        g.salvaGrafo(g);
     }//GEN-LAST:event_jBKruskalActionPerformed
 
     private void jBDijkstraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDijkstraActionPerformed
-        
-        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO.
+        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
         String nome = "-dijkstra";
-        Grafo g = grafo.copiaGrafo(grafo, nome);
-        
+        Grafo g = grafo.copiaGrafo(grafo, nome);   
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         
@@ -313,15 +311,15 @@ public class Algoritmos extends javax.swing.JFrame {
         
         // PARTE 4: VISUALIZA O NOVO GRAFO.
         g.mostraGrafoDesign(g);
-        jTNomeGrafo.setText(g.getId());
+        jTNomeGrafo.setText(g.getId());    
+        // PARTE 5: SALVA O GRAFO EM XML.
+        g.salvaGrafo(g);
     }//GEN-LAST:event_jBDijkstraActionPerformed
 
     private void jBPrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPrimActionPerformed
-        
-        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO.
+        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
         String nome = "-prim";
         Grafo g = grafo.copiaGrafo(grafo, nome);
-        
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         
@@ -331,6 +329,8 @@ public class Algoritmos extends javax.swing.JFrame {
         // PARTE 4: VISUALIZA O NOVO GRAFO.
         g.mostraGrafoDesign(g);
         jTNomeGrafo.setText(g.getId());
+        // PARTE 5: SALVA O GRAFO EM XML.
+        g.salvaGrafo(g);
     }//GEN-LAST:event_jBPrimActionPerformed
 
     /**

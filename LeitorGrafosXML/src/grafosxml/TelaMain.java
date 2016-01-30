@@ -1,6 +1,6 @@
 /*
  Trabalho de Teoria dos Grafos
- Equipe: Antonio Celestino, Nathan Manera e Pedro Ferreira
+ Equipe: Antonio Celestino, Nathan Manera, Pedro Ferreira e Rafael Paiva
  Professor: Daves Martins
  4º Período BSI - IF Sudeste MG Juiz de Fora
  */
@@ -342,13 +342,9 @@ public class TelaMain extends javax.swing.JFrame {
         }
         System.out.println(xstream.toXML(g));
         String xml = xstream.toXML(g);
-
         g = null;
-
         g = (Grafo) xstream.fromXML(xml);
-
         try {
-
             File xmlFile = new File(nomeGrafo+".xml");
             xstream.toXML(g, new FileWriter(xmlFile));
         } catch (IOException ex) {
@@ -359,15 +355,12 @@ public class TelaMain extends javax.swing.JFrame {
             listaNos.remove(0);
             linhaN.removeRow(0);
         }
-
         DefaultTableModel linhaA = (DefaultTableModel) jtbArestas.getModel();
         while (linhaA.getRowCount() != 0) {
             listaArestas.remove(0);
             linhaA.removeRow(0);
         }
-
         jtNomeGrafo.setText("");
-        //numeroAresta = 0;
         JOptionPane.showMessageDialog(null, "Dados Salvos com Sucesso");
     }//GEN-LAST:event_jbSalvarActionPerformed
 
