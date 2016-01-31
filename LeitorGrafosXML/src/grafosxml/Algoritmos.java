@@ -22,6 +22,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -324,11 +325,150 @@ public class Algoritmos extends javax.swing.JFrame {
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         
         // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
-        
+        List<Aresta> t = new ArrayList<Aresta>();                               //T: conjunto de arestas da árvore geradora mínima
+        List<Aresta> arestasPossiveis = new ArrayList<Aresta>();                //AP: conjunto de arestas que se tornaram potenciais candidatas a entrarem conjunto T
+        List<Aresta> arestasOriginais = new ArrayList<Aresta>(listaArestas);    //AO: conjunto de arestas do grafo original que ainda não se tornaram ou já viraram candidatas para entrarem no conjunto T
+        List<No> v = new ArrayList<No>(listaNos);                               //V: conjunto de vértices do grafo original sem os vértices que já estão no conjunto B
+        List<No> b = new ArrayList<No>();                                       //B: conjunto de vértices da árvore geradora mínima
+        b.add(listaNos.get(0));
+        v.remove(v.get(0));
+        while(b.size() <= listaNos.size()){
+            for (Aresta are : arestasOriginais) {   //esse 'for' procura as arestas do último vértice adicionado ao conjunto B
+                if(are.getOrigem().equals(b.get(b.size()-1).getId()) || are.getDestino().equals(b.get(b.size()-1).getId())){ 
+                    if(t.isEmpty()) {
+                        arestasPossiveis.add(are);
+                    } else {
+                        for (No nov : v) {
+                            if(nov.getId() == are.getOrigem()){
+                                for (No nob : b) {
+                                    if(nob.getId() == are.getDestino()){
+                                        arestasPossiveis.add(are);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        for (No nov : v) {
+                            if(nov.getId() == are.getDestino()){
+                                for (No nob : b) {
+                                    if(nob.getId() == are.getOrigem()){
+                                        arestasPossiveis.add(are);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            boolean bw = true;
+            boolean bo = false;
+            boolean bd = false;
+            while(bw == true){                      //esse 'while' remove do conjunto AP e AO, as arestas que possuem ambos os vértices
+                bw = false;                         //já incluídos no conjunto B, ou seja, remove do conjunto AP e AO as arestas que estão fechando circuito.
+                for (Aresta aresPos : arestasPossiveis) {
+                    String ao = aresPos.getOrigem();
+                    String ad = aresPos.getDestino();
+                    for (No no1 : b) {
+                        if(no1.getId() == ao){
+                            bo = true;
+                            break;
+                        }else{bw = false; bo = false;}
+                    }
+                    
+                    for (No no2 : b) {
+                        if(no2.getId() == ad){
+                           bd = true;
+                           break;
+                        }else{bw = false; bd = false;}
+                    }
+                    
+                    if(bo == true && bd == true){
+                        arestasPossiveis.remove(aresPos);
+                        bw = true;
+                        for (Aresta a : arestasOriginais) {
+                            if(aresPos.getNomeAresta() == a.getNomeAresta() && aresPos.getValorAresta() == a.getValorAresta() && aresPos.getOrigem() == a.getOrigem() && aresPos.getDestino() == a.getDestino()){
+                                arestasOriginais.remove(a);
+                                break;
+                            }
+                        }
+                        break;
+                    }else{bw = false; bo = false; bd = false;}
+                }
+                if(bw == false){break;}
+            }
+            
+            if(arestasPossiveis.size() > 0){
+                int valorMenor = parseInt(arestasPossiveis.get(0).getValorAresta());//esse trecho do algoritmo adiciona ao conjunto T a aresta do conjunto AP que tiver o menor getValorAresta()  
+                for (Aresta aresPos : arestasPossiveis) {                           
+                    if(parseInt(aresPos.getValorAresta()) < valorMenor){
+                        valorMenor = parseInt(aresPos.getValorAresta());
+                    }
+                }
+                for (Aresta aresPos : arestasPossiveis) {
+                    if(parseInt(aresPos.getValorAresta()) == valorMenor){           //e quando adicionada ao conjunto T, é removida do conjunto AP e AO, pois já foi eleita aresta do conjunto T
+                        t.add(new Aresta(aresPos.getNomeAresta(), aresPos.getValorAresta(), aresPos.getOrigem(), aresPos.getDestino()));
+                        for (Aresta a : arestasPossiveis) {
+                            if(aresPos.getNomeAresta() == a.getNomeAresta() && aresPos.getValorAresta() == a.getValorAresta() && aresPos.getOrigem() == a.getOrigem() && aresPos.getDestino() == a.getDestino()){
+                                arestasPossiveis.remove(a);
+                                break;
+                            }
+                        }
+                        for (Aresta a : arestasOriginais) {
+                            if(aresPos.getNomeAresta() == a.getNomeAresta() && aresPos.getValorAresta() == a.getValorAresta() && aresPos.getOrigem() == a.getOrigem() && aresPos.getDestino() == a.getDestino()){
+                                arestasOriginais.remove(a);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            
+            if(b.size() < listaNos.size()){                     //esse trecho do algoritmo adiciona ao conjunto B o vértice (um dos vértices da última aresta adicionada ao conjunto T) 
+                String ao = t.get(t.size()-1).getOrigem();      //que está ainda no conjunto V, e depois de adicionar no conjunto B remove-o do conjunto V
+                String ad = t.get(t.size()-1).getDestino();
+                for (No nov : v) {
+                    if(nov.getId() == ao){
+                        for (No nob : b) {
+                            if(nob.getId() == ad){
+                                b.add(new No(ao));
+                                v.remove(new No(ao));
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                for (No nov : v) {
+                    if(nov.getId() == ad){
+                        for (No nob : b) {
+                            if(nob.getId() == ao){
+                                b.add(new No(ad));
+                                v.remove(new No(ad));
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }else{
+                break;  //quando todos os vértices do conjunto V estão no conjunto B o 'while' se encerra e depois é mostrado as arestas que foram para o conjunto T
+            }
+        }
+        String T = "{";
+        for (Aresta ares : t) {
+            T += ares.getNomeAresta()+", ";
+        }
+        T += "}";
+        g.getArestas().clear();
+        g.setArestas(t);
         
         // PARTE 4: VISUALIZA O NOVO GRAFO.
         g.mostraGrafoDesign(g);
         jTNomeGrafo.setText(g.getId());
+        JOptionPane.showMessageDialog(null, "Conjunto de arestas da árvore geradora mínima:\n"+T);
         // PARTE 5: SALVA O GRAFO EM XML.
         g.salvaGrafo(g);
     }//GEN-LAST:event_jBPrimActionPerformed

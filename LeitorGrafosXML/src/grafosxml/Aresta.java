@@ -21,6 +21,8 @@ public class Aresta {
     @XStreamAlias("name")
     @XStreamAsAttribute
     private String nomeAresta;
+    @XStreamAlias("value")  
+    @XStreamAsAttribute
     private String valorAresta;
 
     public Aresta( String nomeAresta, String valorAresta, String origem, String destino) {

@@ -403,7 +403,7 @@ public class TelaMain extends javax.swing.JFrame {
 
         for (Aresta a : g.getArestas()) {
             listaArestas.add(a);
-            linhaA.addRow(new String[]{a.getNomeAresta(), a.getOrigem(), a.getDestino()});
+            linhaA.addRow(new String[]{a.getNomeAresta(), a.getValorAresta(), a.getOrigem(), a.getDestino()});
         }
     }//GEN-LAST:event_jbMostrarActionPerformed
 

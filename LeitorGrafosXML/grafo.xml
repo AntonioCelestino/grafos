@@ -1,39 +1,39 @@
-<graph id="grafo" edgedefault="directed">
-  <node id="n1"/>
-  <node id="n2"/>
-  <node id="n3"/>
-  <node id="n4"/>
-  <node id="n5"/>
-  <node id="n6"/>
-  <node id="n7"/>
-  <edge source="n1" target="n2" name="A:4">
-    <valorAresta>4</valorAresta>
-  </edge>
-  <edge source="n2" target="n3" name="B:3">
-    <valorAresta>3</valorAresta>
-  </edge>
-  <edge source="n3" target="n4" name="C:5">
-    <valorAresta>5</valorAresta>
-  </edge>
-  <edge source="n4" target="n5" name="D:2">
-    <valorAresta>2</valorAresta>
-  </edge>
-  <edge source="n5" target="n6" name="E:6">
-    <valorAresta>6</valorAresta>
-  </edge>
-  <edge source="n4" target="n6" name="F:3">
-    <valorAresta>3</valorAresta>
-  </edge>
-  <edge source="n3" target="n5" name="G:4">
-    <valorAresta>4</valorAresta>
-  </edge>
-  <edge source="n5" target="n7" name="H:1">
-    <valorAresta>1</valorAresta>
-  </edge>
-  <edge source="n1" target="n3" name="I:6">
-    <valorAresta>6</valorAresta>
-  </edge>
-  <edge source="n2" target="n4" name="J:3">
-    <valorAresta>3</valorAresta>
-  </edge>
+<graph id="grafo" edgedefault="undirected">
+  
+<node id="n1"/>
+  
+<node id="n2"/>
+  
+<node id="n3"/>
+  
+<node id="n4"/>
+  
+<node id="n5"/>
+  
+<node id="n6"/>
+  
+<node id="n7"/>
+  
+<edge source="n1" target="n2" name="A:4" value="4"/>
+  
+<edge source="n2" target="n3" name="B:3" value="3"/>
+  
+<edge source="n3" target="n4" name="C:5" value="5"/>
+  
+<edge source="n4" target="n5" name="D:2" value="2"/>
+  
+<edge source="n5" target="n6" name="E:6" value="6"/>
+  
+<edge source="n4" target="n6" name="F:3" value="3"/>
+  
+<edge source="n3" target="n5" name="G:4" value="4"/>
+  
+<edge source="n5" target="n7" name="H:1" value="1"/>
+  
+<edge source="n1" target="n3" name="I:6" value="6"/>
+  
+<edge source="n2" target="n4" name="J:3" value="3"/>
+  
+<edge source="n7" target="n6" name="K:1" value="1"/>
+
 </graph>

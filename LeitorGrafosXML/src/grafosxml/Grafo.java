@@ -41,7 +41,7 @@ public class Grafo {
     private List<Aresta> arestas;
     @XStreamOmitField
     private int[][] matriz;
-    //private int[][] matrizI;
+    private int[][] matrizI;
     Object parent;
     
     public Grafo(String id, String tipo, List<No> nos, List<Aresta> arestas) {
@@ -70,23 +70,37 @@ public class Grafo {
         }
     }
     
-    /*public void geraMatrizIncidencia() {
-        int Qtdenos = nos.size();
+    public void geraMatrizIncidencia() {
         int Qtarestas = arestas.size();
-        matrizI = new int[Qtdenos][Qtarestas];
-        for (int i = 0; i < Qtdenos; i++) {
-            for (int j = 0; j < Qtarestas; j++) {
+        int Qtdenos = nos.size();
+        matrizI = new int[Qtarestas][Qtdenos];
+        for (int i = 0; i < Qtarestas; i++) {
+            for (int j = 0; j < Qtdenos; j++) {
                 matrizI[i][j] = 0;
             }
         }
-        for (Aresta are : arestas) {
-            int posV = nos.indexOf(new No(are.));
-            int posA = arestas.indexOf(new Aresta());
-            if (tipo.equals("undirected")){
-                matriz[posV][posA] = 1;
+        for (Aresta are : arestas){
+            for (No no : nos) {
+                int posA = arestas.indexOf(are.getNomeAresta());
+                int posV = nos.indexOf(no.getId());
+                
+                if(tipo.equals("directed")){
+                    if(nos.indexOf(new No(are.getDestino())) == posV){
+                        matrizI[posA][posV] = 1;
+                    }
+
+                    if(nos.indexOf(new No(are.getOrigem())) == posV){
+                        matrizI[posA][posV] = -1;
+                    }
+                }
+                if (tipo.equals("undirected")){
+                    if(nos.indexOf(new No(are.getDestino())) == posV || nos.indexOf(new No(are.getOrigem())) == posV){
+                        matrizI[posA][posV] = 1;
+                    }
+                }
             }
         }
-    }*/ // FALTA TERMINAR ESSE CÓDIGO !!!!!
+    }
 
     public String getId() {
         return id;
@@ -133,7 +147,7 @@ public class Grafo {
         for (Aresta a : grafo.getArestas()) {
             listaArestas2.add(a);
         }
-        Grafo g = new Grafo(grafo.getId()+nome, "directed", listaNos2, listaArestas2);
+        Grafo g = new Grafo(grafo.getId()+nome, grafo.getTipo(), listaNos2, listaArestas2);
         return g;
     }
     
@@ -164,7 +178,7 @@ public class Grafo {
             style.put(mxConstants.STYLE_FILLCOLOR, Color.LIGHT_GRAY);
             stylesheet.putCellStyle("ROUNDED", style);
             String nomeNo = "";
-            int p1 = 0;
+            int p1 = 10;
             int p2 = 20;
             int i = 2;
 
@@ -301,58 +315,21 @@ public class Grafo {
         }
         return verticesAd;
     }
-
-    public class ArestaIndependente {
-
-        private Aresta aresta1;
-        private Aresta aresta2;
-
-        public ArestaIndependente(Aresta aresta1, Aresta aresta2) {
-            this.aresta1 = aresta1;
-            this.aresta2 = aresta2;
-        }
-
-        public Aresta getAresta1() {
-            return aresta1;
-        }
-
-        public void setAresta1(Aresta aresta1) {
-            this.aresta1 = aresta1;
-        }
-
-        public Aresta getAresta2() {
-            return aresta2;
-        }
-
-        public void setAresta2(Aresta aresta2) {
-            this.aresta2 = aresta2;
-        }
-    }
     
     public String getArestasIndependentes() {
         String arestasIndependentes = "\n";
-        List<ArestaIndependente> verificaId = new ArrayList<ArestaIndependente>();
-        for (Aresta are1 : arestas) {
-            String id1 = are1.getNomeAresta();
-            String origem1 = are1.getOrigem();
-            String destino1 = are1.getDestino();
-            for (Aresta are2 : arestas) {
-                String id2 = are2.getNomeAresta();
-                String origem2 = are2.getOrigem();
-                String destino2 = are2.getDestino();
-                if (origem1 != origem2 && destino1 != destino2 && origem1 != destino1 && origem2 != destino2 && origem1 != destino2 && origem2 != destino1) {
-                    boolean b = true;
-                    for (int i = 0; i < verificaId.size(); i++) {
-                        if (verificaId.get(i).getAresta1() == are1 && verificaId.get(i).getAresta2() == are2) {
-                            b = false;
-                            break;
-                        }
-                    }
-                    if (b == true) {
-                        arestasIndependentes += "[" + id1 + "] " + "{" + origem1 + ", " + destino1 + "}" + " e " + "[" + id2 + "] " + "{" + origem2 + ", " + destino2 + "}" + "\n";
-                        verificaId.add(new ArestaIndependente(are2, are1));
+        // FALTA TERMINAR ESSE CÓDIGO !!!!!
+        for (int i = 0; i < arestas.size(); i++) {
+            arestasIndependentes += "\n"+arestas.get(i).getNomeAresta()+" independente de: ";
+            for (int j = 0; j < arestas.size(); j++) {
+                
+                for (int k = 0; k < nos.size(); k++) {
+                    if(matrizI[i][k] == 0 && i != k){
+                        arestasIndependentes += arestas.get(j).getNomeAresta()+", ";
                     }
                 }
+                
+                
             }
         }
         if (arestasIndependentes == "\n") {

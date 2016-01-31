@@ -1,0 +1,15 @@
+<graph id="grafo-prim" edgedefault="undirected">
+  <node id="n1"/>
+  <node id="n2"/>
+  <node id="n3"/>
+  <node id="n4"/>
+  <node id="n5"/>
+  <node id="n6"/>
+  <node id="n7"/>
+  <edge source="n1" target="n2" name="A:4:4" value="4"/>
+  <edge source="n2" target="n3" name="B:3:3" value="3"/>
+  <edge source="n2" target="n4" name="J:3:3" value="3"/>
+  <edge source="n4" target="n5" name="D:2:2" value="2"/>
+  <edge source="n5" target="n7" name="H:1:1" value="1"/>
+  <edge source="n7" target="n6" name="K:1:1" value="1"/>
+</graph>

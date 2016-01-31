@@ -1,0 +1,15 @@
+<graph id="grafoT-prim" edgedefault="directed">
+  <node id="nD"/>
+  <node id="nC"/>
+  <node id="nB"/>
+  <node id="nA"/>
+  <node id="nE"/>
+  <node id="nF"/>
+  <node id="nG"/>
+  <edge source="nD" target="nA" name="DA:5:5" value="5"/>
+  <edge source="nD" target="nF" name="DF:6:6" value="6"/>
+  <edge source="nA" target="nB" name="AB:7:7" value="7"/>
+  <edge source="nB" target="nE" name="BE:7:7" value="7"/>
+  <edge source="nE" target="nC" name="EC:5:5" value="5"/>
+  <edge source="nE" target="nG" name="EG:9:9" value="9"/>
+</graph>

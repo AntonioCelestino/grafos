@@ -336,7 +336,7 @@ public class GrafoView extends javax.swing.JFrame {
             style.put(mxConstants.STYLE_FONTCOLOR, "#774400");
             style.put(mxConstants.STYLE_FILLCOLOR, Color.LIGHT_GRAY);
             stylesheet.putCellStyle("ROUNDED", style);
-            mxCell v1 = (mxCell) GrafoView.getGraph().insertVertex(parent, null, nome, 20, 20, 50, 50, "ROUNDED");
+            mxCell v1 = (mxCell) GrafoView.getGraph().insertVertex(parent, null, nome, 450, 250, 50, 50, "ROUNDED");
             v1.setValue(nome);
             GrafoView.getM().put(nome, v1);
         } finally {
@@ -358,6 +358,20 @@ public class GrafoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRemoveVerticeActionPerformed
 
     private void jButtonAddArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddArestaActionPerformed
+        /*
+        String vo = JOptionPane.showInputDialog("Vértice  de Origem");
+        String vd = JOptionPane.showInputDialog("Vértice  de Destino");
+        String nome = JOptionPane.showInputDialog("Nome da Aresta");
+        String valor = JOptionPane.showInputDialog("Valor da Aresta");
+
+        Object parent1 = GrafoView.getGraph().getDefaultParent();
+        Object v1 = GrafoView.getM().get(vo);
+        Object v2 = GrafoView.getM().get(vd);
+
+        mxCell a1 = (mxCell) GrafoView.getGraph().insertEdge(parent1, null, nome, v1, v2);
+        a1.setValue(nome);
+        listaArestas.add(new Aresta(nome, valor, vo, vd));*/
+        
         String v1 = JOptionPane.showInputDialog("Vértice  de Origem");
         String v2 = JOptionPane.showInputDialog("Vértice  de Destino");
         String nome = JOptionPane.showInputDialog("Nome da Aresta");
@@ -443,7 +457,7 @@ public class GrafoView extends javax.swing.JFrame {
             style.put(mxConstants.STYLE_FILLCOLOR, Color.LIGHT_GRAY);
             stylesheet.putCellStyle("ROUNDED", style);
             String nomeNo = "";
-            int p1 = 0;
+            int p1 = 10;
             int p2 = 20;
             int i = 2;
 
@@ -469,6 +483,8 @@ public class GrafoView extends javax.swing.JFrame {
                 Object v2 = GrafoView.getM().get(aresta.getDestino());
 
                 GrafoView.getGraph().insertEdge(parent1, null, aresta.getNomeAresta(), v1, v2);
+                /*mxCell a1 = (mxCell) GrafoView.getGraph().insertEdge(parent1, aresta.getValorAresta(), aresta.getNomeAresta(), v1, v2); 
+                a1.setValue(aresta.getNomeAresta());*/
             }
 
         } finally {
