@@ -350,7 +350,7 @@ public class GrafoView extends javax.swing.JFrame {
         graph.getModel().remove(cell);
         for(Aresta are : listaArestas){
             if(are.getOrigem().equals((String) cell.getValue()) || are.getDestino().equals((String) cell.getValue())){
-                listaArestas.remove(new Aresta(are.getNomeAresta(), are.getValorAresta(), are.getOrigem(), are.getDestino()));
+                listaArestas.remove(are);
             }
         }
         listaNos.remove(new No((String) cell.getValue()));
@@ -358,24 +358,10 @@ public class GrafoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRemoveVerticeActionPerformed
 
     private void jButtonAddArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddArestaActionPerformed
-        /*
-        String vo = JOptionPane.showInputDialog("Vértice  de Origem");
-        String vd = JOptionPane.showInputDialog("Vértice  de Destino");
-        String nome = JOptionPane.showInputDialog("Nome da Aresta");
-        String valor = JOptionPane.showInputDialog("Valor da Aresta");
-
-        Object parent1 = GrafoView.getGraph().getDefaultParent();
-        Object v1 = GrafoView.getM().get(vo);
-        Object v2 = GrafoView.getM().get(vd);
-
-        mxCell a1 = (mxCell) GrafoView.getGraph().insertEdge(parent1, null, nome, v1, v2);
-        a1.setValue(nome);
-        listaArestas.add(new Aresta(nome, valor, vo, vd));*/
-        
         String v1 = JOptionPane.showInputDialog("Vértice  de Origem");
         String v2 = JOptionPane.showInputDialog("Vértice  de Destino");
         String nome = JOptionPane.showInputDialog("Nome da Aresta");
-        String valor = JOptionPane.showInputDialog("Valor da Aresta");
+        int valor = Integer.parseInt(JOptionPane.showInputDialog("Valor da Aresta"));
 
         Object[] vertices = graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight()));
         mxCell vo = null, vf = null;
@@ -391,12 +377,11 @@ public class GrafoView extends javax.swing.JFrame {
                 break;
             }
         }
-
         graph.getModel().beginUpdate();
         try {
             mxStylesheet stylesheet = this.graph.getStylesheet();
             Hashtable<String, Object> style = new Hashtable();
-            graph.insertEdge(parent, valor, nome, (Object) vo, (Object) vf, "aresta");
+            graph.insertEdge(parent, Integer.toString(valor), nome, (Object) vo, (Object) vf, "aresta");
         } finally {
             graph.getModel().endUpdate();
         }
@@ -410,7 +395,7 @@ public class GrafoView extends javax.swing.JFrame {
         graph.getModel().remove(cell);
         for(Aresta are : listaArestas){
             if(are.getNomeAresta().equals((String) cell.getValue())){
-                listaArestas.remove(new Aresta(are.getNomeAresta(), are.getValorAresta(), are.getOrigem(), are.getDestino()));
+                listaArestas.remove(are);
                 break;
             }
         }
@@ -420,18 +405,12 @@ public class GrafoView extends javax.swing.JFrame {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         XStream xstream = new XStream(new DomDriver());
         xstream.processAnnotations(Grafo.class);
-
         Grafo g = new Grafo("G", grafo.getTipo(), listaNos, listaArestas);
-
         System.out.println(xstream.toXML(g));
         String xml = xstream.toXML(g);
-
         g = null;
-
         g = (Grafo) xstream.fromXML(xml);
-
         try {
-
             File xmlFile = new File(jTNomeGrafo.getText() + ".xml");
             xstream.toXML(g, new FileWriter(xmlFile));
         } catch (IOException ex) {
@@ -442,7 +421,6 @@ public class GrafoView extends javax.swing.JFrame {
         listaNos.clear();
         grafo = null;
         jTNomeGrafo.setText("");
-        //numeroAresta = 0;
         JOptionPane.showMessageDialog(null, "Dados Salvos com Sucesso");
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -483,8 +461,6 @@ public class GrafoView extends javax.swing.JFrame {
                 Object v2 = GrafoView.getM().get(aresta.getDestino());
 
                 GrafoView.getGraph().insertEdge(parent1, null, aresta.getNomeAresta(), v1, v2);
-                /*mxCell a1 = (mxCell) GrafoView.getGraph().insertEdge(parent1, aresta.getValorAresta(), aresta.getNomeAresta(), v1, v2); 
-                a1.setValue(aresta.getNomeAresta());*/
             }
 
         } finally {

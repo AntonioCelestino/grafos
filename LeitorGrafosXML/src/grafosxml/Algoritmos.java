@@ -24,6 +24,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -285,8 +286,7 @@ public class Algoritmos extends javax.swing.JFrame {
 
     private void jBKruskalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBKruskalActionPerformed
         // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
-        String nome = "-kruskal";
-        Grafo g = grafo.copiaGrafo(grafo, nome);   
+        Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-kruskal");   
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         
@@ -302,8 +302,7 @@ public class Algoritmos extends javax.swing.JFrame {
 
     private void jBDijkstraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDijkstraActionPerformed
         // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
-        String nome = "-dijkstra";
-        Grafo g = grafo.copiaGrafo(grafo, nome);   
+        Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-dijkstra");   
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         
@@ -319,8 +318,7 @@ public class Algoritmos extends javax.swing.JFrame {
 
     private void jBPrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPrimActionPerformed
         // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
-        String nome = "-prim";
-        Grafo g = grafo.copiaGrafo(grafo, nome);
+        Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-prim");
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         
@@ -400,14 +398,14 @@ public class Algoritmos extends javax.swing.JFrame {
             }
             
             if(arestasPossiveis.size() > 0){
-                int valorMenor = parseInt(arestasPossiveis.get(0).getValorAresta());//esse trecho do algoritmo adiciona ao conjunto T a aresta do conjunto AP que tiver o menor getValorAresta()  
+                int valorMenor = arestasPossiveis.get(0).getValorAresta();//esse trecho do algoritmo adiciona ao conjunto T a aresta do conjunto AP que tiver o menor getValorAresta()  
                 for (Aresta aresPos : arestasPossiveis) {                           
-                    if(parseInt(aresPos.getValorAresta()) < valorMenor){
-                        valorMenor = parseInt(aresPos.getValorAresta());
+                    if(aresPos.getValorAresta() < valorMenor){
+                        valorMenor = aresPos.getValorAresta();
                     }
                 }
                 for (Aresta aresPos : arestasPossiveis) {
-                    if(parseInt(aresPos.getValorAresta()) == valorMenor){           //e quando adicionada ao conjunto T, é removida do conjunto AP e AO, pois já foi eleita aresta do conjunto T
+                    if(aresPos.getValorAresta() == valorMenor){           //e quando adicionada ao conjunto T, é removida do conjunto AP e AO, pois já foi eleita aresta do conjunto T
                         t.add(new Aresta(aresPos.getNomeAresta(), aresPos.getValorAresta(), aresPos.getOrigem(), aresPos.getDestino()));
                         for (Aresta a : arestasPossiveis) {
                             if(aresPos.getNomeAresta() == a.getNomeAresta() && aresPos.getValorAresta() == a.getValorAresta() && aresPos.getOrigem() == a.getOrigem() && aresPos.getDestino() == a.getDestino()){

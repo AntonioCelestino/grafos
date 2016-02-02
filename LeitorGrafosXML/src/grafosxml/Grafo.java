@@ -147,7 +147,7 @@ public class Grafo {
         for (Aresta a : grafo.getArestas()) {
             listaArestas2.add(a);
         }
-        Grafo g = new Grafo(grafo.getId()+nome, grafo.getTipo(), listaNos2, listaArestas2);
+        Grafo g = new Grafo(nome, grafo.getTipo(), listaNos2, listaArestas2);
         return g;
     }
     

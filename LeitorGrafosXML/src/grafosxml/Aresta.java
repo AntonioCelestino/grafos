@@ -11,7 +11,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 
 @XStreamAlias("edge")
-public class Aresta {
+public class Aresta implements Comparable<Aresta>{
     @XStreamAlias("source")
     @XStreamAsAttribute
     private String origem;
@@ -23,20 +23,20 @@ public class Aresta {
     private String nomeAresta;
     @XStreamAlias("value")  
     @XStreamAsAttribute
-    private String valorAresta;
+    private int valorAresta;
 
-    public Aresta( String nomeAresta, String valorAresta, String origem, String destino) {
+    public Aresta( String nomeAresta, int valorAresta, String origem, String destino) {
         this.nomeAresta = nomeAresta+":"+valorAresta;
         this.valorAresta = valorAresta;
         this.origem = origem;
         this.destino = destino;
     }
 
-    public String getValorAresta() {
+    public int getValorAresta() {
         return valorAresta;
     }
 
-    public void setValorAresta(String valorAresta) {
+    public void setValorAresta(int valorAresta) {
         this.valorAresta = valorAresta;
     }
 
@@ -64,5 +64,15 @@ public class Aresta {
         this.nomeAresta = nomeAresta;
     }
     
-    
+    public int compareTo(Aresta aresta) {
+        if(this.valorAresta < aresta.valorAresta){
+            return -1;
+        }
+        else if(this.valorAresta > aresta.valorAresta){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
 }

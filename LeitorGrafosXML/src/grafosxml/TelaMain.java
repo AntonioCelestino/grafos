@@ -31,7 +31,7 @@ public class TelaMain extends javax.swing.JFrame {
     String nomeAresta;
     String origemAresta;
     String destinoAresta;
-    String valorAresta;
+    int valorAresta;
 
     public TelaMain() {
         initComponents();
@@ -403,7 +403,7 @@ public class TelaMain extends javax.swing.JFrame {
 
         for (Aresta a : g.getArestas()) {
             listaArestas.add(a);
-            linhaA.addRow(new String[]{a.getNomeAresta(), a.getValorAresta(), a.getOrigem(), a.getDestino()});
+            linhaA.addRow(new String[]{a.getNomeAresta(), Integer.toString(a.getValorAresta()), a.getOrigem(), a.getDestino()});
         }
     }//GEN-LAST:event_jbMostrarActionPerformed
 
@@ -439,12 +439,12 @@ public class TelaMain extends javax.swing.JFrame {
 
     private void jbCriarArestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCriarArestaActionPerformed
         nomeAresta = jtNome.getText();
-        valorAresta = jtValor.getText();
+        valorAresta = Integer.parseInt(jtValor.getText());
         origemAresta = jtOrigem.getText();
         destinoAresta = jtDestino.getText();
         DefaultTableModel linha = (DefaultTableModel) jtbArestas.getModel();
         listaArestas.add(new Aresta(nomeAresta, valorAresta, origemAresta, destinoAresta));
-        linha.addRow(new String[]{nomeAresta, valorAresta, origemAresta, destinoAresta});
+        linha.addRow(new String[]{nomeAresta, Integer.toString(valorAresta), origemAresta, destinoAresta});
         jtNome.setText("");
         jtOrigem.setText("");
         jtDestino.setText("");
