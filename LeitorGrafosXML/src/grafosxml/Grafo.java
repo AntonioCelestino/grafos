@@ -41,6 +41,7 @@ public class Grafo {
     private List<Aresta> arestas;
     @XStreamOmitField
     private int[][] matriz;
+    @XStreamOmitField
     private int[][] matrizI;
     Object parent;
     
@@ -81,8 +82,8 @@ public class Grafo {
         }
         for (Aresta are : arestas){
             for (No no : nos) {
-                int posA = arestas.indexOf(are.getNomeAresta());
-                int posV = nos.indexOf(no.getId());
+                int posA = arestas.indexOf(are);
+                int posV = nos.indexOf(no);
                 
                 if(tipo.equals("directed")){
                     if(nos.indexOf(new No(are.getDestino())) == posV){
@@ -200,7 +201,7 @@ public class Grafo {
                 Object parent1 = Algoritmos.getGraph().getDefaultParent();
                 Object v1 = Algoritmos.getM().get(aresta.getOrigem());
                 Object v2 = Algoritmos.getM().get(aresta.getDestino());
-                Algoritmos.getGraph().insertEdge(parent1, null, aresta.getNomeAresta(), v1, v2);
+                Algoritmos.getGraph().insertEdge(parent1, null, aresta.getNomeAresta()+":"+aresta.getValorAresta(), v1, v2);
             }
         } finally {
             graph.getModel().endUpdate();
@@ -318,18 +319,27 @@ public class Grafo {
     
     public String getArestasIndependentes() {
         String arestasIndependentes = "\n";
-        // FALTA TERMINAR ESSE CÓDIGO !!!!!
         for (int i = 0; i < arestas.size(); i++) {
             arestasIndependentes += "\n"+arestas.get(i).getNomeAresta()+" independente de: ";
-            for (int j = 0; j < arestas.size(); j++) {
-                
-                for (int k = 0; k < nos.size(); k++) {
-                    if(matrizI[i][k] == 0 && i != k){
-                        arestasIndependentes += arestas.get(j).getNomeAresta()+", ";
-                    }
+            int no1 = -1;
+            for (int j = 0; j < nos.size(); j++) {
+                if(matrizI[i][j] == 1 || matrizI[i][j] == -1){
+                    no1 = j;
+                    break;
                 }
-                
-                
+            }
+            int no2 = -1;
+            for (int k = 0; k < nos.size(); k++) {
+                if((matrizI[i][k] == 1 || matrizI[i][k] == -1) && no1 != k){
+                    no2 = k;
+                    break;
+                }
+            }
+            
+            for (int l = 0; l < arestas.size(); l++) {
+                if(matrizI[l][no1] == 0 && matrizI[l][no2] == 0){
+                    arestasIndependentes += arestas.get(l).getNomeAresta()+", ";
+                }
             }
         }
         if (arestasIndependentes == "\n") {

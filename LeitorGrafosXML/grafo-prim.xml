@@ -1,4 +1,4 @@
-<graph id="grafo" edgedefault="undirected">
+<graph id="grafo-prim" edgedefault="undirected">
   <node id="n1"/>
   <node id="n2"/>
   <node id="n3"/>
@@ -8,13 +8,8 @@
   <node id="n7"/>
   <edge source="n1" target="n2" name="A" value="4"/>
   <edge source="n2" target="n3" name="B" value="3"/>
-  <edge source="n3" target="n4" name="C" value="5"/>
-  <edge source="n4" target="n5" name="D" value="2"/>
-  <edge source="n5" target="n6" name="E" value="6"/>
-  <edge source="n4" target="n6" name="F" value="3"/>
-  <edge source="n3" target="n5" name="G" value="4"/>
-  <edge source="n5" target="n7" name="H" value="1"/>
-  <edge source="n1" target="n3" name="I" value="6"/>
   <edge source="n2" target="n4" name="J" value="3"/>
+  <edge source="n4" target="n5" name="D" value="2"/>
+  <edge source="n5" target="n7" name="H" value="1"/>
   <edge source="n7" target="n6" name="K" value="1"/>
 </graph>

@@ -1,39 +1,20 @@
-<graph id="grafoT" edgedefault="directed">
-  
-<node id="nD"/>
-  
-<node id="nC"/>
-  
-<node id="nB"/>
-  
-<node id="nA"/>
-  
-<node id="nE"/>
-  
-<node id="nF"/>
-  
-<node id="nG"/>
-  
-<edge source="nF" target="nE" name="FE:8" value="8"/>
-  
-<edge source="nB" target="nC" name="BC:8" value="8"/>
-  
-<edge source="nA" target="nB" name="AB:7" value="7"/>
-  
-<edge source="nE" target="nC" name="EC:5" value="5"/>
-  
-<edge source="nD" target="nA" name="DA:5" value="5"/>
-  
-<edge source="nD" target="nE" name="DE:15" value="15"/>
-  
-<edge source="nD" target="nB" name="DB:9" value="9"/>
-  
-<edge source="nF" target="nG" name="FG:11" value="11"/>
-  
-<edge source="nD" target="nF" name="DF:6" value="6"/>
-  
-<edge source="nB" target="nE" name="BE:7" value="7"/>
-  
-<edge source="nE" target="nG" name="EG:9" value="9"/>
-
+<graph id="grafoT" edgedefault="undirected">
+  <node id="nD"/>
+  <node id="nC"/>
+  <node id="nB"/>
+  <node id="nA"/>
+  <node id="nE"/>
+  <node id="nF"/>
+  <node id="nG"/>
+  <edge source="nF" target="nE" name="FE" value="8"/>
+  <edge source="nB" target="nC" name="BC" value="8"/>
+  <edge source="nA" target="nB" name="AB" value="7"/>
+  <edge source="nE" target="nC" name="EC" value="5"/>
+  <edge source="nD" target="nA" name="DA" value="5"/>
+  <edge source="nD" target="nE" name="DE" value="15"/>
+  <edge source="nD" target="nB" name="DB" value="9"/>
+  <edge source="nF" target="nG" name="FG" value="11"/>
+  <edge source="nD" target="nF" name="DF" value="6"/>
+  <edge source="nB" target="nE" name="BE" value="7"/>
+  <edge source="nE" target="nG" name="EG" value="9"/>
 </graph>

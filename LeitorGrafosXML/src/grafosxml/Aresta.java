@@ -26,7 +26,7 @@ public class Aresta implements Comparable<Aresta>{
     private int valorAresta;
 
     public Aresta( String nomeAresta, int valorAresta, String origem, String destino) {
-        this.nomeAresta = nomeAresta+":"+valorAresta;
+        this.nomeAresta = nomeAresta;
         this.valorAresta = valorAresta;
         this.origem = origem;
         this.destino = destino;

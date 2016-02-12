@@ -297,6 +297,7 @@ public class DadosGrafos extends javax.swing.JFrame {
         xstream.processAnnotations(Grafo.class);
         grafo = (Grafo) xstream.fromXML(xmlFileLer);
         grafo.geraMatriz();
+        grafo.geraMatrizIncidencia();
         String xml = xstream.toXML(grafo);
         System.out.println(xml);
 

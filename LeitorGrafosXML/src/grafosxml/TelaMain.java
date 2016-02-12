@@ -405,6 +405,14 @@ public class TelaMain extends javax.swing.JFrame {
             listaArestas.add(a);
             linhaA.addRow(new String[]{a.getNomeAresta(), Integer.toString(a.getValorAresta()), a.getOrigem(), a.getDestino()});
         }
+        
+        if("undirected".equals(g.getTipo())){
+            jRadioButton2.setSelected(true);
+        }
+        
+        if("directed".equals(g.getTipo())){
+            jRadioButton1.setSelected(true);
+        }
     }//GEN-LAST:event_jbMostrarActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
