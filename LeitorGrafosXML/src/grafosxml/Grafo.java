@@ -44,6 +44,7 @@ public class Grafo {
     @XStreamOmitField
     private int[][] matrizI;
     Object parent;
+    List<List<No>> adjacencia = new ArrayList<List<No>>();
     
     public Grafo(String id, String tipo, List<No> nos, List<Aresta> arestas) {
         this.id = id;
@@ -100,6 +101,22 @@ public class Grafo {
                     }
                 }
             }
+        }
+    }
+    
+    public void listaAdjacencia(){
+        for(No no : nos){
+            List<No> vertice = new ArrayList<No>();
+            vertice.add(no);
+            for(No no1 : nos){
+                for(Aresta are : arestas){
+                    if((are.getOrigem().equals(no.getId()) && are.getDestino().equals(no1.getId())) || (are.getOrigem().equals(no1.getId()) && are.getDestino().equals(no.getId()))){
+                        vertice.add(no1);
+                        break;
+                    }
+                }
+            }         
+            adjacencia.add(vertice);
         }
     }
     
