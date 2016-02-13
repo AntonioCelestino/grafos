@@ -59,9 +59,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jBAbrirGrafo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jTNomeGrafo" min="-2" pref="174" max="-2" attributes="0"/>
+                      <Component id="jTNomeGrafo" min="-2" pref="118" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="jButtonFulkerson" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButtonLimparTela" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jBFechar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jBDijkstra" min="-2" max="-2" attributes="0"/>
@@ -70,11 +74,12 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jBPrim" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonMalgrange" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jBFechar" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonTopologica" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jButtonProfundidade" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -89,17 +94,19 @@
                   <Component id="jBAbrirGrafo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTNomeGrafo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonLimparTela" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonFulkerson" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBFechar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel1" min="-2" pref="358" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jBFechar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBDijkstra" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBKruskal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBPrim" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonMalgrange" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonTopologica" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonProfundidade" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
           </Group>
@@ -175,14 +182,24 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBPrimActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="jButtonMalgrange">
       <Properties>
-        <Property name="text" type="java.lang.String" value="outro"/>
+        <Property name="text" type="java.lang.String" value="Malgrange"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="jButtonTopologica">
       <Properties>
-        <Property name="text" type="java.lang.String" value="outro"/>
+        <Property name="text" type="java.lang.String" value="Topol&#xf3;gica"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonFulkerson">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ford Fulkerson"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonProfundidade">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Profundidade"/>
       </Properties>
     </Component>
   </SubComponents>

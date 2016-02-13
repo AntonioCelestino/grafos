@@ -102,8 +102,10 @@ public class Algoritmos extends javax.swing.JFrame {
         jBDijkstra = new javax.swing.JButton();
         jBKruskal = new javax.swing.JButton();
         jBPrim = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jButtonMalgrange = new javax.swing.JButton();
+        jButtonTopologica = new javax.swing.JButton();
+        jButtonFulkerson = new javax.swing.JButton();
+        jButtonProfundidade = new javax.swing.JButton();
 
         Remover.setText("Remover");
         Remover.addActionListener(new java.awt.event.ActionListener() {
@@ -176,9 +178,13 @@ public class Algoritmos extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("outro");
+        jButtonMalgrange.setText("Malgrange");
 
-        jButton5.setText("outro");
+        jButtonTopologica.setText("Topológica");
+
+        jButtonFulkerson.setText("Ford Fulkerson");
+
+        jButtonProfundidade.setText("Profundidade");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,9 +197,13 @@ public class Algoritmos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBAbrirGrafo)
                         .addGap(18, 18, 18)
-                        .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(jButtonFulkerson)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonLimparTela))
+                        .addComponent(jButtonLimparTela)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBFechar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBDijkstra)
                         .addGap(18, 18, 18)
@@ -201,11 +211,12 @@ public class Algoritmos extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jBPrim)
                         .addGap(19, 19, 19)
-                        .addComponent(jButton4)
+                        .addComponent(jButtonMalgrange)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBFechar)))
+                        .addComponent(jButtonTopologica)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonProfundidade)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -215,17 +226,19 @@ public class Algoritmos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBAbrirGrafo)
                     .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonLimparTela))
+                    .addComponent(jButtonLimparTela)
+                    .addComponent(jButtonFulkerson)
+                    .addComponent(jBFechar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBFechar)
                     .addComponent(jBDijkstra)
                     .addComponent(jBKruskal)
                     .addComponent(jBPrim)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(jButtonMalgrange)
+                    .addComponent(jButtonTopologica)
+                    .addComponent(jButtonProfundidade))
                 .addGap(70, 70, 70))
         );
 
@@ -596,9 +609,11 @@ public class Algoritmos extends javax.swing.JFrame {
     private javax.swing.JButton jBFechar;
     private javax.swing.JButton jBKruskal;
     private javax.swing.JButton jBPrim;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButtonFulkerson;
     private javax.swing.JButton jButtonLimparTela;
+    private javax.swing.JButton jButtonMalgrange;
+    private javax.swing.JButton jButtonProfundidade;
+    private javax.swing.JButton jButtonTopologica;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTNomeGrafo;
     private javax.swing.JPopupMenu popupMenu;
