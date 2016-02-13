@@ -102,7 +102,18 @@ public class Grafo {
             }
         }
     }
-
+    
+    public No getNoById(String id) {
+        No a = null;
+        for (No no : nos) {
+            if (no.getId().equals(id)) {
+                a = no;
+                break;
+            }
+        }
+        return a;
+    }
+    
     public String getId() {
         return id;
     }

@@ -1,0 +1,15 @@
+<graph id="grafoT-kruskal" edgedefault="undirected">
+  <node id="nD"/>
+  <node id="nC"/>
+  <node id="nB"/>
+  <node id="nA"/>
+  <node id="nE"/>
+  <node id="nF"/>
+  <node id="nG"/>
+  <edge source="nE" target="nC" name="EC" value="5"/>
+  <edge source="nD" target="nA" name="DA" value="5"/>
+  <edge source="nD" target="nF" name="DF" value="6"/>
+  <edge source="nA" target="nB" name="AB" value="7"/>
+  <edge source="nB" target="nE" name="BE" value="7"/>
+  <edge source="nE" target="nG" name="EG" value="9"/>
+</graph>

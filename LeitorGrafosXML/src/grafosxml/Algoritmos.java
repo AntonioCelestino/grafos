@@ -290,13 +290,73 @@ public class Algoritmos extends javax.swing.JFrame {
         Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-kruskal");   
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
-        
         // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
-        
-        
+        List<Aresta> arestasOrdenadas = new ArrayList<Aresta>();
+        List<Aresta> novasArestas = new ArrayList<Aresta>();
+        List<No> nosLigados = new ArrayList<No>();
+        List<No> nosSoltos = new ArrayList<No>();
+        for(Aresta are : g.getArestas()){
+            arestasOrdenadas.add(are);
+        }
+        Collections.sort(arestasOrdenadas);
+        int j = 0;
+        while(novasArestas.size()<(g.getNos().size()-1) && arestasOrdenadas.size() != j){
+            for(Aresta ares : arestasOrdenadas){
+                if(novasArestas.size() == 0){
+                    nosLigados.add(g.getNoById(ares.getOrigem()));
+                    nosLigados.add(g.getNoById(ares.getDestino()));
+                    novasArestas.add(ares);
+                    j++;
+                }
+                else{
+                    if(nosLigados.contains(g.getNoById(ares.getOrigem())) || nosLigados.contains(g.getNoById(ares.getDestino()))){
+                        if(nosLigados.contains(g.getNoById(ares.getOrigem())) && nosLigados.contains(g.getNoById(ares.getDestino()))){
+                            if((nosSoltos.contains(g.getNoById(ares.getOrigem())) && !nosSoltos.contains(g.getNoById(ares.getDestino()))) || (nosSoltos.contains(g.getNoById(ares.getDestino())) && !nosSoltos.contains(g.getNoById(ares.getOrigem())))){
+                                novasArestas.add(ares);
+                                j++;
+                                nosSoltos.clear();
+                            }
+                        }
+                        else{
+                            if(!nosSoltos.contains(g.getNoById(ares.getOrigem())) && !nosSoltos.contains(g.getNoById(ares.getDestino()))){
+                                novasArestas.add(ares);
+                                j++;
+                                if(!nosLigados.contains(g.getNoById(ares.getOrigem())))
+                                    nosLigados.add(g.getNoById(ares.getOrigem()));
+                                if(!nosLigados.contains(g.getNoById(ares.getDestino())))
+                                    nosLigados.add(g.getNoById(ares.getDestino()));
+                            }
+                            else{
+                                novasArestas.add(ares);
+                                j++;
+                                if(!nosSoltos.contains(g.getNoById(ares.getOrigem()))){
+                                    nosSoltos.add(g.getNoById(ares.getOrigem()));
+                                    nosLigados.add(g.getNoById(ares.getOrigem()));
+                                }
+                                if(!nosSoltos.contains(g.getNoById(ares.getDestino()))){
+                                    nosSoltos.add(g.getNoById(ares.getDestino()));
+                                    nosLigados.add(g.getNoById(ares.getDestino()));
+                                }
+                            }
+                        }   
+                    }
+                    else{
+                        novasArestas.add(ares);
+                        j++;
+                        nosLigados.add(g.getNoById(ares.getOrigem()));
+                        nosLigados.add(g.getNoById(ares.getDestino()));
+                        nosSoltos.add(g.getNoById(ares.getOrigem()));
+                        nosSoltos.add(g.getNoById(ares.getDestino()));
+                    }
+                }
+            }
+        }
+        g.getArestas().clear();
+        g.setArestas(novasArestas);
         // PARTE 4: VISUALIZA O NOVO GRAFO.
         g.mostraGrafoDesign(g);
-        jTNomeGrafo.setText(g.getId());    
+        jTNomeGrafo.setText(g.getId());
+        JOptionPane.showMessageDialog(null, "Foi exibida a árvore geradora mínima pelo algoritmo de Kruskal");
         // PARTE 5: SALVA O GRAFO EM XML.
         g.salvaGrafo(g);
     }//GEN-LAST:event_jBKruskalActionPerformed
