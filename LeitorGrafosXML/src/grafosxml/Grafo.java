@@ -123,20 +123,30 @@ public class Grafo {
         }
     }
     
-    public void listaAdjacencia(){
-        for(No no : nos){
+    public List<List<No>> listaAdjacencia(Grafo g){
+        adjacencia.clear();
+        List<No> nosg = new ArrayList<No>();
+        List<Aresta> arestasg = new ArrayList<Aresta>();
+        for(No no : g.getNos()){
+            nosg.add(no);
+        }
+        for(Aresta are : g.getArestas()){
+            arestasg.add(are);
+        }
+        for(No no : nosg){
             List<No> vertice = new ArrayList<No>();
             vertice.add(no);
-            for(No no1 : nos){
-                for(Aresta are : arestas){
+            for(No no1 : nosg){
+                for(Aresta are : arestasg){
                     if((are.getOrigem().equals(no.getId()) && are.getDestino().equals(no1.getId())) || (are.getOrigem().equals(no1.getId()) && are.getDestino().equals(no.getId()))){
                         vertice.add(no1);
                         break;
                     }
                 }
-            }         
+            }
             adjacencia.add(vertice);
         }
+        return adjacencia;
     }
     
     public No getNoById(String id) {

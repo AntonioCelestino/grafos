@@ -42,6 +42,9 @@ public class Algoritmos extends javax.swing.JFrame {
     String nomeAresta;
     String origemAresta;
     String destinoAresta;
+    
+    List<List<No>> listaAdjacenciaNos = new ArrayList<List<No>>();
+    List<No> nosVisitados = new ArrayList<No>();
 
     protected static mxGraph graph = new mxGraph();
     protected static HashMap m = new HashMap();
@@ -191,6 +194,11 @@ public class Algoritmos extends javax.swing.JFrame {
         });
 
         jButtonProfundidade.setText("Profundidade");
+        jButtonProfundidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProfundidadeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -583,6 +591,64 @@ public class Algoritmos extends javax.swing.JFrame {
                     + "Esse grafo foi rejeitado por ter: "+sumidouro+" vértices Sumidouros, ou por ter: "+fonte+" vértices Fontes, ou então por simplesmente ser um grafo do tipo: "+tipo);
         }
     }//GEN-LAST:event_jButtonFulkersonActionPerformed
+    
+    public List<Aresta> buscaProf(No no){
+        List<Aresta> arestasSelecionadas = new ArrayList<Aresta>();
+        List<Aresta> retornoArestas = new ArrayList<Aresta>();
+        nosVisitados.add(no);
+        for(List<No> lista : listaAdjacenciaNos){
+            if(lista.get(0) == no){
+                for(int i=0; i<lista.size(); i++){
+                    if(!nosVisitados.contains(lista.get(i))){
+                        for(Aresta ares : listaArestas){
+                            if((no.getId().equals(ares.getOrigem()) && lista.get(i).getId().equals(ares.getDestino())) || (lista.get(i).getId().equals(ares.getOrigem()) && no.getId().equals(ares.getDestino()))){
+                                for(Aresta are : buscaProf(lista.get(i))){
+                                    arestasSelecionadas.add(are);
+                                }
+                                retornoArestas.add(ares);
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
+            }
+        }
+        for(Aresta are : arestasSelecionadas){
+            retornoArestas.add(are);
+        }
+        return retornoArestas;
+    }
+    
+    private void jButtonProfundidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfundidadeActionPerformed
+        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
+        Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-profundidade");   
+        // PARTE 2: LIMPA A TELA.
+        graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
+        // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
+        nosVisitados.clear();
+        listaAdjacenciaNos.clear();
+        listaArestas.clear();
+        No no = g.getNos().get(0);
+        List<Aresta> arestas = new ArrayList<Aresta>();
+        for(Aresta are : g.getArestas()){
+            listaArestas.add(are);
+        }
+        for(List<No> list : g.listaAdjacencia(g)){
+            listaAdjacenciaNos.add(list);
+        }
+        for(Aresta ares : buscaProf(no)){
+            arestas.add(ares);
+        }
+        g.getArestas().clear();
+        g.setArestas(arestas);      
+        // PARTE 4: VISUALIZA O NOVO GRAFO.
+        g.mostraGrafoDesign(g, null);
+        jTNomeGrafo.setText(g.getId());
+        JOptionPane.showMessageDialog(null, "Foi exibido o resultado do algoritmo Busca em Produndidade");
+        // PARTE 5: SALVA O GRAFO EM XML.
+        g.salvaGrafo(g);
+    }//GEN-LAST:event_jButtonProfundidadeActionPerformed
 
     /**
      * @param args the command line arguments
