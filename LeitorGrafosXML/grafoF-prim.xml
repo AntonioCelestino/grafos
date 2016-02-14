@@ -1,0 +1,13 @@
+<graph id="grafoF-prim" edgedefault="directed">
+  <node id="S"/>
+  <node id="V2"/>
+  <node id="V1"/>
+  <node id="V4"/>
+  <node id="V3"/>
+  <node id="T"/>
+  <edge source="S" target="V2" name="S-V2" value="13"/>
+  <edge source="V2" target="V1" name="V2-V1" value="4"/>
+  <edge source="V3" target="V2" name="V3-V2" value="9"/>
+  <edge source="V4" target="V3" name="V4-V3" value="7"/>
+  <edge source="V4" target="T" name="V4-T" value="4"/>
+</graph>

@@ -31,6 +31,7 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static java.lang.Integer.parseInt;
 
 public class Algoritmos extends javax.swing.JFrame {
 
@@ -183,6 +184,11 @@ public class Algoritmos extends javax.swing.JFrame {
         jButtonTopologica.setText("Topológica");
 
         jButtonFulkerson.setText("Ford Fulkerson");
+        jButtonFulkerson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFulkersonActionPerformed(evt);
+            }
+        });
 
         jButtonProfundidade.setText("Profundidade");
 
@@ -290,7 +296,7 @@ public class Algoritmos extends javax.swing.JFrame {
         }
         grafo.setNos(listaNos);
         grafo.setArestas(listaArestas);
-        grafo.mostraGrafoDesign(grafo);
+        grafo.mostraGrafoDesign(grafo, null);
     }//GEN-LAST:event_jBAbrirGrafoActionPerformed
 
     private void jBFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFecharActionPerformed
@@ -367,7 +373,7 @@ public class Algoritmos extends javax.swing.JFrame {
         g.getArestas().clear();
         g.setArestas(novasArestas);
         // PARTE 4: VISUALIZA O NOVO GRAFO.
-        g.mostraGrafoDesign(g);
+        g.mostraGrafoDesign(g, null);
         jTNomeGrafo.setText(g.getId());
         JOptionPane.showMessageDialog(null, "Foi exibida a árvore geradora mínima pelo algoritmo de Kruskal");
         // PARTE 5: SALVA O GRAFO EM XML.
@@ -384,7 +390,7 @@ public class Algoritmos extends javax.swing.JFrame {
         
         
         // PARTE 4: VISUALIZA O NOVO GRAFO.
-        g.mostraGrafoDesign(g);
+        g.mostraGrafoDesign(g, null);
         jTNomeGrafo.setText(g.getId());    
         // PARTE 5: SALVA O GRAFO EM XML.
         g.salvaGrafo(g);
@@ -538,12 +544,45 @@ public class Algoritmos extends javax.swing.JFrame {
         g.setArestas(t);
         
         // PARTE 4: VISUALIZA O NOVO GRAFO.
-        g.mostraGrafoDesign(g);
+        g.mostraGrafoDesign(g, null);
         jTNomeGrafo.setText(g.getId());
         JOptionPane.showMessageDialog(null, "Conjunto de arestas da árvore geradora mínima:\n"+T);
         // PARTE 5: SALVA O GRAFO EM XML.
         g.salvaGrafo(g);
     }//GEN-LAST:event_jBPrimActionPerformed
+
+    private void jButtonFulkersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFulkersonActionPerformed
+        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
+        Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-ford-fulkerson");   
+        int fonte = g.getQtdVerticesFontes(g);
+        int sumidouro = g.getQtdVerticesSumidouros(g);
+        String tipo = g.getTipo();
+        // PARTE 2: LIMPA A TELA.
+        graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
+        
+        if("directed".equals(tipo) && fonte == 1 && sumidouro == 1){
+            // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
+            fordFulkerson f = new fordFulkerson();
+            int[][]matriz = g.getMatrizComValue();
+            int fontePos = g.getPosicaoFonte(g);
+            int sumidouroPos = g.getPosicaoSumidouro(g);
+            int qtdNos = g.getNos().size();
+            int fluxoMax = f.fordFulkerson(matriz, fontePos, sumidouroPos, qtdNos);
+            
+            // PARTE 4: VISUALIZA O NOVO GRAFO.
+            g.mostraGrafoDesign(g, f.matrizFinal());
+            jTNomeGrafo.setText(g.getId()); 
+            JOptionPane.showMessageDialog(null, "Fluxo máximo permitido no grafo: "+ fluxoMax+"\n"
+                    + "Vértice de origem: "+g.getNos().get(fontePos).getId()+"\n"
+                    + "Vértice de destino: "+g.getNos().get(sumidouroPos).getId());
+            
+            // PARTE 5: SALVA O GRAFO EM XML.
+            g.salvaGrafo(g);
+        }else{
+            JOptionPane.showMessageDialog(null, "O grafo a ser testado precisa ser Direcionado, ter Apenas UM vértice Fonte e ter Apenas UM vértice Sumidouro.\n"
+                    + "Esse grafo foi rejeitado por ter: "+sumidouro+" vértices Sumidouros, ou por ter: "+fonte+" vértices Fontes, ou então por simplesmente ser um grafo do tipo: "+tipo);
+        }
+    }//GEN-LAST:event_jButtonFulkersonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,4 +1,4 @@
-<graph id="grafo" edgedefault="directed">
+<graph id="grafo-ford-fulkerson" edgedefault="directed">
   <node id="n1"/>
   <node id="n2"/>
   <node id="n3"/>

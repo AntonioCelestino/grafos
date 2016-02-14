@@ -43,7 +43,10 @@ public class Grafo {
     private int[][] matriz;
     @XStreamOmitField
     private int[][] matrizI;
+    @XStreamOmitField
+    private int[][] matrizValue;
     Object parent;
+    @XStreamOmitField
     List<List<No>> adjacencia = new ArrayList<List<No>>();
     
     public Grafo(String id, String tipo, List<No> nos, List<Aresta> arestas) {
@@ -70,6 +73,22 @@ public class Grafo {
                 matriz[posD][posO] = 1;
             }
         }
+    }
+    
+    public int[][] getMatrizComValue() {
+        int Qtdenos = nos.size();
+        matrizValue = new int[Qtdenos][Qtdenos];
+        for (int i = 0; i < Qtdenos; i++) {
+            for (int j = 0; j < Qtdenos; j++) {
+                matrizValue[i][j] = 0;
+            }
+        }
+        for (Aresta are : arestas) {
+            int posO = nos.indexOf(new No(are.getOrigem()));
+            int posD = nos.indexOf(new No(are.getDestino()));
+            matrizValue[posO][posD] = are.getValorAresta();
+        }
+        return matrizValue;
     }
     
     public void geraMatrizIncidencia() {
@@ -196,7 +215,7 @@ public class Grafo {
         }
     }
     
-    public void mostraGrafoDesign(Grafo grafo){
+    public void mostraGrafoDesign(Grafo grafo, int[][]matriz){
         graph.getModel().beginUpdate();
         try {
             mxStylesheet stylesheet = Algoritmos.getGraph().getStylesheet();
@@ -229,7 +248,13 @@ public class Grafo {
                 Object parent1 = Algoritmos.getGraph().getDefaultParent();
                 Object v1 = Algoritmos.getM().get(aresta.getOrigem());
                 Object v2 = Algoritmos.getM().get(aresta.getDestino());
-                Algoritmos.getGraph().insertEdge(parent1, null, aresta.getNomeAresta()+":"+aresta.getValorAresta(), v1, v2);
+                if(matriz != null){
+                    int origem = grafo.getNos().indexOf(new No(aresta.getOrigem()));
+                    int destino = grafo.getNos().indexOf(new No(aresta.getDestino()));
+                    Algoritmos.getGraph().insertEdge(parent1, null, aresta.getNomeAresta()+": "+matriz[destino][origem]+"/"+aresta.getValorAresta(), v1, v2);
+                }else{
+                    Algoritmos.getGraph().insertEdge(parent1, null, aresta.getNomeAresta()+": "+aresta.getValorAresta(), v1, v2);
+                }
             }
         } finally {
             graph.getModel().endUpdate();
@@ -444,4 +469,49 @@ public class Grafo {
         return estring;
     }
 
+    public int getQtdVerticesFontes(Grafo g) {
+        int qtd = 0;
+        for (int i = 0; i < g.getNos().size(); i++) {
+            if (g.getGrauRecepcao(g.getNos().get(i)) == 0 && g.getGrauEmissao(g.getNos().get(i)) != 0) {
+                qtd ++;
+            }
+        }
+        return qtd;
+    }
+
+    public int getQtdVerticesSumidouros(Grafo g) {
+        int qtd = 0;
+        for (int i = 0; i < g.getNos().size(); i++) {
+            if (g.getGrauRecepcao(g.getNos().get(i)) != 0 && g.getGrauEmissao(g.getNos().get(i)) == 0) {
+                qtd ++;
+            }
+        }
+        return qtd;
+    }
+    
+    public int getPosicaoFonte(Grafo g) {
+        int pos = 0;
+        for (int i = 0; i < g.getNos().size(); i++) { 
+            int recepcao = g.getGrauRecepcao(g.getNos().get(i));
+            int emissao = g.getGrauEmissao(g.getNos().get(i));
+            if (recepcao == 0 && emissao > 0) {
+                pos = i;
+                break;
+            }
+        }
+        return pos;
+    }
+
+    public int getPosicaoSumidouro(Grafo g) {
+        int pos = 0;
+        for (int i = 0; i < g.getNos().size(); i++) { 
+            int recepcao = g.getGrauRecepcao(g.getNos().get(i));
+            int emissao = g.getGrauEmissao(g.getNos().get(i));
+            if (recepcao > 0 && emissao == 0) {
+                pos = i;
+                break;
+            }
+        }
+        return pos;
+    }
 }
