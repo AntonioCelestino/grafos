@@ -1,4 +1,4 @@
-<graph id="grafo-prim" edgedefault="undirected">
+<graph id="grafo-prim" edgedefault="directed">
   <node id="n1"/>
   <node id="n2"/>
   <node id="n3"/>

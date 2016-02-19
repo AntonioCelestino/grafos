@@ -183,10 +183,20 @@ public class Algoritmos extends javax.swing.JFrame {
         });
 
         jButtonMalgrange.setText("Malgrange");
+        jButtonMalgrange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMalgrangeActionPerformed(evt);
+            }
+        });
 
         jButtonTopologica.setText("Topológica");
+        jButtonTopologica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTopologicaActionPerformed(evt);
+            }
+        });
 
-        jButtonFulkerson.setText("Ford Fulkerson");
+        jButtonFulkerson.setText(" Fulkerson");
         jButtonFulkerson.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFulkersonActionPerformed(evt);
@@ -204,33 +214,33 @@ public class Algoritmos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBAbrirGrafo)
                         .addGap(18, 18, 18)
-                        .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(jButtonFulkerson)
+                        .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonLimparTela)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBFechar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBDijkstra)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBKruskal)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBPrim)
-                        .addGap(19, 19, 19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonMalgrange)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonTopologica)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonProfundidade)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonFulkerson)
+                        .addGap(0, 18, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -241,7 +251,6 @@ public class Algoritmos extends javax.swing.JFrame {
                     .addComponent(jBAbrirGrafo)
                     .addComponent(jTNomeGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonLimparTela)
-                    .addComponent(jButtonFulkerson)
                     .addComponent(jBFechar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,17 +261,19 @@ public class Algoritmos extends javax.swing.JFrame {
                     .addComponent(jBPrim)
                     .addComponent(jButtonMalgrange)
                     .addComponent(jButtonTopologica)
-                    .addComponent(jButtonProfundidade))
+                    .addComponent(jButtonProfundidade)
+                    .addComponent(jButtonFulkerson))
                 .addGap(70, 70, 70))
         );
 
-        setSize(new java.awt.Dimension(593, 492));
+        setSize(new java.awt.Dimension(623, 492));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
    
     private void jButtonLimparTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparTelaActionPerformed
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
+        jTNomeGrafo.setText("");
     }//GEN-LAST:event_jButtonLimparTelaActionPerformed
 
     private void RemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverActionPerformed
@@ -317,6 +328,7 @@ public class Algoritmos extends javax.swing.JFrame {
         Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-kruskal");   
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
+        jTNomeGrafo.setText("");
         // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
         List<Aresta> arestasOrdenadas = new ArrayList<Aresta>();
         List<Aresta> novasArestas = new ArrayList<Aresta>();
@@ -383,7 +395,7 @@ public class Algoritmos extends javax.swing.JFrame {
         // PARTE 4: VISUALIZA O NOVO GRAFO.
         g.mostraGrafoDesign(g, null);
         jTNomeGrafo.setText(g.getId());
-        JOptionPane.showMessageDialog(null, "Foi exibida a árvore geradora mínima pelo algoritmo de Kruskal");
+        JOptionPane.showMessageDialog(null, "Árvore geradora mínima pelo \n algoritmo de Kruskal");
         // PARTE 5: SALVA O GRAFO EM XML.
         g.salvaGrafo(g);
     }//GEN-LAST:event_jBKruskalActionPerformed
@@ -393,7 +405,7 @@ public class Algoritmos extends javax.swing.JFrame {
         Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-dijkstra");   
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
-        
+        jTNomeGrafo.setText("");
         // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
         
         
@@ -409,7 +421,7 @@ public class Algoritmos extends javax.swing.JFrame {
         Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-prim");
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
-        
+        jTNomeGrafo.setText("");
         // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
         List<Aresta> t = new ArrayList<Aresta>();                               //T: conjunto de arestas da árvore geradora mínima
         List<Aresta> arestasPossiveis = new ArrayList<Aresta>();                //AP: conjunto de arestas que se tornaram potenciais candidatas a entrarem conjunto T
@@ -567,7 +579,7 @@ public class Algoritmos extends javax.swing.JFrame {
         String tipo = g.getTipo();
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
-        
+        jTNomeGrafo.setText("");
         if("directed".equals(tipo) && fonte == 1 && sumidouro == 1){
             // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
             fordFulkerson f = new fordFulkerson();
@@ -625,6 +637,7 @@ public class Algoritmos extends javax.swing.JFrame {
         Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-profundidade");   
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
+        jTNomeGrafo.setText("");
         // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
         nosVisitados.clear();
         listaAdjacenciaNos.clear();
@@ -645,10 +658,30 @@ public class Algoritmos extends javax.swing.JFrame {
         // PARTE 4: VISUALIZA O NOVO GRAFO.
         g.mostraGrafoDesign(g, null);
         jTNomeGrafo.setText(g.getId());
-        JOptionPane.showMessageDialog(null, "Foi exibido o resultado do algoritmo Busca em Produndidade");
+        JOptionPane.showMessageDialog(null, "Foi exibido o resultado do \n algoritmo Busca em Produndidade");
         // PARTE 5: SALVA O GRAFO EM XML.
         g.salvaGrafo(g);
     }//GEN-LAST:event_jButtonProfundidadeActionPerformed
+
+    private void jButtonTopologicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTopologicaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTopologicaActionPerformed
+
+    private void jButtonMalgrangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMalgrangeActionPerformed
+        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
+        Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-malgrange");   
+        // PARTE 2: LIMPA A TELA.
+        graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
+        jTNomeGrafo.setText("");
+        // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
+        
+        
+        // PARTE 4: VISUALIZA O NOVO GRAFO.
+        g.mostraGrafoDesign(g, null);
+        jTNomeGrafo.setText(g.getId());    
+        // PARTE 5: SALVA O GRAFO EM XML.
+        g.salvaGrafo(g);
+    }//GEN-LAST:event_jButtonMalgrangeActionPerformed
 
     /**
      * @param args the command line arguments
