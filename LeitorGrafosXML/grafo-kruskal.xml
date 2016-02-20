@@ -1,4 +1,4 @@
-<graph id="grafo-kruskal" edgedefault="undirected">
+<graph id="grafo-kruskal" edgedefault="directed">
   <node id="n1"/>
   <node id="n2"/>
   <node id="n3"/>

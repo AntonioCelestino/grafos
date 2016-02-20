@@ -315,7 +315,7 @@ public class Algoritmos extends javax.swing.JFrame {
         }
         grafo.setNos(listaNos);
         grafo.setArestas(listaArestas);
-        grafo.mostraGrafoDesign(grafo, null);
+        grafo.mostraGrafoDesign(grafo, grafo.getId(), null);
     }//GEN-LAST:event_jBAbrirGrafoActionPerformed
 
     private void jBFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFecharActionPerformed
@@ -393,7 +393,7 @@ public class Algoritmos extends javax.swing.JFrame {
         g.getArestas().clear();
         g.setArestas(novasArestas);
         // PARTE 4: VISUALIZA O NOVO GRAFO.
-        g.mostraGrafoDesign(g, null);
+        g.mostraGrafoDesign(g, "kruskal", null);
         jTNomeGrafo.setText(g.getId());
         JOptionPane.showMessageDialog(null, "Árvore geradora mínima pelo \n algoritmo de Kruskal");
         // PARTE 5: SALVA O GRAFO EM XML.
@@ -410,7 +410,7 @@ public class Algoritmos extends javax.swing.JFrame {
         
         
         // PARTE 4: VISUALIZA O NOVO GRAFO.
-        g.mostraGrafoDesign(g, null);
+        g.mostraGrafoDesign(g, "dijkstra", null);
         jTNomeGrafo.setText(g.getId());    
         // PARTE 5: SALVA O GRAFO EM XML.
         g.salvaGrafo(g);
@@ -564,7 +564,7 @@ public class Algoritmos extends javax.swing.JFrame {
         g.setArestas(t);
         
         // PARTE 4: VISUALIZA O NOVO GRAFO.
-        g.mostraGrafoDesign(g, null);
+        g.mostraGrafoDesign(g, "prim", null);
         jTNomeGrafo.setText(g.getId());
         JOptionPane.showMessageDialog(null, "Conjunto de arestas da árvore geradora mínima:\n"+T);
         // PARTE 5: SALVA O GRAFO EM XML.
@@ -590,7 +590,7 @@ public class Algoritmos extends javax.swing.JFrame {
             int fluxoMax = f.fordFulkerson(matriz, fontePos, sumidouroPos, qtdNos);
             
             // PARTE 4: VISUALIZA O NOVO GRAFO.
-            g.mostraGrafoDesign(g, f.matrizFinal());
+            g.mostraGrafoDesign(g, "ford-fulkerson", f.matrizFinal());
             jTNomeGrafo.setText(g.getId()); 
             JOptionPane.showMessageDialog(null, "Fluxo máximo permitido no grafo: "+ fluxoMax+"\n"
                     + "Vértice de origem: "+g.getNos().get(fontePos).getId()+"\n"
@@ -656,7 +656,7 @@ public class Algoritmos extends javax.swing.JFrame {
         g.getArestas().clear();
         g.setArestas(arestas);      
         // PARTE 4: VISUALIZA O NOVO GRAFO.
-        g.mostraGrafoDesign(g, null);
+        g.mostraGrafoDesign(g, "profundidade", null);
         jTNomeGrafo.setText(g.getId());
         JOptionPane.showMessageDialog(null, "Foi exibido o resultado do \n algoritmo Busca em Produndidade");
         // PARTE 5: SALVA O GRAFO EM XML.
@@ -664,7 +664,7 @@ public class Algoritmos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonProfundidadeActionPerformed
 
     private void jButtonTopologicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTopologicaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButtonTopologicaActionPerformed
 
     private void jButtonMalgrangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMalgrangeActionPerformed
@@ -677,7 +677,7 @@ public class Algoritmos extends javax.swing.JFrame {
         
         
         // PARTE 4: VISUALIZA O NOVO GRAFO.
-        g.mostraGrafoDesign(g, null);
+        g.mostraGrafoDesign(g, "malgrange", null);
         jTNomeGrafo.setText(g.getId());    
         // PARTE 5: SALVA O GRAFO EM XML.
         g.salvaGrafo(g);

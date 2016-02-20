@@ -225,7 +225,7 @@ public class Grafo {
         }
     }
     
-    public void mostraGrafoDesign(Grafo grafo, int[][]matriz){
+    public void mostraGrafoDesign(Grafo grafo, String nome, int[][]matriz){
         graph.getModel().beginUpdate();
         try {
             mxStylesheet stylesheet = Algoritmos.getGraph().getStylesheet();
@@ -246,12 +246,17 @@ public class Grafo {
                 v1.setValue(nomeNo);
                 Algoritmos.getM().put(nomeNo, v1);
                 i++;
-                if (i % 2 == 0) {
-                    p1 += 60;
-                    p2 = 20;
-                } else {
-                    p1 += 60;
-                    p2 = 150;
+                if(nome.equals("topologica")){
+                    p1 += 100;
+                }
+                else{
+                    if (i % 2 == 0) {
+                        p1 += 60;
+                        p2 = 20;
+                    } else {
+                        p1 += 60;
+                        p2 = 150;
+                    }
                 }
             }
             for (Aresta aresta : grafo.getArestas()) {
