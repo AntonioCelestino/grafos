@@ -634,36 +634,94 @@ public class Algoritmos extends javax.swing.JFrame {
     
     private void jButtonProfundidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfundidadeActionPerformed
         // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
-        Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-profundidade");   
+            Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-profundidade");   
+        // PARTE 2: LIMPA A TELA.
+            graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
+            jTNomeGrafo.setText("");
+        // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
+            nosVisitados.clear();
+            listaAdjacenciaNos.clear();
+            listaArestas.clear();
+            No no = g.getNos().get(0);
+            List<Aresta> arestas = new ArrayList<Aresta>();
+            for(Aresta are : g.getArestas()){
+                listaArestas.add(are);
+            }
+            for(List<No> list : g.listaAdjacencia(g)){
+                listaAdjacenciaNos.add(list);
+            }
+            for(Aresta ares : buscaProf(no)){
+                arestas.add(ares);
+            }
+            g.getArestas().clear();
+            g.setArestas(arestas);      
+        // PARTE 4: VISUALIZA O NOVO GRAFO.
+            g.mostraGrafoDesign(g, "profundidade", null);
+            jTNomeGrafo.setText(g.getId());
+            JOptionPane.showMessageDialog(null, "Foi exibido o resultado do \n algoritmo Busca em Produndidade");
+        // PARTE 5: SALVA O GRAFO EM XML.
+            g.salvaGrafo(g);
+    }//GEN-LAST:event_jButtonProfundidadeActionPerformed
+
+    private void jButtonTopologicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTopologicaActionPerformed
+        
+        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
+        Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-topologica");   
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         jTNomeGrafo.setText("");
         // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
-        nosVisitados.clear();
-        listaAdjacenciaNos.clear();
-        listaArestas.clear();
-        No no = g.getNos().get(0);
-        List<Aresta> arestas = new ArrayList<Aresta>();
-        for(Aresta are : g.getArestas()){
-            listaArestas.add(are);
+        List<Aresta> manipulaArestas = new ArrayList<Aresta>();
+        List<Aresta> novasArestas = new ArrayList<Aresta>();
+        List<No> manipulaNos = new ArrayList<No>();
+        List<No> listaOrdem = new ArrayList<No>();
+        String noId="";
+        int j=1;
+        int tamanho = g.getNos().size();
+        while(tamanho != 0){
+            tamanho--;
+            manipulaArestas.clear();
+            manipulaNos.clear();
+            manipulaArestas.addAll(g.getArestas());
+            manipulaNos.addAll(g.getNos());
+            for(No nos : manipulaNos){
+                int i=0;
+                noId = nos.getId();
+                for(Aresta ares : manipulaArestas){
+                    if(nos.getId().equals(ares.getDestino())){
+                        i++;
+                        break;
+                    }
+                }
+                if(i == 0){
+                    for(Aresta ares : manipulaArestas){
+                        if(nos.getId() == ares.getOrigem()){
+                            g.getArestas().remove(ares);
+                        }
+                    }
+                    listaOrdem.add(nos);
+                    g.getNos().remove(new No(noId));
+                }
+            }
         }
-        for(List<No> list : g.listaAdjacencia(g)){
-            listaAdjacenciaNos.add(list);
+        if(listaOrdem.size() != tamanho){
+            listaOrdem.addAll(g.getNos());
         }
-        for(Aresta ares : buscaProf(no)){
-            arestas.add(ares);
+        for(int i=1; i<listaOrdem.size(); i++){
+            Aresta novaAresta = new Aresta ("A"+j, 1, listaOrdem.get(i-1).getId(), listaOrdem.get(j).getId());
+            novasArestas.add(novaAresta);
+            j++;
         }
+        g.getNos().clear();
+        g.setNos(listaOrdem);
         g.getArestas().clear();
-        g.setArestas(arestas);      
+        g.setArestas(novasArestas); 
         // PARTE 4: VISUALIZA O NOVO GRAFO.
-        g.mostraGrafoDesign(g, "profundidade", null);
+        g.mostraGrafoDesign(g, "topologica", null);
         jTNomeGrafo.setText(g.getId());
-        JOptionPane.showMessageDialog(null, "Foi exibido o resultado do \n algoritmo Busca em Produndidade");
+        JOptionPane.showMessageDialog(null, "Foi exibido o resultado do \n algoritmo de Ordem Topológica");
         // PARTE 5: SALVA O GRAFO EM XML.
-        g.salvaGrafo(g);
-    }//GEN-LAST:event_jButtonProfundidadeActionPerformed
-
-    private void jButtonTopologicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTopologicaActionPerformed
+        g.salvaGrafo(g);  
         
     }//GEN-LAST:event_jButtonTopologicaActionPerformed
 
