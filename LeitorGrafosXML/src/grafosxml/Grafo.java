@@ -529,4 +529,8 @@ public class Grafo {
         }
         return pos;
     }
+    
+    public int[][] getMatriz() {
+        return matriz;
+    }
 }

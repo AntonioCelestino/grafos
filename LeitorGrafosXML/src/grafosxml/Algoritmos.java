@@ -32,6 +32,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static java.lang.Integer.parseInt;
+import java.util.HashSet;
 
 public class Algoritmos extends javax.swing.JFrame {
 
@@ -45,6 +46,9 @@ public class Algoritmos extends javax.swing.JFrame {
     
     List<List<No>> listaAdjacenciaNos = new ArrayList<List<No>>();
     List<No> nosVisitados = new ArrayList<No>();
+    List<No> todosNos = new ArrayList<No>();
+    List<No> nosDestino = new ArrayList<No>();
+    List<No> nosOrigem = new ArrayList<No>();
 
     protected static mxGraph graph = new mxGraph();
     protected static HashMap m = new HashMap();
@@ -407,11 +411,79 @@ public class Algoritmos extends javax.swing.JFrame {
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         jTNomeGrafo.setText("");
         // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
-        
+        List<No> listaNosFechados = new ArrayList<No>();
+        List<No> listaNosAbertos = new ArrayList<>();
+        int qtNos = listaNos.size();
+
+        int[][] matrizD = new int[qtNos][qtNos];
+
+        listaNosAbertos.addAll(listaNos);
+
+        String verticeRaiz = JOptionPane.showInputDialog("Digite o vértice raiz:");
+
+        int[] tabelaD = new int[listaNosAbertos.size() - 1];
+
+        //eu criei essa lista provisoria
+        List<No> lista = new ArrayList<>();
+        lista.addAll(listaNosAbertos);
+
+        for (int i = 0; i < tabelaD.length; i++) {
+            tabelaD[i] = Integer.MAX_VALUE;
+        }
+
+        No vo = null;
+        while (listaNosAbertos.size() > 0) {
+            No v = null;
+
+            int distanciaAnterior = 0;
+            if (listaNosFechados.size() == 0) {
+
+                v = No.getNoById(verticeRaiz, listaNosAbertos);
+                vo = v;
+            } else {
+                v = listaNosAbertos.get(0);
+
+            }
+            listaNosFechados.add(v);
+            listaNosAbertos.remove(v);
+
+            if (v != vo) {
+                distanciaAnterior = tabelaD[listaNosFechados.size() - 2];
+                if (distanciaAnterior == Integer.MAX_VALUE) {
+                    distanciaAnterior = 0;
+                }
+
+            }
+
+            int i = listaNosFechados.size() - 1;
+            for (No a : listaNosAbertos) {
+                Aresta a1 = Aresta.getArestaByNos(v, a, listaArestas);
+                if (a1 == null) {
+
+                } else if (tabelaD[i] > a1.getValorAresta() + distanciaAnterior) {
+                    tabelaD[i] = a1.getValorAresta() + distanciaAnterior;
+                }
+                i++;
+            }
+
+            for (int j = 0; j < tabelaD.length; j++) {
+                System.out.print(tabelaD[j] + "- ");
+            }
+            System.out.println("");
+
+        }
+
+        int p = 1;
+        String imprime = "";
+        for (int j = 0; j < tabelaD.length; j++) {
+            imprime += "(" + verticeRaiz + " , " + lista.get(p).getId() + ") = " + tabelaD[j] + "\n";
+            p++;
+        }
         
         // PARTE 4: VISUALIZA O NOVO GRAFO.
         g.mostraGrafoDesign(g, "dijkstra", null);
-        jTNomeGrafo.setText(g.getId());    
+        jTNomeGrafo.setText(g.getId());
+        JOptionPane.showMessageDialog(null, "Caminho Minímo:\n" + imprime);
         // PARTE 5: SALVA O GRAFO EM XML.
         g.salvaGrafo(g);
     }//GEN-LAST:event_jBDijkstraActionPerformed
@@ -726,19 +798,95 @@ public class Algoritmos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonTopologicaActionPerformed
 
     private void jButtonMalgrangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMalgrangeActionPerformed
-        // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
-        Grafo g = grafo.copiaGrafo(grafo, grafo.getId()+"-malgrange");   
+       // PARTE 1: PEGA OS DADOS DO GRAFO ABERTO E CRIA UM NOVO GRAFO IDÊNTICO PARA SER MANIPULADO.
+        Grafo g = grafo.copiaGrafo(grafo, grafo.getId() + "-malgrange");
         // PARTE 2: LIMPA A TELA.
         graph.removeCells(graphComponent.getCells(new Rectangle(0, 0, graphComponent.getWidth(), graphComponent.getHeight())));
         jTNomeGrafo.setText("");
         // PARTE 3: APLICA O ALGORITMO PARA ESCOLHER AS ARESTAS.
-        
-        
+        List<String> ftd = new ArrayList<String>();
+        List<String> fti = new ArrayList<String>();
+        List<String> intersecao = new ArrayList<String>();
+        List<String> analisados = new ArrayList<String>();
+        List<String> analisados2 = new ArrayList<String>();
+
+        int qt = listaNos.size();
+        int[][] matrizADJ = grafo.getMatriz();
+
+        int i = 0, j = 0, contador = 0;
+
+        int proximoDaLista = 0;
+        ftd.add(0, listaNos.get(0).getId());
+        analisados.add(i, listaNos.get(0).getId());
+
+        while (contador < listaNos.size()) {
+
+            while (j < qt) {
+
+                if (matrizADJ[i][j] == 1) {
+                    if (!ftd.contains(analisados)) {
+                        ftd.add(listaNos.get(j).getId());
+                    }
+
+                }
+                j++;
+            }
+
+            proximoDaLista++;
+            analisados.add(i, listaNos.get(i).getId());
+            i = proximoDaLista;
+            contador++;
+            j = 0;
+        }
+        List novaLista = new ArrayList(new HashSet(ftd));
+
+        contador = 0;
+        int proximoDaLista2 = 0;
+        i = 0;
+        j = 0;
+
+        fti.add(0, listaNos.get(0).getId());
+        analisados2.add(j, listaNos.get(0).getId());
+
+        while (contador < listaNos.size()) {
+
+            while (i < qt) {
+
+                if (matrizADJ[i][j] == 1) {
+                    if (!fti.contains(analisados2)) {
+                        fti.add(listaNos.get(i).getId());
+                    }
+
+                }
+                i++;
+            }
+
+            proximoDaLista2++;
+            analisados2.add(j, listaNos.get(j).getId());
+            j = proximoDaLista2;
+            contador++;
+            i = 0;
+        }
+
+        List novaLista2 = new ArrayList(new HashSet(fti));
+
+        novaLista.retainAll(novaLista2);
+        intersecao.addAll(novaLista);
+
+        String imprimir = "(";
+        for (int r = 0; r < intersecao.size(); r++) {
+            imprimir += intersecao.get(r) + ",";
+        }
+        imprimir += ")";
+
+        //listaNos.remove(new No((String) cell.getValue()));
+        //cell = null;
         // PARTE 4: VISUALIZA O NOVO GRAFO.
         g.mostraGrafoDesign(g, "malgrange", null);
-        jTNomeGrafo.setText(g.getId());    
+        jTNomeGrafo.setText(g.getId());
+        JOptionPane.showMessageDialog(null, "Vértices Fortemente Conexos:\n" + imprimir);
         // PARTE 5: SALVA O GRAFO EM XML.
-        g.salvaGrafo(g);
+        g.salvaGrafo(g); 
     }//GEN-LAST:event_jButtonMalgrangeActionPerformed
 
     /**

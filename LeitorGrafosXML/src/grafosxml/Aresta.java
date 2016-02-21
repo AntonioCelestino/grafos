@@ -8,6 +8,7 @@ package grafosxml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import java.util.List;
 
 
 @XStreamAlias("edge")
@@ -74,5 +75,15 @@ public class Aresta implements Comparable<Aresta>{
         else{
             return 0;
         }
+    }
+    
+    public static Aresta getArestaByNos(No origem, No destino, List<Aresta> arestas) {
+        for (Aresta aresta : arestas) {
+            if (aresta.getOrigem().equals(origem.getId()) && aresta.getDestino().equals(destino.getId())) {
+                return aresta;
+            }
+
+        }
+        return null;
     }
 }
